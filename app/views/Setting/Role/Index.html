@@ -1,0 +1,59 @@
+{{template "public/header.html" .}}
+<script language="javascript" src="/public/js/Setting/role.js"></script>
+
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='javascript:;' class="on"><em>{{msg . "role_manage"}}</em></a><span>|</span><a
+				href='/Role/add/'><em>{{msg . "role_add"}}</em></a>
+		</div>
+	</div>
+	<div class="table-list pad-lr-10">
+		<table width="100%" cellspacing="0">
+			<thead>
+				<tr>
+					<th width="10%">ID</th>
+					<th width="15%" align="left">{{msg . "role_name"}}</th>
+					<!--<th width="15%" align="left">所属权限</th>-->
+					<th width="20%" align="left">{{msg . "role_desc"}}</th>
+					<th width="5%" align="left">{{msg . "role_status"}}</th>
+					<th width="15%" align="left">{{msg . "role_createtime"}}</th>
+					<th class="text-c">{{msg . "role_operation"}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{if .role_list}}
+					{{$msg := .}}
+					{{range .role_list}}
+					<tr>
+						<td align="center">{{.Id}}</td>
+						<td>{{.Rolename}}</td>
+						<!--<td width="30%">{{.Data}}</td>-->
+						<td>{{.Desc}}</td>
+						<td>
+							{{if eq .Status 1}}
+								<a href="javascript:;" onclick="setStatus({{.Id}},0);"><font color="red">√</font></a>
+							{{else}}
+								<a href="javascript:;" onclick="setStatus({{.Id}},1);"><font color="blue">×</font></a>
+							{{end}}
+						</td>
+						<td>{{.Createtime}}</td>
+						<td class="text-c">
+							<a href="/Role/member/{{.Id}}/">{{msg $msg "role_member_manage"}}</a> | 
+							<a href="/Role/edit/{{.Id}}/">{{msg $msg "edit"}}</a> | 
+							
+							{{if eq .Id 1}}
+								<font color="#cccccc">{{msg $msg "delete"}}</font>
+							{{else}}
+								<a href="javascript:;" onclick="delete_role({{.Id}})">{{msg $msg "delete"}}</a>
+							{{end}}
+						</td>
+					</tr>
+					{{end}}
+				{{end}}
+			</tbody>
+		</table>
+		<div id="pages">{{.pages}}</div>
+	</div>
+</body>
+{{template "public/footer.html" .}}

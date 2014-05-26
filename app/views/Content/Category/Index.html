@@ -1,0 +1,43 @@
+{{template "Public/header.html" .}}
+<script language="javascript" src="/public/js/Content/category.js"></script>
+<script type="text/javascript">
+<!--
+	$(document).ready(function() {
+		window.top.$('#display_center_id').css('display', 'none');
+	});
+//-->
+</script>
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='javascript:;' class="on"><em>{{msg . "catname"}}</em></a><span>|</span><a
+				href='/Category/add/'><em>{{msg . "add_category"}}</em></a>
+		</div>
+	</div>
+
+	<div class="pad_10">
+		<div class="explain-col">
+			{{msg . "category_cache_tips"}}<a href="javascript:;">{{msg . "update_cache"}}</a>
+		</div>
+		<div class="bk10"></div>
+		<div class="table-list">
+			<table width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th width="5%">{{msg . "catid"}}</th>
+						<th>{{msg . "catname"}}</th>
+						<th align='left' width="10%">{{msg . "category_type"}}</th>
+						<th align='center' width="10%">{{msg . "items"}}</th>
+						<th align='center' width="20%">{{msg . "vistor"}}</th>
+						<th align='center' width="20%">{{msg . "menu_operation"}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{.categorys}}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+
+{{template "Public/footer.html" .}}

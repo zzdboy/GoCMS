@@ -1,0 +1,92 @@
+{{template "public/header.html" .}}
+
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/jscal2.css"/>
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/border-radius.css"/>
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/calendar-blue.css"/>
+<script type="text/javascript" src="/public/js/calendar/calendar.js"></script>
+<script type="text/javascript" src="/public/js/calendar/lang/en.js"></script>
+<script type="text/javascript" src="/public/js/Setting/logs.js"></script>
+
+<body>
+	<div class="subnav">
+	    <div class="content-menu ib-a blue line-x"></div>
+	</div>
+	<div class="pad_10">
+		<form name="searchform" action="" method="get">
+		<table width="100%" cellspacing="0" class="search-form">
+		<tbody>
+			<tr>
+			{{$where := .where}}<!-- 获取当前菜单详细信息 -->
+			<td>
+				<div class="explain-col">
+				{{msg . "module"}}: 
+				<select id="module" name="module">
+				<option {{if eq $where.module ""}}selected=""{{end}} value="">不限模块</option>
+				<option {{if eq $where.module "User"}}selected=""{{end}} value="User">User</option>
+				<option {{if eq $where.module "Menu"}}selected=""{{end}} value="Menu">Menu</option>
+				<option {{if eq $where.module "Admin"}}selected=""{{end}} value="Admin">Admin</option>
+				<option {{if eq $where.module "Role"}}selected=""{{end}} value="Role">Role</option>
+				<option {{if eq $where.module "Logs"}}selected=""{{end}} value="Logs">Logs</option>
+				<option {{if eq $where.module "Announce"}}selected=""{{end}} value="Announce">Announce</option>
+				<option {{if eq $where.module "Copyfrom"}}selected=""{{end}} value="Copyfrom">Copyfrom</option>
+				</select>
+				{{msg . "username"}}: 
+				<input type="text" value="{{$where.username}}" class="input-text" id="username" name="username"> 
+				{{msg . "realname"}}: 
+				<input type="text" value="{{$where.realname}}" class="input-text" id="realname" name="realname"> 
+				{{msg . "startdate"}}: 
+				<input type="text" name="start_time" id="start_time" value="{{$where.start_time}}" size="15" class="date" readonly>
+				&nbsp; 至 &nbsp; 
+				<input type="text" name="end_time" id="end_time" value="{{$where.end_time}}" size="15" class="date" readonly> 
+				<input type="button" onclick="Search()" value="{{msg . "search"}}" class="button" name="dosubmit">
+				<input type="button" onclick="Reset()" value="{{msg . "reset"}}" class="button" name="reset">
+			<input type="button" value="{{msg . "clear_log"}}" onclick="delAll()" class="button" name="dosubmit">
+				</div>
+			</td>
+			</tr>
+		</tbody>
+		</table>
+		</form>
+		<div class="table-list">
+			<form name="myform" action="/Logs/search/" method="post">
+				<table width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th width="5%">序号</th>
+							<th width="5%" align="left">模块</th>
+							<th width="5%" align="left">用户名</th>
+							<th width="8%" align="left">真实姓名</th>
+							<th width="10%" align="left">操作地址</th>
+							<th width="10%" align="left">操作动作</th>
+							<th width="30%" align="left">操作内容</th>
+							<th width="10%" align="left">操作IP</th>
+							<th width="15%" align="left">操作时间</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{if .logs_list}}
+							{{range .logs_list}}
+								<tr>
+									<td align="center">{{.Id}}</td>
+									<td>{{.Module}}</td>
+									<td>{{.Admin.Username}}</td>
+									<td>{{.Admin.Realname}}</td>
+									<td>{{.Url}}</td>
+									<td>{{.Action}}</td>
+									<td>{{.Desc}}</td>
+									<td>{{.Ip}}</td>
+									<td>{{.Createtime}}</td>
+								</tr>
+							{{end}}
+						{{end}}
+					</tbody>
+				</table>
+				<div id="pages">
+					{{.pages}}
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+
+{{template "public/footer.html" .}}

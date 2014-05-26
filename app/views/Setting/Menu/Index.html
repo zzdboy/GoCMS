@@ -1,0 +1,41 @@
+{{template "public/header.html" .}}
+<script language="javascript" src="/public/js/Setting/menu.js"></script>
+
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='javascript:;' class="on"><em>{{msg . "menu_manage"}}</em></a><span>|</span> <a
+				href='/Menu/add/'><em>{{msg . "menu_add"}}</em></a>
+		</div>
+	</div>
+	<div class="pad-lr-10">
+		<div class="table-list">
+			<table width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th width="30%">{{msg . "menu_name"}}</th>
+						<th width="5%">{{msg . "menu_order"}}</th>
+						<th width="25%">{{msg . "menu_url"}}</th>
+						<th width="15%">{{msg . "menu_display"}}</th>
+						<th width="25%">{{msg . "menu_operation"}}</th>
+					</tr>
+				</thead>
+				<tbody>
+				{{if .menus}}
+					{{.menus}}
+				{{end}}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div id="pages"></div>
+</body>
+<script type="text/javascript">
+<!--
+	$(document).ready(function() {
+		window.top.$('#display_center_id').css('display', 'none');
+	});
+//-->
+</script>
+
+{{template "public/footer.html" .}}

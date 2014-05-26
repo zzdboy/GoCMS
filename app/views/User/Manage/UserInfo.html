@@ -1,0 +1,77 @@
+{{template "Public/header.html" .}}
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/jscal2.css"/>
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/border-radius.css"/>
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/calendar-blue.css"/>
+<script type="text/javascript" src="/public/js/calendar/calendar.js"></script>
+<script type="text/javascript" src="/public/js/calendar/lang/en.js"></script>
+<script language="javascript" src="/public/js/User/user.js"></script>
+
+<body>
+	<div class="pad-10">
+		<div class="table-list">
+			<div class="common-form">
+				{{if .user_info}}
+					{{$user_info := .user_info}}
+					<fieldset>
+						<legend>基本信息</legend>
+						<table width="100%" class="table_form">
+							<tbody>
+								<tr>
+									<td width="120">用户名</td> 
+									<td>{{$user_info.Username}}
+										{{if eq $user_info.Vip 1}}
+										<img src="/public/img/icon/vip.gif" title="vip会员">
+										{{end}}
+									</td>
+								</tr>
+								<tr>
+									<td>头像</td> 
+									<td>
+										<img width="90" height="90" src="/public/img/member/nophoto.gif">
+									</td>
+								</tr>
+								<tr>
+									<td>昵称</td> 
+									<td>{{$user_info.Nickname}}</td>
+								</tr>
+								<tr>
+									<td>邮箱</td>
+									<td>{{$user_info.Email}}</td>
+								</tr>
+								<tr>
+									<td>手机号码</td>
+									<td>{{$user_info.Mobile}}</td>
+								</tr>
+								<tr>
+									<td>会员组</td>
+									<td>{{$user_info.UserGroup.Name}}</td>
+								</tr>
+								<tr>
+									<td>vip会员过期时间</td>
+									<td>{{$user_info.Overduedate}}</td>
+								</tr>
+							</tbody>
+						</table>					
+					</fieldset>
+
+					<div class="bk15"></div>
+
+					<fieldset>
+						<legend>详细信息</legend>
+						<table width="100%" class="table_form">
+							<tbody>
+								<tr>
+									<td width="120">生日</td> 
+									<td>{{$user_info.Birthday}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</fieldset>
+				{{end}}
+			</div>
+			<div class="bk15"></div>
+		</div>
+	</div>
+</body>
+
+</html>

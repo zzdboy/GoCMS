@@ -1,0 +1,162 @@
+{{template "Public/header.html" .}}
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/jscal2.css"/>
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/border-radius.css"/>
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/calendar-blue.css"/>
+<script type="text/javascript" src="/public/js/calendar/calendar.js"></script>
+<script type="text/javascript" src="/public/js/calendar/lang/en.js"></script>
+<script language="javascript" src="/public/js/User/user.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	Calendar.setup({
+		weekNumbers : true,
+		inputField : "overduedate",
+		trigger : "overduedate",
+		dateFormat : "%Y-%m-%d %H:%M:%I",
+		showTime : true,
+		minuteStep : 1,
+		onSelect : function() {
+			this.hide();
+		}
+	});
+
+	Calendar.setup({
+		weekNumbers : true,
+		inputField : "birthday",
+		trigger : "birthday",
+		dateFormat : "%Y-%m-%d",
+		showTime : true,
+		minuteStep : 1,
+		onSelect : function() {
+			this.hide();
+		}
+	});
+});
+</script>
+<body>
+	<div class="pad-10">
+		<div class="common-form">
+			<form id="myform" method="post" action="" name="myform">
+				{{if .user_info}}
+					{{$user_info := .user_info}}
+					<fieldset>
+						<legend>基本信息</legend>
+						<table width="100%" class="table_form">
+							<tbody>
+							<tr>
+								<td width="80">用户名</td> 
+								<td>{{$user_info.Username}}
+									{{if eq $user_info.Vip 1}}
+									<img src="/public/img/icon/vip.gif" title="vip会员">
+									{{end}}
+								</td>
+							</tr>
+							<tr>
+								<td>头像</td> 
+								<td>
+									<img width="90" height="90" src="/public/img/user/nophoto.gif">
+									<input type="checkbox" value="1" class="input-text" id="delavatar" name="delavatar">
+									<label for="delavatar">删除头像</label>
+								</td>
+							</tr>
+							<tr>
+								<td>密码</td> 
+								<td>
+									<input type="password" value="" id="password" class="input-text" name="password">
+									<div id="passwordTip" class="onShow">请输入密码</div>
+								</td>
+							</tr>
+							<tr>
+								<td>确认密码</td> 
+								<td>
+									<input type="password" value="" id="pwdconfirm" class="input-text" name="pwdconfirm">
+									<div id="pwdconfirmTip" class="onShow">请输入确认密码</div>
+								</td>
+							</tr>
+							<tr>
+								<td>昵称</td> 
+								<td>
+									<input type="text" class="input-text" value="{{$user_info.Nickname}}" id="nickname" name="nickname">
+									<div id="nicknameTip" class="onShow">请输入昵称</div>
+								</td>
+							</tr>
+							<tr>
+								<td>邮箱</td>
+								<td>
+									<input type="text" size="30" id="email" class="input-text" 
+									value="{{$user_info.Email}}" name="email">
+									<div id="emailTip" class="onShow">请输入邮箱</div>
+								</td>
+							</tr>
+							<tr>
+								<td>手机号码</td>
+								<td>
+								<input type="text" size="15" id="mobile" class="input-text" 
+								value="{{$user_info.Mobile}}" name="mobile">
+								</td>
+							</tr>
+							<tr>
+								<td>会员组</td>
+								<td>
+									<select name="groupid" id="groupid">
+										{{range .group_list}}
+											{{if eq .Id $user_info.Groupid}}
+												<option value="{{.Id}}" selected>{{.Name}}</option>
+											{{else}}
+												<option value="{{.Id}}">{{.Name}}</option>
+											{{end}}
+										{{end}}
+									</select>
+									<div id="groupidTip" class="onShow">请选择会员组!</div>	
+								</td>
+							</tr>
+							<tr>
+								<td>是否定锁</td>
+								<td>
+									<select name="islock" id="islock">
+									<option {{if eq $user_info.Islock 2}}selected{{end}} value="2">正常</option>
+									<option {{if eq $user_info.Islock 1}}selected{{end}} value="1">锁定</option>
+									</select>
+									<div id="islockTip" class="onShow">请选择是否定锁!</div>	
+								</td>
+							</tr>
+							<tr>
+								<td>积分点数</td>
+								<td>
+									<input type="text" size="10" id="point" class="input-text" 
+									value="{{$user_info.Point}}" name="point">
+									<div id="pointtip" class="onShow">请输入积分点数，积分点数将影响会员用户组</div>
+								</td>
+							</tr>
+							<tr>
+								<td>vip会员</td>
+								<td>
+								是否为vip会员 <input type="checkbox" {{if eq $user_info.Vip 1}}checked{{end}} value="1" id="vip" name="vip">
+								过期时间 
+								<input type="text" readonly="" class="date input-text" size="21" value="{{$user_info.Overduedate}}" id="overduedate" name="overduedate">&nbsp;			
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					</fieldset>
+
+					<div class="bk15"></div>
+
+					<fieldset>
+						<legend>详细信息</legend>
+						<table width="100%" class="table_form">
+							<tr>
+								<td width="80">生日</td> 
+								<td>
+									<input type="text" readonly class="input-text" size="10" 
+									value="{{$user_info.Birthday}}" id="birthday" name="birthday">
+								</td>
+							</tr>
+						</table>
+					</fieldset>
+				{{end}}
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

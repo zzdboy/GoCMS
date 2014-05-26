@@ -1,0 +1,361 @@
+# Sample messages file for the English language (en)
+
+# index
+index=Index
+site_title=GoCMS - Content Management System
+expand_or_contract=Show or Hide
+gocms_title=GoCMS Content Management System
+official_site=Official site
+authorization=Authorization
+igenus_for_postfix=Support Forum
+help=Help?
+hello=Hello！
+exit=Exit
+notice=WARNING
+site_homepage=Homepage
+user_center=User Center
+search=Search
+spread_or_closed=Expand or hide
+expand=Expand
+update_backup=Updating Caches
+current_position=Current location：
+sitemap=Sitemap
+
+create_index=Generate homepage
+lockscreen_status=Locked, please input your password!
+
+user_not_exist=The administrator does not exist
+password_error=Incorrect Password, you have {times} tries to log in!
+wait_1_hour=You have entered an incorrect password too many times. To work around this issue, wait for {minute} minutes, and then try to sign in again.
+wait_1_hour_lock=You have entered an incorrect password too many times
+logout_success=You have successfully logged out.
+gd_unsupport=<font color="red">Non-Support</font>
+gd_support=<font color="green">Support</font>
+
+# main
+main_personal_information=My personal information
+main_hello=Hello, 
+main_role=Your Role: 
+main_last_logintime=Last logged in: 
+main_last_loginip=Last logged-in IP: 
+main_safety_tips=Safety Reminder
+main_shortcut=Shortcut
+main_sysinfo=System Infomation
+main_version=GoCMS Version: 
+main_latest_version=Get the latest version
+main_os=Operating System: 
+main_web_server=Web Server: 
+main_sql_version=MySQL version: 
+main_copyright=Copyright: 
+main_product_team=GoCMS developers team
+main_product_planning=Project Manager: 
+main_product_dev=Development Support Team: 
+main_product_ui=UI design: 
+main_product_site=Official site: 
+main_product_bbs=Official forum: 
+main_license=License Info
+main_support=IT Support and Services
+main_license_type=License Type: 
+main_serial_number=Serial Number: 
+
+# system
+verification_code=Verification code error!
+select_all=Select all/cancel
+lockscreen=Screen lock
+no_language=Lack of language pack
+website_manage=GoCMS - Administration
+submit=Submit
+yes=Yes
+no=No
+edit=Edit
+error=Error
+delete=Delete
+illegal_operation=Illegal operation！
+illegal_action=Operation illegal on linked parameter. Please return!
+illegal_parameters=Invalid parameter！
+login_website=Please log in first！
+operation_success=The operation completed successfully！
+add_success=Data was added successfully！
+operation_failure=The operation failed！
+success=Success！
+failure=Failure！
+total=Total：
+first=Homepage
+page_item= items 
+previous=Previous
+next=Next
+last=End
+page=Page 
+serial= 
+admin_login=GoCMS Administration
+template_style=Templates
+panel=Dashboard
+confirm=Are you sure you want to delete『 {message} 』?
+please_select=Please select
+icon_unlock=<font color="red">√</font>
+icon_locked=<font color="blue">×</font>
+att_upload_succ=Upload successfully
+att_upload_limit_ext=pload file type not allow
+att_upload_limit_setsize=Size of file exceeds file size limit of the process
+att_upload_not_allow=Unable to upload this file
+
+# message
+message_tips=Message
+click_here=Click here if your browser does not automatically redirect
+2s_close=seconds it will be automatically closed
+
+# menu
+menu_parentid=Previous Menu
+menu_name=Menu Name
+menu_name_en=Menu Name
+module_name=Module Name
+file_name=File Name
+action_name=Method Name
+att_data=Additional parameter
+menu_url=Quick Links
+menu_order=Order
+menu_display=Show or Hide the Menu
+menu_add=Add to Menu
+menu_manage=Menu Management
+add_menu=Add to Menu
+add_submenu=Add Submenu
+correlative_setting=Related settings
+menu_operation=Operations
+no_parent_menu=As Parent Item
+
+# role
+role_manage=Role manager
+role_add=Add role
+role_edit=Edit role
+role_name=role Name
+role_del=Delete
+role_desc=Description
+role_status=Status
+role_operation=Operations
+role_duplicate=The role name already exists. Please choose another role name?
+role_unlock=Unlock
+role_locked=Locked
+role_del_cofirm=Are you sure you want to delete this role?
+role_del_success=The role has been deleted！
+role_setting=Edit permissions
+role_member_manage=User manager
+role_menuname=Menu name
+role_menuserial=ID
+role_createtime=Creation time
+not_empty=Not Empty
+
+# 管理员管理
+userid=Serial number
+password=Password
+security_code=AuthCode
+cofirmpwd=Re-type Password
+userinrole=Role
+lastloginip=Last logged-in IP
+lastlogintime=Last logged-in
+email=E-mail
+realname=Real name
+username=User name
+lang=Language
+zh-cn=Simplified Chinese
+en=English
+admin_del_cofirm=Delete this administrator?
+nameerror=Username is required
+between_2_to_20=Between 2-20
+between_6_to_20=Between 6-20
+password_can_not_be_empty=Password is required
+passwords_not_match=Passwords do not match
+passwords_match=Match!
+connecting_please_wait=Please input ...
+not_change_the_password_please_leave_a_blank=just leave this blank if you do not want to change your current password。
+change_password=Change password
+format_incorrect=Format is invalid
+format_right=ormat is valid
+admin_already_exists=Admin has already exist
+pwd_incorrect=Password is invalid
+admin_cancel_succ=Cancelled successfully
+parameters_error=Parameters is incomplete
+username_illegal=Username is invalid
+email_illegal=Email is invalid
+
+password_edit_succ_logout=Your password has been changed, please sign in with the new password
+old_password=Old password
+new_password=New password
+new_pwdconfirm=Re-type Password
+old_password_wrong=Old password is incorrect
+old_password_right=Old password is correct
+email_already_exists=Email address already exists
+admin_setting=Administrator settings
+admin_manage=Administrator manager
+admin_add=Add administrator
+admin_edit=Edit administrator
+
+admin_username_error=The user name wrong!
+admin_forbid_login=This account banned logging!
+admin_forbid_role_login=Ban land subordinate role!
+
+admin_allow_status=Allowed to login
+admin_forbid_status=Banned logging
+
+# 栏目管理
+catid=Column ID
+catname=Column name
+catenname=Column English name
+category=Column
+single_page=Single page
+please_select_parent_category=≡ Parent Column ≡
+parent_category=Parent column
+category_manage=Manage column
+add_category=Add Column
+edit_category=Edit Column
+catdir=Directory
+catgory_img=Image
+description=Description
+remove_all_selected=Remove all selected
+category_cache=Update Column cache
+category_type=Manage model
+link_url=URL
+items=Data volume
+vistor=Access
+category_type_system=Domain binding guidelines
+category_type_page=<font color="blue">Single page</font>
+category_type_link=<font color="red">External links</font>
+add_sub_category=Add sub column
+input_catname=Please input column name
+input_dirname=Please input directory
+catgory_basic=Basic options
+catgory_createhtml=Generate HTML settings
+catgory_template=Template settings
+catgory_seo=SEO settings
+catgory_private=Permissions settings
+html_category=Generate Column page HTML
+html_show=Generate Content page HTML
+update_cache=Column cache
+input_linkurl=Please input URL
+page_templates=Single page template
+edit_following_operation=Please do not forget to update column cache
+ismenu=Display in breadcrumbs
+manage_sub_category=Mangage sub column
+category_cache_tips=Note: after add or edit column, 
+meta_title=<strong>META Title (column title) </strong><br/>Title for search engines
+meta_keywords=<strong>META Keywords (column keywords) </strong><br/>Use a comma to seperate keywords
+meta_description=META Description (column description) </strong><br/>META Description for search engines
+
+# 来源
+copyfrom_manage=Source Management
+add_copyfrom=Add source
+edit_copyfrom=Edit source
+copyfrom_name=Source name
+copyfrom_url=Source URL
+copyfrom_logo=Logo
+copyfrom_url_tips=Please start with http://
+
+# 公告管理
+announce=Announcement
+announce_ID=ID
+announce_manage=Announcement manager
+announce_list=List of announcement
+announce_add=Add
+announce_title=title
+announce_viewed=viewed
+title_cannot_empty=Title is required
+announcements_cannot_be_empty=Content is required
+announcement_successful_added=Announcement added successfully
+announced_a=Announcement edited successfully
+announce_passed=Announcement has already been processed successfully.
+announce_deleted=Batch delete processing is done successfully！
+startdate=Start Date
+enddate=Due Date
+announce_content=Content
+announce_status=Status：
+edit_announce=Edit
+inputer=Editor
+preview=Preview
+cancel_all_selected=Cancel all selected
+pass_all_selected=Approve selected items
+remove_all_selected=Remove selected items
+overdue_announce=Expired announcement
+no_pass_announce=Pending announcement
+no_exists=The announcement does not exist. It may have been deleted！
+affirm_delete=Are you sure you want to delete it？
+input_announce_title=Please insert announcement title!
+title_min_3_chars=at least 6 characters
+right=Correct!
+announce_exist=The announcement already exists
+select_stardate=Please choose start date!
+select_downdate=Please choose due date!
+lists=List
+announce_pass=Pass
+announce_queue=Approval queue
+
+# system menu
+admininfo=Personal Info
+editpwd=Change password
+module=Module
+reset=Reset
+clear_log=Clear Log
+
+# user 
+user_manage=User manager
+user_add=Add user
+user_edit=Edit user
+user_group_manage=Manage user groups
+user_group_add=Add user group
+user_group_edit=Edit user group
+lock=Locked
+unlock=Unlock
+move=Move
+move_user_group=Move user group
+
+#登陆
+login_user_name=Please fill in the user name
+login_password=Please fill in the password
+login_verification_code=verification code
+login_change=Click
+login=Login
+login_in=In the login
+login_welcome=GoCMS System
+login_title=GoCMS Login
+login_success=You have successfully logged in！
+login_password_error=wrong password!
+logout=Do you confirm the exit?
+not_login=Not login, please login first!
+
+#Content
+content_operation=Content operation
+content_manage=Content manager
+add_content=Add content
+edit_content=Edit content
+check_passed=Approval
+elite=Promoted
+no_elite=Not promoted
+related_articles=Related articles
+key_word=Keywords
+publish_user=Publisher
+today_hits=Today hits
+yestoday_hits=Yesterday hits
+week_hits=Weekly hits
+month_hits=Monthly hits
+comment=Comment
+view_comment=View comment
+copyfrom_tips=≡Please select≡
+
+missing_part_parameters=Missing column ID
+c_close=Close(X)
+dialog_close=Close
+page_manage=Single page manage
+title=Title
+intro=Introduction
+hits=hits
+keywords=Keywords
+content=Content
+explode_keywords=Use space or “,” to seperate multiple keywords
+search_category=Input “pinyin”or“column name” to quick search
+quick_into=Quick access
+
+push=Promote
+save=Save
+batch_move=Batch move
+addtime=Add time
+update_time=Update time
+can_enter=are able to input
+characters=characters

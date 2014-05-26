@@ -1,0 +1,70 @@
+{{template "public/header.html" .}}
+<link rel="stylesheet" type="text/css" href="/public/css/zTreeStyle.css">
+<script language="javascript" src="/public/js/Setting/role.js"></script>
+<script language="javascript" src="/public/js/ztree/jquery.ztree.core-3.5.js"></script>
+<script language="javascript" src="/public/js/ztree/jquery.ztree.excheck-3.5.js"></script>
+
+{{.tree}}
+<SCRIPT type="text/javascript">
+<!--
+var setting = {
+	check: {
+		enable: true
+	},
+	data: {
+		simpleData: {
+			enable: true
+		}
+	}
+};
+
+
+$(document).ready(function(){
+	$.fn.zTree.init($("#tree"), setting, zNodes);
+});
+//-->
+</SCRIPT>
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='/Role/'><em>{{msg . "role_manage"}}</em></a><span>|</span><a
+				href='javascript:;' class="on"><em>{{msg . "role_add"}}</em></a>
+		</div>
+	</div>
+	<div class="pad_10">
+		<div class="common-form">
+			<form name="myform" action="{{url "Role.Add"}}" method="post" onsubmit="return form_submit()" id="myform">
+				<table width="100%" class="table_form contentWrap">
+					<tr>
+						<td><strong>{{msg . "role_name"}}：</strong></td>
+						<td><input type="text" name="rolename" value=""
+							class="input-text" id="rolename"></input></td>
+					</tr>
+					<tr>
+						<td><strong>{{msg . "role_desc"}}：</strong></td>
+						<td><textarea name="desc" id="desc" rows="2" cols="20"
+								id="desc" class="inputtext"
+								style="height: 100px; width: 500px;"></textarea></td>
+					</tr>
+					<tr>
+						<td><strong>{{msg . "role_setting"}}：</strong></td>
+						<td>
+							<ul id="tree" class="ztree"></ul>
+						</td>
+					</tr>
+					<tr>
+						<td><strong>{{msg . "role_status"}}：</strong></td>
+						<td>
+							<input type="radio" name="status" value="1" checked>
+							{{msg . "role_unlock"}} <input type="radio" name="status" value="0">{{msg . "role_locked"}}
+						</td>
+					</tr>
+				</table>
+				<div class="bk15"></div>
+				<input type="hidden" id="data" name="data" value="" />
+				<input name="dosubmit" type="submit" value="{{msg . "submit"}}" class="button">
+			</form>
+		</div>
+	</div>
+</body>
+{{template "public/footer.html" .}}

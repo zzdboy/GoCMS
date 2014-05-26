@@ -1,0 +1,16 @@
+{{template "public/header.html" .}}
+
+<body>
+	<div class="pad-10">{{if .map_html}}{{.map_html}}{{end}}</div>
+	<script type="text/javascript">
+	<!--
+		function Go(id, targetUrl) {
+			parent._MP(id, targetUrl);
+			window.top.art.dialog({
+				id : 'map'
+			}).close();
+		}
+	//-->
+	</script>
+</body>
+</html>

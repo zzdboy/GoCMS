@@ -1,0 +1,102 @@
+// +----------------------------------------------------------------------
+// | GoCMS 0.1
+// +----------------------------------------------------------------------
+// | Copyright (c) 2013-2014 http://www.6574.com.cn All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: zzdboy <zzdboy1616@163.com>
+// +----------------------------------------------------------------------
+
+package utils
+
+//公共方法
+import "net"
+import "strings"
+import "regexp"
+import "github.com/revel/revel"
+
+//获取客户端IP
+func GetClientIP() string {
+	conn, err := net.Dial("udp", "google.com:80")
+	if err != nil {
+		revel.WARN.Println(err.Error())
+		return ""
+	}
+	defer conn.Close()
+	return strings.Split(conn.LocalAddr().String(), ":")[0]
+}
+
+//元素是否包含在数组中
+func In_Array(s string, arr []string) bool {
+	for _, v := range arr {
+		if v == s {
+			return true
+		}
+	}
+	return false
+}
+
+//Html过滤
+func Html2str(html string) string {
+	src := string(html)
+
+	//替换HTML的空白字符为空格
+	re := regexp.MustCompile(`\s`) //ns*r
+	src = re.ReplaceAllString(src, " ")
+
+	//将HTML标签全转换成小写
+	re, _ = regexp.Compile("\\<[\\S\\s]+?\\>")
+	src = re.ReplaceAllStringFunc(src, strings.ToLower)
+
+	//去除STYLE
+	re, _ = regexp.Compile("\\<style[\\S\\s]+?\\</style\\>")
+	src = re.ReplaceAllString(src, "")
+
+	//去除SCRIPT
+	re, _ = regexp.Compile("\\<script[\\S\\s]+?\\</script\\>")
+	src = re.ReplaceAllString(src, "")
+
+	//去除所有尖括号内的HTML代码，并换成换行符
+	re, _ = regexp.Compile("\\<[\\S\\s]+?\\>")
+	src = re.ReplaceAllString(src, "\n")
+
+	//去除连续的换行符
+	re, _ = regexp.Compile("\\s{2,}")
+	src = re.ReplaceAllString(src, "\n")
+
+	return strings.TrimSpace(src)
+}
+
+// 按字节截取字符串 utf-8不乱码
+func Substr(str string, length int64) string {
+	bs := []byte(str)[:length]
+	bl := 0
+	for i := len(bs) - 1; i >= 0; i-- {
+		switch {
+		case bs[i] >= 0 && bs[i] <= 127:
+			return string(bs[:i+1])
+		case bs[i] >= 128 && bs[i] <= 191:
+			bl++
+		case bs[i] >= 192 && bs[i] <= 253:
+			cl := 0
+			switch {
+			case bs[i]&252 == 252:
+				cl = 6
+			case bs[i]&248 == 248:
+				cl = 5
+			case bs[i]&240 == 240:
+				cl = 4
+			case bs[i]&224 == 224:
+				cl = 3
+			default:
+				cl = 2
+			}
+			if bl+1 == cl {
+				return string(bs[:i+cl])
+			}
+			return string(bs[:i])
+		}
+	}
+	return ""
+}

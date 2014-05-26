@@ -1,0 +1,78 @@
+{{template "public/header.html" .}}
+<script language="javascript" src="/public/js/Setting/menu.js"></script>
+
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='/Menu/'><em>{{msg . "menu_manage"}}</em></a><span>|</span> <a
+				href='javascript:;' class="on"><em>{{msg . "menu_add"}}</em></a>
+		</div>
+	</div>
+	<form name="myform" id="myform" action="{{url "Menu.edit"}}" onsubmit="return form_submit()" method="post">
+		<div class="common-form">
+
+			{{$menu_info := .menu_info}}<!-- 获取当前菜单详细信息 -->
+
+			<table width="100%" class="table_form contentWrap">
+				<tr>
+					<th width="200"><strong>{{msg . "menu_parentid"}}：</strong></th>
+					<td><select name="pid" style="width: 200px;">
+						<option value="0">{{msg . "no_parent_menu"}}</option> 
+						{{if .menus}}
+							{{.menus}}
+						{{end}}
+					</select></td>
+				</tr>
+				<tr>
+					<th><strong>{{msg . "menu_name"}}：</strong></th>
+					<td>
+						<input type="text" name="name" id="name" value="{{$menu_info.Name}}"
+						class="input-text">
+						<div id="nameTip" class="onShow">请输入中文语言名称</div>
+					</td>
+				</tr>
+				<tr>
+					<th><strong>{{msg . "menu_name_en"}}：</strong></th>
+					<td>
+						<input type="text" name="enname" id="enname" value="{{$menu_info.Enname}}"
+						class="input-text">
+						<div id="ennameTip" class="onShow">请输入英文语言名称</div>
+					</td>
+				</tr>
+				<tr>
+					<th><strong>{{msg . "menu_url"}}：</strong></th>
+					<td>
+						<input type="text" name="url" id="url" value="{{$menu_info.Url}}"
+						class="input-text">
+						<div id="urlTip" class="onShow">请输入功能地址</div>
+					</td>
+				</tr>
+				<tr>
+					<th><strong>{{msg . "menu_order"}}：</strong></th>
+					<td>
+						<input type="text" name="order" id="order" class="input-text" value="{{$menu_info.Order}}">
+						<div id="orderTip" class="onShow">请输入排序</div>						
+					</td>
+				</tr>
+				<tr>
+					<th><strong>{{msg . "att_data"}}：</strong></th>
+					<td><input type="text" name="data" id="data" class="input-text" value="{{$menu_info.Data}}"></td>
+				</tr>
+				<tr>
+					<th><strong>{{msg . "menu_display"}}：</strong></th>
+					<td><input type="radio" name="display" value="1" {{if eq $menu_info.Display 1}}checked{{end}}>
+						{{msg . "yes"}} <input type="radio" name="display" value="0" {{if eq $menu_info.Display 0}}checked{{end}}>{{msg . "no"}}</td>
+				</tr>
+			</table>
+			<!--table_form_off-->
+		</div>
+		<div class="bk15"></div>
+		<div class="btn">
+			<input type="hidden" name="id" value="{{$menu_info.Id}}" />
+			<input type="submit" id="dosubmit" class="button" name="dosubmit"
+				value="{{msg . "submit"}}" />
+		</div>
+	</form>
+</body>
+
+{{template "public/footer.html" .}}

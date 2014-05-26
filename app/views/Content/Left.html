@@ -1,0 +1,42 @@
+{{template "Public/header.html" .}}
+<style type="text/css">
+.filetree * {
+	white-space: nowrap;
+}
+
+.filetree span.folder,.filetree span.file {
+	display: auto;
+	padding: 1px 0 1px 16px;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/public/css/zTreeStyle.css">
+<script language="javascript" src="/public/js/ztree/jquery.ztree.core-3.5.js"></script>
+<script language="javascript" src="/public/js/ztree/jquery.ztree.excheck-3.5.js"></script>
+
+{{.categorys}}
+
+<SCRIPT>
+<!--
+var setting = {
+	data: {
+		simpleData: {
+			enable: true
+		}
+	}
+};
+
+
+$(document).ready(function(){
+	$.fn.zTree.init($("#category_tree"), setting, zNodes);
+});
+//-->
+
+function open_list(obj) {
+	window.top.$("#rightMain").attr("src",$(obj).attr("href"));
+	window.top.$("#current_pos_attr").html($(obj).html());
+}
+</SCRIPT>
+<body>
+	<ul id="category_tree" class="ztreeview"></ul>
+</body>
+</html>

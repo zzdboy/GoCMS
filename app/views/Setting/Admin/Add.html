@@ -1,0 +1,75 @@
+{{template "public/header.html" .}}
+<script language="javascript" src="/public/js/Setting/admin.js"></script>
+
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='/Admin/'><em>{{msg . "admin_manage"}}</em></a><span>|</span><a
+				href='javascript:;' class="on"><em>{{msg . "admin_add"}}</em></a>
+		</div>
+	</div>
+	<div class="pad_10">
+		<div class="common-form">
+		<form name="myform" action="{{url "Admin.Add"}}" onsubmit="return form_submit()" method="post" 
+			id="myform">
+			<table width="100%" class="table_form contentWrap">
+				<tr>
+					<td width="130"><strong>{{msg . "username"}}：</strong></td>
+					<td><input type="text" name="username" id="username"
+						class="input-text"></input></td>
+				</tr>
+				<tr>
+					<td><strong>{{msg . "password"}}：</strong></td>
+					<td><input type="password" name="password" id="password"
+						class="input-text"></input></td>
+				</tr>
+				<tr>
+					<td><strong>{{msg . "cofirmpwd"}}：</strong></td>
+					<td><input type="password" name="pwdconfirm" id="pwdconfirm"
+						class="input-text"></input></td>
+				</tr>
+				<tr>
+					<td><strong>{{msg . "email"}}：</strong></td>
+					<td><input type="text" name="email" value=""
+						class="input-text" id="email" size="30"></input></td>
+				</tr>
+
+				<tr>
+					<td><strong>{{msg . "realname"}}：</strong></td>
+					<td><input type="text" name="realname" value=""
+						class="input-text" id="realname"></input></td>
+				</tr>
+				<tr>
+					<td><strong>{{msg . "userinrole"}}：</strong></td>
+					<td>
+						<select id="roleid" name="roleid">
+							{{range .role_list}}
+								<option value="{{.Id}}">{{.Rolename}}</option>
+							{{end}}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><strong>{{msg . "lang"}}：</strong></td>
+					<td>
+						<select id="lang" name="lang">
+							<option value="zh-cn">{{msg . "zh-cn"}}</option>
+							<option value="en">{{msg . "en"}}</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><strong>{{msg . "role_status"}}：</strong></td>
+					<td>
+						<input type="radio" name="status" value="1" checked> {{msg . "admin_allow_status"}} 
+						<input type="radio" name="status" value="0"> {{msg . "admin_forbid_status"}}
+					</td>
+				</tr>
+			</table>
+			<div class="bk15"></div>
+			<input name="dosubmit" type="submit" value="{{msg . "submit"}}" class="button">
+		</form>
+		</div>
+	</div>
+</body>
+{{template "public/footer.html" .}}

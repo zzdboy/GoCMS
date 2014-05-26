@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" {{if eq .Controller "App"}}class="off"{{end}}>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<meta name="description" content="{{msg . "website_manage"}}">
+<meta name="keywords" content="{{msg . "website_manage"}},CMS,Think,GoCMS">
+<title>{{msg . "site_title"}}</title>
+<link rel="shortcut icon" href="/public/img/favicon.ico" type="image/x-icon" />
+<link href="/public/css/reset.css" rel="stylesheet" type="text/css" />
+<link href="/public/js/artDialog/skins/green.css" rel="stylesheet" type="text/css" />
+{{$admin_info := .admin_info}}
+{{if eq $admin_info.Lang "zh-cn"}}
+<link href="/public/css/zh-cn-system.css" rel="stylesheet" type="text/css" />
+{{else}}
+<link href="/public/css/en-system.css" rel="stylesheet" type="text/css" />
+{{end}}
+<link href="/public/css/style/zh-cn-styles1.css" rel="stylesheet" type="text/css" title="styles1" />
+<link href="/public/css/style/zh-cn-styles2.css" rel="alternate stylesheet" type="text/css" title="styles2" />
+<link href="/public/css/style/zh-cn-styles3.css" rel="alternate stylesheet" type="text/css" title="styles3" />
+<link href="/public/css/style/zh-cn-styles4.css" rel="alternate stylesheet" type="text/css" title="styles4" />
+<link href="/public/css/table_form.css" rel="stylesheet" type="text/css" />
+<script language="javascript" src="/public/js/lib/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script language="javascript" src="/public/js/lib/jquery.base64.js"></script>
+<script language="javascript" src="/public/js/common.js"></script>
+<script language="javascript" src="/public/js/lib/styleswitch.js"></script>
+<script language="javascript" src="/public/js/artDialog/jquery.artDialog.js"></script>
+<script language="javascript" src="/public/js/artDialog/plugins/iframeTools.js"></script>

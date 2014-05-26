@@ -1,0 +1,43 @@
+{{template "Public/header.html" .}}
+<script language="javascript" src="/public/js/Style/template.js"></script>
+
+<body>
+	{{$template_info := .template_info}}
+	<div class="subnav">
+	  <h1 class="title-2 line-x">{{$template_info.Name}} - 详情列表</h1>
+	</div>
+	<div class="pad-lr-10">
+		<div class="table-list">
+			<table width="100%" cellspacing="0">
+				<thead>
+					<tr>
+					<th align="left">目录列表</th>
+					<th align="left">说明</th>
+					<th align="left">操作</th>
+					</tr>
+		        </thead>
+		        <tbody>
+					<tr>
+						<td align="left" colspan="3">views\default\</td>
+					</tr>
+					<tr>
+						<td align="left">
+							<img src="/public/img/folder-closed.gif"> 
+							<a href=""><b>announce</b></a>
+						</td>
+						<td align="left">
+							<input type="text" value="公告" name="announce" class="input-text">
+						</td>
+						<td></td>
+					</tr>
+		        </tbody>
+			</table>
+			<div class="btn">
+				<input type="button" value="返回风格列表" name="dosubmit" class="button" onclick="location.href='/Style/'">
+			</div>
+		</div>
+	</div>
+
+</body>
+
+{{template "Public/footer.html" .}}

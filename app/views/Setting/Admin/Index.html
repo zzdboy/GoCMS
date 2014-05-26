@@ -1,0 +1,57 @@
+{{template "public/header.html" .}}
+<script language="javascript" src="/public/js/Setting/admin.js"></script>
+
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='javascript:;' class="on"><em>{{msg . "admin_manage"}}</em></a><span>|</span><a
+				href='/Admin/add/'><em>{{msg . "admin_add"}}</em></a>
+		</div>
+	</div>
+	<div class="pad_10">
+		<div class="table-list">
+			<table width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th width="5%">ID</th>
+						<th width="10%" align="left">{{msg . "username"}}</th>
+						<th width="10%" align="left">{{msg . "userinrole"}}</th>
+						<th width="15%" align="left">{{msg . "email"}}</th>
+						<th width="5%">{{msg . "lang"}}</th>
+						<th width="10%">{{msg . "realname"}}</th>
+						<th width="10%" align="left">{{msg . "lastloginip"}}</th>
+						<th width="10%" align="left">{{msg . "lastlogintime"}}</th>
+						<th width="15%">{{msg . "menu_operation"}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{if .admin_list}}
+						{{$msg := .}}
+						{{range $admin_list := .admin_list}}
+						<tr>
+							<td align="center">{{$admin_list.Id}}</td>
+							<td>{{$admin_list.Username}}</td>
+							<td>{{$admin_list.Role.Rolename}}</td>
+							<td>{{$admin_list.Email}}</td>
+							<td>{{if eq $admin_list.Lang "zh-cn"}}{{msg $msg "zh-cn"}}{{else}}{{msg $msg "en"}}{{end}}</td>
+							<td align="center">{{$admin_list.Realname}}</td>
+							<td>{{$admin_list.Lastloginip}}</td>
+							<td>{{$admin_list.Lastlogintime}}</td>
+							<td class="text-c">
+								<a href="/Admin/edit/{{$admin_list.Id}}/">{{msg $msg "edit"}}</a> | 
+								{{if eq $admin_list.Id 1}}
+									<font color="#cccccc">{{msg $msg "delete"}}</font>
+								{{else}}
+									<a href="javascript:;" onclick="delete_admin({{$admin_list.Id}})">{{msg $msg "delete"}}</a>
+								{{end}}
+							</td>
+						</tr>
+						{{end}}
+					{{end}}
+				</tbody>
+			</table>
+			<div id="pages">{{.pages}}</div>
+		</div>
+	</div>
+</body>
+{{template "public/footer.html" .}}

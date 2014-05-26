@@ -1,0 +1,8 @@
+.header {background: #3c86c5 url(img4/hdbg.gif) no-repeat right top;}
+.header .logo{background-image: url(img4/logo.gif)}
+.header .nav li, .header .nav li a{background-image: url(img4/nav_bg.png)}
+.header .nav li.tab_web a, .header .nav li.tab_web a span{background-image: url(img4/site.png);}
+.fav-help a{ background:none; height:auto; padding:0; margin:0 20px 0 0}
+.cut_line span{color:#9fc7e8}
+#Skin .s1{background-position:0 -66px}
+#Skin .s4{background-position:-14px 0px;}
