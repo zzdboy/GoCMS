@@ -24,6 +24,7 @@ GoCMS QQ交流群：
 	$ go get github.com/revel/revel
 	$ go get github.com/cbonello/revel-csrf
 	$ go get github.com/PuerkitoBio/goquery
+	$ go get github.com/shirou/gopsutil
 	$ go get github.com/zzdboy/GoCMS
 
 修改数据库配置
