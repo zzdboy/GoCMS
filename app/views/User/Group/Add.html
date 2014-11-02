@@ -1,0 +1,144 @@
+{{template "Public/header.html" .}}
+<script language="javascript" src="/public/js/lib/colorpicker.js"></script>
+<script language="javascript" src="/public/js/kindeditor/plugins/code/prettify.js"></script>
+<script language="javascript" src="/public/js/User/group.js"></script>
+
+<body>
+	<div class="pad-10">
+		<div class="common-form">
+			<form id="myform" method="post" action="" name="myform">
+				<fieldset>
+					<legend>基本信息</legend>
+					<table width="100%" class="table_form">
+						<tbody>
+							<tr>
+								<td width="120">会员组名称</td> 
+								<td>
+									<input type="text" id="name" class="input-text" 
+									value="" name="name">
+									<div id="nametip" class="onShow">用户组名应该为2-8位之间</div>
+								</td>
+							</tr>
+							<tr>
+								<td>积分小于</td> 
+								<td>
+									<input type="text" size="6" value="" id="point" 
+									class="input-text"name="point">
+									<div id="pointtip" class="onShow">请输入积分点数</div>
+								</td>
+							</tr>
+							<tr>
+								<td>星星数</td> 
+								<td>
+									<input type="text" size="6" id="star" class="input-text" 
+									name="star" value="">
+									<div id="startip" class="onShow">请输入星星数</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</fieldset>
+				<br />
+				<fieldset>
+					<legend>详细信息</legend>
+					<table width="100%" class="table_form">
+						<tbody><tr>
+							<td>用户权限</td> 
+							<td>
+								<span style="width:120px;" class="ik lf">
+									<input type="checkbox"  name="allowpost" id="allowpost">
+									允许投稿				</span>
+								<span style="width:120px;" class="ik lf">
+									<input type="checkbox"  name="allowpostverify" id="allowpostverify">
+									投稿不需审核				</span>
+								<span style="width:120px;" class="ik lf">
+									<input type="checkbox"  name="allowupgrade" id="allowupgrade">
+									允许自助升级 
+								</span>
+								<span style="width:120px;" class="ik lf">
+									<input type="checkbox"  name="allowsendmessage" id="allowsendmessage">
+									允许发短消息 
+								</span>	
+								<span style="width:120px;" class="ik lf">
+									<input type="checkbox"   name="allowattachment" id="allowattachment">
+									允许上传附件 
+								</span>
+								<span style="width:120px;" class="ik lf">
+									<input type="checkbox"  name="allowsearch" id="allowsearch">
+									搜索权限 
+								</span>
+							</td>
+						</tr>
+
+						<tr>
+							<td width="80">升级价格</td> 
+							<td>
+								<span style="width:120px;" class="ik lf">
+									包日：
+								<input type="text" size="6" class="input-text" value="" id="priceday" name="priceday">	
+								</span>
+								<span style="width:120px;" class="ik lf">
+									包月：
+								<input type="text" size="6" class="input-text" value="" id="pricemonth" name="pricemonth">
+								</span>
+								<span style="width:120px;" class="ik lf">
+									包年：
+								<input type="text" size="6" class="input-text" value="" id="priceyear" name="priceyear">
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td width="80">最大短消息数</td> 
+							<td>
+								<input type="text" size="8" id="allowmessage" class="input-text" name="allowmessage" value="">
+								<div id="allowmessagetip" class="onShow">请输入最大短消息数</div>
+							</td>
+						</tr>
+						<tr>
+							<td width="80">日最大投稿数</td> 
+							<td>
+								<input type="text" size="8" id="allowpostnum" value="0" class="input-text" name="allowpostnum"> 0为不限制
+								<div id="allowpostnumip" class="onShow">请输入日最大投稿数</div>
+							</td>
+						</tr>
+						<tr>
+							<td width="80">用户名颜色</td> 
+							<td>
+								<input type="text" value="" size="8" id="usernamecolor"
+								value="" class="input-text" 
+								name="usernamecolor">
+							<img src="/public/img/icon/colour.png" title="设置标题颜色" width="15"
+						height="16" onclick="colorpicker('title_colorpanel','set_username_color');"
+								style="cursor: hand" />
+								<span id="title_colorpanel" style="position: absolute;" 
+								class="colorpanel"></span>
+							</td>
+						</tr>
+						<tr>
+							<td width="80">用户组图标</td> 
+							<td>
+								<input type="text" size="40" value="" id="icon" class="input-text" name="icon">
+							</td>
+						</tr>
+						<tr>
+							<td width="80">简洁描述</td> 
+							<td>
+								<input type="text" size="60" class="input-text" value="" name="desc" id="desc">
+							</td>
+						</tr>
+						<tr>
+							<td width="80">状态</td>
+							<td>启用
+								<input type="radio" name="status" value="1" checked> 启用 
+								<input type="radio" name="status" value="0"> 禁用
+							</td>
+						</tr>
+					</tbody>
+					</table>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html> 

@@ -1,0 +1,145 @@
+{{template "Public/header.html" .}}
+<script language="javascript" src="/public/js/Content/category.js"></script>
+<script type="text/javascript">
+	$(function() {
+		window.top.$('#display_center_id').css('display', 'none');
+	});
+</script>
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='/Category/'><em>{{msg . "catname"}}</em></a><span>|</span>
+			<a href='javascript:;' class="on"><em>{{msg . "edit_category"}}</em></a>
+		</div>
+	</div>
+	{{$category_info := .category_info}}<!-- 获取当前栏目详细信息 -->
+	<form name="myform" id="myform" action="/Category/edit/"
+		onsubmit="return form_submit()" method="post">
+		<input type="hidden" name="id" value="{{$category_info.Id}}" />
+		<div class="pad-10">
+			<div class="col-tab">
+				<ul class="tabBut cu-li">
+					<li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',6,1);">{{msg . "catgory_basic"}}</li>
+					<li id="tab_setting_2" onclick="SwapTab('setting','on','',6,2);">{{msg . "catgory_createhtml"}}</li>
+					<li id="tab_setting_3" onclick="SwapTab('setting','on','',6,3);">{{msg . "catgory_seo"}}</li>
+				</ul>
+				<div id="div_setting_1" class="contentList pad-10">
+
+					<table width="100%" class="table_form ">
+
+						<tr>
+							<th><strong>{{msg . "category_type"}}：</strong></th>
+							<td>
+								<input type="radio" name="type" value="0" {{if eq $category_info.Type 0}}checked{{end}}> {{msg . "category"}}
+								<input type="radio" name="type" value="1" {{if eq $category_info.Type 1}}checked{{end}}> {{msg . "single_page"}}
+							</td>
+						</tr>
+
+						<tr>
+							<th width="200"><strong>{{msg . "parent_category"}}：</strong></th>
+							<td>
+								<select name="pid" id="pid">
+									<option value='0'>{{msg . "please_select_parent_category"}}</option>
+									{{.categorys}}
+								</select>
+							</td>
+						</tr>
+
+						<tr>
+							<th><strong>{{msg . "catname"}}：</strong></th>
+							<td>
+								<span id="normal_add">
+									<input type="text"
+									name="name" id="name" class="input-text" value="{{$category_info.Name}}">
+								</span>
+								<div id="nameTip" class=""></div>
+							</td>
+						</tr>
+
+						<tr>
+							<th><strong>{{msg . "catenname"}}：</strong></th>
+							<td>
+								<span id="normal_add">
+									<input type="text"
+										name="enname" id="enname" class="input-text" 
+									value="{{$category_info.Enname}}">
+								</span>
+								<div id="ennameTip" class=""></div>
+							</td>
+						</tr>
+
+						<tr>
+							<th><strong>{{msg . "link_url"}}：</strong></th>
+							<td>
+								<span id="normal_add"><input type="text"
+									name="url" id="url" class="input-text"
+									value="{{$category_info.Url}}">
+								</span>
+								<div id="urlTip" class=""></div>
+							</td>
+						</tr>
+						<tr>
+							<th><strong>{{msg . "description"}}：</strong></th>
+							<td>
+								<textarea name="desc" id="desc" maxlength="255"
+									style="width: 300px; height: 60px;">{{$category_info.Desc}}</textarea>
+								<div id="descTip" class=""></div>
+							</td>
+						</tr>
+						<tr>
+							<th><strong>{{msg . "ismenu"}}：</strong></th>
+							<td>
+								<input type='radio' name='ismenu' value='1'
+								{{if eq $category_info.Ismenu 1}}checked{{end}}> {{msg . "yes"}}&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio'
+								name='ismenu' value='0' {{if eq $category_info.Ismenu 0}}checked{{end}}> {{msg . "no"}}
+							</td>
+						</tr>
+					</table>
+
+				</div>
+				<div id="div_setting_2" class="contentList pad-10 hidden">
+					<table width="100%" class="table_form ">
+						<tr>
+
+							<th width="200"><strong>{{msg . "html_category"}}：</strong></th>
+							<td><input type='radio' name='ishtml' value='1' {{if eq $category_info.SettingText.ishtml "1"}}checked{{end}}>
+								{{msg . "yes"}}&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio'
+								name='ishtml' value='0' {{if eq $category_info.SettingText.ishtml "0"}}checked{{end}}> {{msg . "no"}}</td>
+						</tr>
+						<tr>
+
+							<th><strong>{{msg . "html_show"}}：</strong></th>
+							<td><input type='radio' name='content_ishtml'
+								value='1' {{if eq $category_info.SettingText.content_ishtml "1"}}checked{{end}}> {{msg . "yes"}}&nbsp;&nbsp;&nbsp;&nbsp; <input type='radio'
+								name='content_ishtml' value='0' {{if eq $category_info.SettingText.content_ishtml "0"}}checked{{end}}> {{msg . "no"}}</td>
+						</tr>
+					</table>
+				</div>
+				<div id="div_setting_3" class="contentList pad-10 hidden">
+					<table width="100%" class="table_form ">
+						<tr>
+							<th width="200">{{msg . "meta_title"}}</th>
+							<td><input name='meta_title' type='text'
+								id='meta_title' value='{{$category_info.SettingText.meta_title}}' size='60' maxlength='60'></td>
+						</tr>
+						<tr>
+							<th>{{msg . "meta_keywords"}}</th>
+
+							<td><textarea name='meta_keywords'
+									id='meta_keywords' style="width: 90%; height: 40px">{{$category_info.SettingText.meta_keywords}}</textarea></td>
+						</tr>
+						<tr>
+							<th>{{msg . "meta_description"}}</th>
+							<td><textarea name='meta_desc'
+									id='meta_desc' style="width: 90%; height: 50px">{{$category_info.SettingText.meta_desc}}</textarea></td>
+						</tr>
+					</table>
+				</div>
+				<div class="bk15"></div>
+				<input type="hidden" name="csrf_token" value="{{ .csrf_token }}" />
+				<input name="dosubmit" type="submit" value="{{msg . "submit"}}" class="button">
+			</div>
+		</div>
+	</form>
+</body>
+{{template "Public/footer.html" .}}

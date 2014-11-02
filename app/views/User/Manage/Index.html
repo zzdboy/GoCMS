@@ -1,0 +1,169 @@
+{{template "Public/header.html" .}}
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/jscal2.css"/>
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/border-radius.css"/>
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/calendar-blue.css"/>
+<script type="text/javascript" src="/public/js/calendar/calendar.js"></script>
+<script type="text/javascript" src="/public/js/calendar/lang/en.js"></script>
+<script language="javascript" src="/public/js/User/user.js"></script>
+<script>
+$(document).ready(function() {
+	Calendar.setup({
+		weekNumbers : true,
+		inputField : "start_time",
+		trigger : "start_time",
+		dateFormat : "%Y-%m-%d",
+		showTime : true,
+		minuteStep : 1,
+		onSelect : function() {
+			this.hide();
+		}
+	});
+
+	Calendar.setup({
+		weekNumbers : true,
+		inputField : "end_time",
+		trigger : "end_time",
+		dateFormat : "%Y-%m-%d",
+		showTime : true,
+		minuteStep : 1,
+		onSelect : function() {
+			this.hide();
+		}
+	});
+});
+
+</script>
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a class="add fb" href="javascript:;" onclick="add()">
+				<em>{{msg . "user_add"}}</em>
+			</a><span>|</span>
+			<a href='javascript:;' class="on"><em>{{msg . "user_manage"}}</em></a>
+		</div>
+	</div>
+
+	<div class="pad-lr-10">
+		<form method="post" action="" name="searchform">
+			<table width="100%" cellspacing="0" class="search-form">
+				{{$where := .where}}
+				<tbody>
+					<tr>
+						<td>
+							<div class="explain-col">
+							注册时间：
+							<input type="text" readonly="" class="date input-text" size="20"
+							 value="{{$where.start_time}}" id="start_time" name="start_time"> - 
+							<input type="text" readonly="" class="date input-text" size="20" 
+							value="{{$where.start_time}}" id="end_time" name="end_time">
+						<select name="islock" id="islock">
+						<option {{if $where.islock}}{{if eq $where.islock "0"}}selected=""{{end}}{{end}} value="0">状态</option>
+						<option {{if $where.islock}}{{if eq $where.islock "1"}}selected=""{{end}}{{end}} value="1">锁定</option>
+						<option {{if $where.islock}}{{if eq $where.islock "2"}}selected=""{{end}}{{end}} value="2">正常</option>
+						</select>
+						<select name="type" id="type">
+						<option {{if $where.type}}{{if eq $where.type "1"}}selected=""{{end}}{{end}} value="1">用户名</option>
+						<option {{if $where.type}}{{if eq $where.type "2"}}selected=""{{end}}{{end}} value="2">用户ID</option>
+						<option {{if $where.type}}{{if eq $where.type "3"}}selected=""{{end}}{{end}} value="3">邮箱</option>
+						<option {{if $where.type}}{{if eq $where.type "4"}}selected=""{{end}}{{end}} value="4">注册ip</option>
+						<option {{if $where.type}}{{if eq $where.type "5"}}selected=""{{end}}{{end}} value="5">昵称</option>
+						</select>
+						<input type="text" class="input-text" value="{{$where.keyword}}" 
+									id="keyword" name="keyword">
+					<input type="button" value="搜索" class="button" onclick="Search()" name="search">
+					<input type="button" onclick="Reset()" value="重置" class="button" name="reset">
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+
+		<form method="post" action="" name="myform">
+			<div class="table-list">
+				<table width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th width="20" align="left">
+								<input type="checkbox" onclick="selectall('ids[]');" id="check_box" value="">
+							</th>
+							<th align="left"></th>
+							<th align="left">用户ID</th>
+							<th align="left">用户名</th>
+							<th align="left">昵称</th>
+							<th align="left">邮箱</th>
+							<th align="left">会员组</th>
+							<th align="left">注册ip</th>
+							<th align="left">最后登录</th>
+							<th align="left">金钱总数</th>
+							<th align="left">积分点数</th>
+							<th align="left">是否锁定</th>
+							<th align="left">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{if .user_list}}
+							{{range .user_list}}
+							<tr>
+								<td align="left"><input type="checkbox" name="ids[]" value="{{.Id}}"></td>
+								<td align="left"></td>
+								<td align="left">{{.Id}}</td>
+								<td align="left">
+									<img width="18" height="18" src="/public/img/user/nophoto.gif">
+									{{if eq .Vip 1}}
+									<img src="/public/img/icon/vip.gif" title="vip会员">
+									{{end}}
+									{{.Username}}
+									<a href="javascript:;" onclick="user_info({{.Id}})"><img src="/public/img/admin_img/detail.png"></a>
+								</td>
+								<td align="left">{{.Nickname}}</td>
+								<td align="left">{{.Email}}</td>
+								<td align="left">{{.UserGroup.Name}}</td>
+								<td align="left">{{.Regip}}</td>
+								<td align="left">{{.Lastdate}}</td>
+								<td align="left">{{.Amount}}</td>
+								<td align="left">{{.Point}}</td>
+
+								<td align="left">
+									{{if eq .Islock 1}}
+										<font color="red">锁定</font>
+									{{else}}
+										正常
+									{{end}}
+								</td>
+
+								<td align="left">
+									<a href="javascript:edit({{.Id}})">修改</a>
+								</td>
+						    </tr>
+						    {{end}}
+					    {{end}}
+					</tbody>
+				</table>
+				<div class="btn">
+					<label for="check_box">{{msg . "select_all"}}</label> 
+					<input type="button" onclick="confirm_delete()" value="{{msg . "delete"}}" 
+						name="dosubmit" class="button">
+					<input type="button" value="{{msg . "lock"}}" onclick="lock()"
+						 name="dosubmit" class="button">
+					<input type="button" value="{{msg . "unlock"}}" onclick="unlock()"
+						 name="dosubmit" class="button">
+					<input type="button" value="{{msg . "move"}}" onclick="show_move()"
+						 name="dosubmit" class="button">
+					<span style="display:none" id="show_move">
+						<select name="groupid" id="groupid">
+							{{range .group_list}}
+								<option value="{{.Id}}">{{.Name}}</option>
+							{{end}}
+						</select>
+						<input type="button" class="button" value="{{msg . "move_user_group"}}"
+								onclick="move();" />
+					</span>
+				</div>
+				<div id="pages">{{.pages}}</div>
+			</div>
+		</form>
+	</div>
+</body>
+
+{{template "Public/footer.html" .}}

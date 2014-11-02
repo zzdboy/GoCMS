@@ -1,0 +1,83 @@
+{{template "Public/header.html" .}}
+<script language="javascript" src="/public/js/Setting/menu.js"></script>
+
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='/Menu/'><em>{{msg . "menu_manage"}}</em></a><span>|</span> <a
+				href='javascript:;' class="on"><em>{{msg . "menu_add"}}</em></a>
+		</div>
+	</div>
+	<form name="myform" id="myform" action="{{url "Menu.Add"}}"
+		onsubmit="return form_submit()" method="post">
+		<div class="common-form">
+			<table width="100%" class="table_form contentWrap">
+				<tr>
+					<th width="200"><strong>{{msg . "menu_parentid"}}：</strong></th>
+					<td><select id="pid" name="pid" style="width: 200px;">
+						<option value="0">{{msg . "no_parent_menu"}}</option> 
+						{{if .menus}}
+							{{.menus}}
+						{{end}}
+					</select></td>
+				</tr>
+
+				<tr>
+					<th><strong>{{msg . "menu_name"}}：</strong></th>
+					<td>
+						<input type="text" name="name" id="name" class="input-text" value="">
+						<div id="nameTip" class="onShow">中文语言名称</div>
+					</td>
+				</tr>
+
+				<tr>
+					<th><strong>{{msg . "menu_name_en"}}：</strong></th>
+					<td>
+						<input type="text" name="enname" id="enname" class="input-text" value="">
+						<div id="ennameTip" class="onShow">英文语言名称</div>
+					</td>
+				</tr>
+
+				<tr>
+					<th><strong>{{msg . "menu_url"}}：</strong></th>
+					<td>
+						<input type="text" name="url" id="url" class="input-text" value="" >
+						<div id="urlTip" class="onShow">功能地址</div>
+					</td>
+				</tr>
+
+				<tr>
+					<th><strong>{{msg . "menu_order"}}：</strong></th>
+					<td>
+						<input type="text" name="order" id="order" class="input-text">
+						<div id="orderTip" class="onShow">排序</div>
+					</td>
+				</tr>
+
+				<tr>
+					<th><strong>{{msg . "att_data"}}：</strong></th>
+					<td>
+						<input type="text" name="data" id="data" class="input-text">
+					</td>
+				</tr>
+
+				<tr>
+					<th><strong>{{msg . "menu_display"}}：</strong></th>
+					<td>
+						<input type="radio" name="display" value="1" checked>{{msg . "yes"}} 
+						<input type="radio" name="display" value="0">{{msg . "no"}}
+					</td>
+				</tr>
+			</table>
+			<!--table_form_off-->
+		</div>
+		<div class="bk15"></div>
+		<div class="btn">
+			<input type="hidden" name="csrf_token" value="{{ .csrf_token }}" />
+			<input type="submit" id="dosubmit" class="button" name="dosubmit"
+				value="{{msg . "submit"}}" />
+		</div>
+	</form>
+</body>
+
+{{template "Public/footer.html" .}}

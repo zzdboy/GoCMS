@@ -1,0 +1,87 @@
+{{template "Public/header.html" .}}
+
+<body>
+	<div style="_margin-right:-12px;_width:98.9%;" class="pad-10" id="main_frameid">
+		{{$system_info := .system_info}}
+		<div style="width:48%" class="col-2 lf mr10">
+			<h6>{{msg . "main_personal_information"}}</h6>
+			{{if .admin_info}}
+				{{$admin_info := .admin_info}}
+				<div class="content">
+					{{msg . "main_hello"}}{{$admin_info.Realname}}<br>
+					{{msg . "main_role"}}{{$admin_info.Role.Rolename}} <br>
+				<div class="bk20 hr"><hr></div>
+					{{msg . "main_last_logintime"}}{{$admin_info.Lastlogintime}}<br>
+					{{msg . "main_last_loginip"}}{{$admin_info.Lastloginip}}({{$admin_info.LastipAddress.data.country}} {{$admin_info.LastipAddress.data.region}} {{$admin_info.LastipAddress.data.city}} {{$admin_info.LastipAddress.data.isp}}) <br>
+				</div>
+			{{end}}
+		</div>
+
+		<div class="col-2 col-auto">
+			<h6>{{msg . "main_server_monitoring"}}</h6>
+			<div class="content">			
+				{{msg . "main_server_hostname"}}：{{$system_info.main_server_Hostname}}<br> 
+				{{msg . "main_server_total_memory"}}：{{$system_info.main_server_total_memory}}<br>
+				{{msg . "main_server_available_memory"}}：{{$system_info.main_server_available_memory}}<br>
+				{{msg . "main_server_UsedPercent_memory"}}：{{$system_info.main_server_UsedPercent_memory}}<br>
+			</div>
+		</div>
+
+		<div class="bk10"></div>
+
+		<div style="width:48%" class="col-2 lf mr10">
+			<h6>{{msg . "main_shortcut"}}</h6>
+			<div id="admin_panel" class="content">
+				{{range .panel_list}}
+					<span>
+						[<a href="javascript:;" onclick="window.top._MP({{.Menu.Id}},'{{.Menu.Url}}')">
+						{{.Menu.Name}}
+						</a>]
+					</span>
+				{{end}}
+			</div>
+		</div>
+
+		<div class="col-2 col-auto">
+			<h6>{{msg . "main_sysinfo"}}</h6>
+			{{if .system_info}}				
+				<div class="content">
+					{{msg . "main_version"}}GoCMS V{{$system_info.version}} 
+					[<a href="javascript:;">{{msg . "main_latest_version"}}</a>]<br>
+					{{msg . "main_os"}}{{$system_info.os}} {{$system_info.main_server_PlatformVersion}}<br>
+					{{msg . "main_web_server"}}{{$system_info.go_varsion}} <br>
+					{{msg . "main_revel_version"}}{{$system_info.revel_varsion}}<br>	
+					{{msg . "main_sql_version"}}{{$system_info.mysql_varsion}}<br>	
+				</div>
+			{{end}}
+		</div>
+
+		<div class="bk10"></div>
+
+		<div style="width:48%" class="col-2 lf mr10">
+			<h6>{{msg . "main_product_team"}}</h6>
+			<div class="content">
+				{{msg . "main_copyright"}}北京季仲兄弟科技有限公司<br>
+				{{msg . "main_product_planning"}}张仲东<br>
+				{{msg . "main_product_dev"}}张仲东，张季东<br>
+				{{msg . "main_product_ui"}}张仲东<br>
+				{{msg . "main_product_site"}}<a target="_blank" href="http://www.6574.com.cn/">http://www.6574.com.cn</a> <br>
+				{{msg . "main_product_bbs"}}<a href="javascript:;">http://bbs.6574.com.cn/</a> 
+			</div>
+		</div>
+
+		<div class="col-2 col-auto">
+			<h6>{{msg . "main_license"}}</h6>
+			<div class="content">
+			{{msg . "main_version"}}GoCMS V1.0<br>
+			{{msg . "main_license_type"}}<span id="phpcms_license">未授权（<a style="color:red" href="javascript:;">点击购买</a>）</span> <br>
+			{{msg . "main_serial_number"}}<span id="phpcms_sn">未激活（<a style="color:red" href="javascript:;">点击激活</a>）</span> <br> 
+			</div>
+		</div>
+
+		<div class="bk10"></div>
+
+	</div>
+</body>
+
+{{template "Public/footer.html" .}}

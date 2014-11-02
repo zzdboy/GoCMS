@@ -1,0 +1,353 @@
+{{template "Public/header.html" .}}
+
+<body scroll="no" class="objbody">
+  <div id="dvLockScreen" {{if eq .lock_screen "0"}}style="display: none"{{end}} class="ScreenLock" >
+    <div id="dvLockScreenWin" class="inputpwd">
+      <h5>
+        <b class="ico ico-info"></b><span id="lock_tips">{{msg . "lockscreen_status"}}</span>
+      </h5>
+      <div class="input">
+        <label class="lb">{{msg . "password"}}：</label>
+        <input type="password" id="lock_password" class="input-text" size="20"> 
+        <input type="submit" class="submit" value="" name="dosubmit" onclick="check_screenlock();return false;">
+      </div>
+    </div>
+  </div>
+  <div class="header">
+    <div class="logo lf">
+      <a href="/"><span class="invisible">{{msg . "gocms_title"}}</span></a>
+    </div>
+    <div class="rt-col">
+      <div class="tab_style white cut_line text-r">
+        <a href="javascript:;" onclick="lock_screen()"><img
+          src="/public/img/icon/lockscreen.png"> {{msg . "lockscreen"}} </a><span>|</span>
+        <a href="" target="_blank">{{msg . "official_site"}}</a>
+        <ul id="Skin">
+          <li class="s1 styleswitch" rel="styles1"></li>
+          <li class="s2 styleswitch" rel="styles2"></li>
+          <li class="s3 styleswitch" rel="styles3"></li>
+          <li class="s4 styleswitch" rel="styles4"></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-auto">
+      {{$admin_info := .admin_info}}
+      <div class="log white cut_line">
+        {{msg . "hello"}}{{$admin_info.Username}} [{{$admin_info.Role.Rolename}}]<span>|</span>
+        <a href="javascript:;" onclick="Logout()">[{{msg . "exit"}}]</a><span>|</span>
+        <a href="/Search/" target="right" id="site_search">{{msg . "search"}}</a>
+      </div>
+      
+      <ul class="nav white" id="top_menu">
+        {{if .menus}}
+          {{$controller := .Controller}}<!-- 获取当前控制器 -->
+          {{$action := .Action}}<!-- 获取当前动作 -->
+          {{$model := .Model}}<!-- 获取当前模型 -->
+          {{range .menus}}
+            {{if eq .Url "Panel"}}
+            <li class="top_menu on" id="_M{{.Id}}">
+              {{if eq $admin_info.Lang "zh-cn"}}
+              <a style="outline: none;" hidefocus="true" href="javascript:_M({{.Id}},'{{.Url}}')">{{.Name}}</a>
+              {{else}}
+              <a style="outline: none;" hidefocus="true" href="javascript:_M({{.Id}},'{{.Url}}')">{{.Enname}}</a>
+              {{end}}
+            </li>
+            {{else}}
+            <li class="top_menu {{if eq .Url $controller}}on{{end}}" id="_M{{.Id}}">
+              {{if eq $admin_info.Lang "zh-cn"}}
+              <a style="outline: none;" hidefocus="true" href="javascript:_M({{.Id}},'{{.Url}}')">{{.Name}}</a>
+              {{else}}
+              <a style="outline: none;" hidefocus="true" href="javascript:_M({{.Id}},'{{.Url}}')">{{.Enname}}</a>
+              {{end}}
+            </li>
+            {{end}}
+          {{end}}
+        {{end}}
+      </ul>
+    </div>
+  </div>
+  <div id="content">
+    <div class="col-left left_menu">
+      <div id="Scroll">
+        <div id="leftMain"></div>
+      </div>
+      <a href="javascript:;" id="openClose"
+        style="outline-style: none; outline-color: invert; outline-width: medium;"
+        hideFocus="hidefocus" class="open" title="{{msg . "spread_or_closed"}}"><span
+        class="hidden">{{msg . "expand"}}</span></a>
+    </div>
+    <div class="col-1 lf cat-menu" id="display_center_id"
+      style="display: none" height="100%">
+      <div class="content">
+        <iframe name="center_frame" id="center_frame" src=""
+          frameborder="false" scrolling="auto" style="border: none"
+          width="100%" height="auto" allowtransparency="true"></iframe>
+      </div>
+    </div>
+    <div class="col-auto mr8">
+      <div class="crumbs">
+        <div class="shortcut cu-span">
+          <a href="/CreateHtml/" target="right"><span>{{msg . "create_index"}}</span></a>  
+          <a href="javascript:void(0);" onclick="OpenMap();">
+            <span>{{msg . "sitemap"}}</span>
+          </a>
+        </div>
+        {{msg . "current_position"}}<span id="current_pos">{{msg . "index"}}</span>
+      </div>
+      <div class="col-1">
+        <div class="content" style="position: relative; overflow: hidden">
+          <iframe name="right" id="rightMain" src="/Main/"
+            frameborder="false" scrolling="auto"
+            style="border: none; margin-bottom: 30px" width="100%"
+            height="auto" allowtransparency="true"></iframe>
+          <div class="fav-nav">
+            <div id="panellist"></div>
+            <div id="paneladd">
+              
+            </div>
+            <input type="hidden" value="" id="mid">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll">
+    <a href="javascript:;" class="per" title="使用鼠标滚轴滚动侧栏"
+      onclick="menuScroll(1);"></a><a href="javascript:;" class="next"
+      title="使用鼠标滚轴滚动侧栏" onclick="menuScroll(2);"></a>
+  </div>
+<script type="text/javascript"> 
+if(!Array.prototype.map){
+  Array.prototype.map = function(fn,scope) {
+      var result = [],ri = 0;
+      for (var i = 0,n = this.length; i < n; i++){
+      if(i in this){
+        result[ri++]  = fn.call(scope ,this[i],i,this);
+      }
+      }
+    return result;
+  };
+}
+
+
+var getWindowSize = function(){
+  return ["Height","Width"].map(function(name){
+    return window["inner"+name] ||
+    document.compatMode === "CSS1Compat" && document.documentElement[ "client" + name ] || document.body[ "client" + name ]
+  });
+}
+
+window.onload = function (){
+  if(!+"\v1" && !document.querySelector) { // for IE6 IE7
+    document.body.onresize = resize;
+  } else { 
+    window.onresize = resize;
+  }
+  function resize() {
+    wSize();
+    return false;
+  }
+}
+
+function wSize(){
+  //这是一字符串
+  var str=getWindowSize();
+  var strs= new Array(); //定义一数组
+  strs=str.toString().split(","); //字符分割
+  var heights = strs[0]-150,Body = $('body');$('#rightMain').height(heights);   
+  //iframe.height = strs[0]-46;
+  if(strs[1]<980){
+    $('.header').css('width',980+'px');
+    $('#content').css('width',980+'px');
+    Body.attr('scroll','');
+    Body.removeClass('objbody');
+  }else{
+    $('.header').css('width','auto');
+    $('#content').css('width','auto');
+    Body.attr('scroll','no');
+    Body.addClass('objbody');
+  }
+  
+  var openClose = $("#rightMain").height()+39;
+  $('#center_frame').height(openClose+9);
+  $("#openClose").height(openClose+30); 
+  $("#Scroll").height(openClose-20);
+  windowW();
+}
+wSize();
+
+function windowW(){
+  if($('#Scroll').height()<$("#leftMain").height()){
+    $(".scroll").show();
+  }else{
+    $(".scroll").hide();
+  }
+}
+windowW();
+
+//站点下拉菜单
+$(function(){
+  //默认载入左侧菜单
+  $("#leftMain").load("/Left/",{'csrf_token': "{{ .csrf_token }}"});
+})
+
+//左侧开关
+$("#openClose").click(function(){
+  if($(this).data('clicknum')==1) {
+    $("html").removeClass("on");
+    $(".left_menu").removeClass("left_menu_on");
+    $(this).removeClass("close");
+    $(this).data('clicknum', 0);
+    $(".scroll").show();
+  } else {
+    $(".left_menu").addClass("left_menu_on");
+    $(this).addClass("close");
+    $("html").addClass("on");
+    $(this).data('clicknum', 1);
+    $(".scroll").hide();
+  }
+  return false;
+});
+
+//顶部导航菜单方法
+function _M(id,targetUrl) {
+  $("#mid").val(id);
+
+  $("#paneladd").html('<a class="panel-add" href="javascript:add_panel();"><em>添加</em></a>');
+  $("#leftMain").load("/Left/", {'pid': id, 'csrf_token': "{{ .csrf_token }}"}, function(){
+       windowW();
+  });
+  
+  //$("#rightMain").attr('src', targetUrl);
+  $('.top_menu').removeClass("on");
+  $('#_M'+id).addClass("on");
+  $.post("/ajax/pos/",{'id':id, 'csrf_token': "{{ .csrf_token }}"}, function(data){
+    $("#current_pos").html(data);
+  });
+  //当点击顶部菜单后，隐藏中间的框架
+  $('#display_center_id').css('display','none');
+  //显示左侧菜单，当点击顶部时，展开左侧
+  $(".left_menu").removeClass("left_menu_on");
+  $("#openClose").removeClass("close");
+  $("html").removeClass("on");
+  $("#openClose").data('clicknum', 0);
+  $("#current_pos").data('clicknum', 1);
+}
+
+//左侧菜单方法
+function _MP(id,targetUrl) {
+  $("#mid").val(id);
+  $("#paneladd").html('<a class="panel-add" title="添加快捷方式" href="javascript:add_panel();"><em>添加</em></a>');
+
+  $("#rightMain").attr('src', targetUrl);
+  $('.sub_menu').removeClass("on fb blue");
+  $('#_MP'+id).addClass("on fb blue");
+
+  //当前位置
+  $.post("/ajax/pos/",{'id':id, 'csrf_token': "{{ .csrf_token }}"}, function(data){
+    $("#current_pos").html(data+'<span id="current_pos_attr"></span>');
+  });
+
+  //快捷方式
+  $.post("/ajax/GetPanel/",{'mid':id, 'csrf_token': "{{ .csrf_token }}"}, function(data){
+    $("#panellist").html(data);
+  });
+
+  $("#current_pos").data('clicknum', 1);
+}
+
+setInterval("message()", 16000);
+
+//检查消息
+function message(){
+  $.get("/Ajax/GetMessage/");
+}
+
+//锁屏
+function lock_screen() {
+  $.post("/Ajax/ScreenLock/",{'csrf_token': "{{ .csrf_token }}"});
+  $('#dvLockScreen').css('display','');
+}
+
+/**
+ * 退出
+ */
+function Logout() {
+  art.dialog.confirm('{{msg . "logout"}}', function() {
+    redirect("/Logout/")
+  }, function() {
+    art.dialog.close()
+  });
+}
+
+//解除锁屏
+function check_screenlock() {
+  var lock_password = $('#lock_password').val();
+  if(lock_password=='') {
+    $('#lock_tips').html('<font color="red">{{msg . "password_can_not_be_empty"}}</font>');
+    return false;
+  }
+  $.post("/Ajax/ScreenUnlock/", {'lock_password': lock_password,'csrf_token': "{{ .csrf_token }}"},
+    function(data){
+      if(data==1) {
+        $('#dvLockScreen').css('display','none');
+        $('#lock_password').val('');
+        $('#lock_tips').html('{{msg . "lockscreen_status"}}');
+      } else if(data==2) {
+        $('#lock_tips').html('<font color="red">{{msg . "password_can_not_be_empty"}}</font>');
+      } else if(data==3) {
+        $('#lock_tips').html('<font color="red">{{msg . "login_password_error"}}</font>');
+      } else if(data==4) {
+        redirect("/Login/")
+      }
+  });
+}
+
+(function(){
+    var addEvent = (function(){
+             if (window.addEventListener) {
+                return function(el, sType, fn, capture) {
+                    el.addEventListener(sType, fn, (capture));
+                };
+            } else if (window.attachEvent) {
+                return function(el, sType, fn, capture) {
+                    el.attachEvent("on" + sType, fn);
+                };
+            } else {
+                return function(){};
+            }
+        })(),
+    Scroll = document.getElementById('Scroll');
+    // IE6/IE7/IE8/Opera 10+/Safari5+
+    addEvent(Scroll, 'mousewheel', function(event){
+        event = window.event || event ;  
+    if(event.wheelDelta <= 0 || event.detail > 0) {
+        Scroll.scrollTop = Scroll.scrollTop + 29;
+      } else {
+        Scroll.scrollTop = Scroll.scrollTop - 29;
+    }
+    }, false);
+
+    // Firefox 3.5+
+    addEvent(Scroll, 'DOMMouseScroll',  function(event){
+        event = window.event || event ;
+    if(event.wheelDelta <= 0 || event.detail > 0) {
+        Scroll.scrollTop = Scroll.scrollTop + 29;
+      } else {
+        Scroll.scrollTop = Scroll.scrollTop - 29;
+    }
+    }, false);
+  
+})();
+function menuScroll(num){
+  var Scroll = document.getElementById('Scroll');
+  if(num==1){
+    Scroll.scrollTop = Scroll.scrollTop - 60;
+  }else{
+    Scroll.scrollTop = Scroll.scrollTop + 60;
+  }
+}
+</script>
+
+</body>
+</html> 

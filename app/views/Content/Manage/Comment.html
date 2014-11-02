@@ -1,0 +1,145 @@
+{{template "Public/header.html" .}}
+<script type="text/javascript">
+	function deleteComment(id) {
+		if (id == '') {
+			window.top.art.dialog({
+				icon : 'error',
+				content : '参数错误!'
+			});
+		}
+		art.dialog({
+			content : '你确定删除吗?',
+			ok : function() {
+				$.post('/Content/delComment/' + Math.random(), {
+					id : id,
+					'csrf_token': "{{ .csrf_token }}"
+				}, function(data) {
+					if (data == 1) {
+						$('#tbody_' + id).fadeOut("slow", function() {
+							$('#tbody_' + id).remove()
+						});
+						window.location.reload();
+					} else if (data == -1) {
+						window.top.art.dialog({
+							icon : 'error',
+							content : '参数错误!'
+						});
+					} else {
+						window.top.art.dialog({
+							icon : 'error',
+							content : '系统错误，请稍候重试!'
+						});
+					}
+				});
+			},
+			lock : true,
+			cancelVal : '关闭',
+			cancel : true
+		//为true等价于function(){}
+		});
+	}
+	//批量删除
+	function batchdel() {
+		art.dialog({
+			content : '你确定删除这些评论吗?',
+			ok : function() {
+				var str = 0;
+				var id = tag = '';
+				$("input[name='ids[]']").each(function() {
+					if ($(this).attr('checked') == 'checked') {
+						str = 1;
+						id += tag + $(this).val();
+						tag = ',';
+					}
+				});
+				if (str == 0) {
+					window.top.art.dialog({
+						icon : 'error',
+						content : '请至少选择一条评论!'
+					});
+					return false;
+				}
+				$.post('/Content/delComment/' + Math.random(), {
+					id : id,
+					'csrf_token': "{{ .csrf_token }}"
+				}, function(data) {
+					if (data == 1) {
+						art.dialog({
+							time : 2,
+							icon : 'succeed',
+							content : '评论删除成功!'
+						});
+						window.location.reload();
+					} else if (data == -1) {
+						window.top.art.dialog({
+							icon : 'error',
+							content : '参数错误!'
+						});
+					} else {
+						window.top.art.dialog({
+							icon : 'error',
+							content : '系统错误，请稍候重试!'
+						});
+					}
+				});
+			},
+			lock : true,
+			cancelVal : '关闭',
+			cancel : true
+		//为true等价于function(){}
+		});
+	}
+</script>
+<body>
+	<div class="pad_10">
+		<div id="searchid">
+			<form name="searchform" action="/content/comment/search/" method="post">
+				<input type="hidden" name="csrf_token" value="{{ .csrf_token }}" />
+				<table width="100%" cellspacing="0" class="search-form">
+					<tbody>
+						<tr>
+							<td>
+								<div class="explain-col">
+									<select name="searchtype">
+										<option value='1' selected>内容</option>
+										<option value='2'>用户UID</option>
+									</select> <input name="keyword" type="text" value="" class="input-text" />
+									<input type="submit" name="search" class="button" value="搜索" />
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+	<div class="pad-lr-10">
+		<form name="myform" id="myform" action="/content/comment/delete/"
+			method="post">
+			<div class="table-list comment">
+				<table width="100%">
+					<thead>
+						<tr>
+							<th width="16"><input type="checkbox" value=""
+								id="check_box" onclick="selectall('ids[]');"></th>
+							<th width="130">发表人</th>
+							<th>评论</th>
+							<th width="72">管理操作</th>
+						</tr>
+					</thead>
+					<tbody class="add_comment">
+						
+					</tbody>
+				</table>
+
+				<div class="btn">
+					<input type="button" class="button" onclick="batchdel()" value="批量删除" />
+				</div>
+				<div id="pages">
+					
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+{{template "Public/footer.html" .}}

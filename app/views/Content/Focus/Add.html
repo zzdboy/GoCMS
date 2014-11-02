@@ -1,0 +1,82 @@
+{{template "Public/header.html" .}}
+<script language="javascript" src="/public/js/Content/focus.js"></script>
+
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='/Focus/'><em>{{msg . "focus_list"}}</em></a><span>|</span><a
+				href='javascript:;' class="on"><em>{{msg . "focus_add"}}</em></a>
+		</div>
+	</div>
+	<div class="pad_10">
+		<div class="common-form">
+			<form name="myform" enctype="multipart/form-data" onsubmit="return form_submit()"
+				action="/Focus/add/" method="post" id="myform">
+				<table width="100%" class="table_form contentWrap">
+					<tr>
+						<td><strong>{{msg . "focus_cate"}}：</strong></td>
+						<td>
+							<select id="cid" name="cid">
+								<option value="">{{msg . "focus_select"}}</option>
+								{{range .Cate_list}}
+									<option value="{{.Id}}">{{.Name}}</option>
+								{{end}}
+							</select>
+							<div id="cidTip" class=""></div>
+						</td>
+					</tr>
+					<tr>
+						<td width="80"><strong>{{msg . "focus_title"}}：</strong></td>
+						<td>
+							<input type="text" name="title" id="title" size="60px"
+							class="input-text"></input>
+							<div id="titleTip" class=""></div>
+						</td>
+					</tr>
+					<tr>
+						<td><strong>{{msg . "focus_url"}}：</strong></td>
+						<td>
+							<input type="text" name="url" id="url" size="60px"
+							class="input-text"></input>
+							<div id="urlTip" class=""></div>
+						</td>
+					</tr>
+					<tr>
+						<td><strong>{{msg . "focus_img"}}：</strong></td>
+						<td>
+							<input type="file" name="img" id="img" size="60px"
+							class="input-text"></input>
+							<div id="imgTip" class=""></div>
+						</td>
+					</tr>
+					<tr>
+						<td><strong>{{msg . "focus_order"}}：</strong></td>
+						<td><input type="text" name="order" id="order"
+							onafterpaste="this.value=this.value.replace(/\D/g,'')"
+							onkeyup="this.value=this.value.replace(/\D/g,'')" value=""
+							size="8" class="input-text" id="email" size="30"></input></td>
+					</tr>
+
+					<tr>
+						<td><strong>{{msg . "focus_content"}}：</strong></td>
+						<td>
+							<textarea style="width: 50%; height: 70px;" id="content"
+								name="content"></textarea>
+							<div id="contentTip" class=""></div>
+						</td>
+					</tr>
+					<tr>
+						<td><strong>{{msg . "focus_status"}}：</strong></td>
+						<td><input type="radio" value="1" name="status">&nbsp;{{msg . "focus_checked"}}&nbsp;&nbsp;&nbsp;
+							<input type="radio" checked="checked" value="0" name="status">&nbsp;{{msg . "focus_nocheck"}}&nbsp;&nbsp;&nbsp;</td>
+					</tr>
+				</table>
+				<div class="bk15"></div>
+				<input type="hidden" name="csrf_token" value="{{ .csrf_token }}" />
+				<input name="dosubmit" type="submit" value="{{msg . "submit"}}" class="button">
+			</form>
+		</div>
+	</div>
+</body>
+
+{{template "Public/footer.html" .}}

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>{{msg . "login_title"}}</title>
+    <link href="/public/img/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="/public/css/login.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/public/css/blue_color.css" media="all">
+    <script type="text/javascript" src="/public/js/lib/jquery-1.10.2.min.js"></script>
+    </head>
+    <body id="login-page">
+        <div id="main-content">
+            <!-- 主体 -->
+            <div class="login-body">
+                <div class="login-main pr">
+                    <form action="{{url "User.Login"}}" method="post" class="login-form">
+                        <input type="hidden" name="csrf_token" value="{{ .csrf_token }}" />
+                        <input type="hidden" name="captchaId" id="captchaId" value="{{.CaptchaId}}">
+                        <h3 class="welcome"><i class="login-logo"></i>{{msg . "login_welcome"}}</h3>
+                        <div id="itemBox" class="item-box">
+                            <div class="item">
+                                <i class="icon-login-user"></i>
+                                <input type="text" name="username" placeholder="{{msg . "login_user_name"}}" autocomplete="off" />
+                            </div>
+                            <span class="placeholder_copy placeholder_un">
+                                {{msg . "login_user_name"}}
+                            </span>
+                            <div class="item b0">
+                                <i class="icon-login-pwd"></i>
+                                <input type="password" name="password" placeholder="{{msg . "login_password"}}" autocomplete="off" />
+                            </div>
+                            <span class="placeholder_copy placeholder_pwd">
+                                {{msg . "login_password"}}
+                            </span>
+                            <div class="item verifycode">
+                                <i class="icon-login-verifycode"></i>
+                                <input type="text" name="verify" placeholder="{{msg . "login_verification_code"}}" autocomplete="off">
+                                <a class="reloadverify" title="{{msg . "login_change"}}" href="javascript:void(0)">{{msg . "login_change"}}？</a>
+                            </div>
+                            <span class="placeholder_copy placeholder_check">{{msg . "login_verification_code"}}</span>
+                            <div>
+                                <img class="verifyimg reloadverify" alt="点击切换" src="/Captcha/{{.CaptchaId}}/">
+                            </div>
+                        </div>
+                        <div class="login_btn_panel">
+                            <button class="login-btn" type="submit">
+                                <span class="in"><i class="icon-loading"></i>
+                                    {{msg . "login_in"}} ...
+                                </span>
+                                <span class="on">{{msg . "login"}}</span>
+                            </button>
+                            <div class="check-tips"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <script>
+    /* 登陆表单获取焦点变色 */
+    $(".login-form").on("focus", "input", function(){
+        $(this).closest('.item').addClass('focus');
+    }).on("blur","input",function(){
+        $(this).closest('.item').removeClass('focus');
+    });
+
+    function GetCaptcha() {
+        $.post("/Ajax/GetCaptcha/",{'csrf_token':'{{ .csrf_token }}'}, function(text){
+            $("#captchaId").val(text);
+
+            var verifyimg = $(".verifyimg").attr("src");
+            $(".verifyimg").attr("src", "/Captcha/"+text+"/");
+        });
+    }
+
+    //表单提交
+    $(document)
+        .ajaxStart(function(){
+            $("button:submit").addClass("log-in").attr("disabled", true);
+        })
+        .ajaxStop(function(){
+            $("button:submit").removeClass("log-in").attr("disabled", false);
+        });
+
+        $("form").submit(function(){
+            var self = $(this);
+            $.post(self.attr("action"), self.serialize(), function(data){
+                if(data.status==1){
+                    window.location.href = data.url;
+                } else {
+                    self.find(".check-tips").text(data.message);
+                    //刷新验证码
+                    GetCaptcha();
+                }
+            }, "json");
+            return false;
+        });
+
+    $(function(){
+        //初始化选中用户名输入框
+        $("#itemBox").find("input[name=username]").focus();
+
+        //刷新验证码
+        $(".reloadverify").click(function(){
+            //window.location.reload();
+            GetCaptcha();
+        });
+
+        //placeholder兼容性
+        //如果支持 
+        function isPlaceholer(){
+            var input = document.createElement('input');
+            return "placeholder" in input;
+        }
+
+        //如果不支持
+        if(!isPlaceholer()){
+            $(".placeholder_copy").css({
+                display:'block'
+            })
+            $("#itemBox input").keydown(function(){
+                $(this).parents(".item").next(".placeholder_copy").css({
+                    display:'none'
+                })                    
+            })
+            $("#itemBox input").blur(function(){
+                if($(this).val()==""){
+                    $(this).parents(".item").next(".placeholder_copy").css({
+                        display:'block'
+                    })                      
+                }
+            })
+        }
+    });
+    </script>
+    </body>
+</html>

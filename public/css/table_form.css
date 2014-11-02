@@ -1,0 +1,81 @@
+body fieldset{border:1px solid #D8D8D8; padding:10px;}
+body fieldset legend{padding:3px 8px;font-weight:700;border:1px solid #D8D8D8;background-color: #F9F9F9;}
+body fieldset.blue{border:1px solid #dce3ed}
+body fieldset.blue legend{padding:3px 8px;font-weight:700;color:#347add; background:none; border:none}
+.picBut {background:url("/public/img/admin_img/picBnt.png") no-repeat 0 -28px;color:#FFF;float:left; text-align:center;font-weight:700;height:28px;line-height:26px;*line-height:30px;margin-right:10px;width:75px}
+.picBut a{color:#fff;text-decoration: none; width:75px; height:28px;display:inline-block;zoom:1;*display:inline;}
+
+.table-list td,.table-list th{padding-left:12px}
+.table-list thead th{ height:30px; background:#eef3f7; border-bottom:1px solid #d5dfe8; font-weight:normal}
+.table-list tbody td,.table-list .btn{border-bottom: #eee 1px solid; padding-top:5px; padding-bottom:5px}
+div.btn{background:#f6f6f6; padding:6px 12px 0 12px; height:30px;line-height:30px}
+.table-list tr:hover,.table-list table tbody tr:hover{ background:#fbffe4}
+.nHover tr:hover,.nHover tr:hover td{ background:none}
+.table-list .input-text-c{ padding:0; height:18px}
+.input-text-c{border:1px solid #A7A6AA;height:18px;padding:2px 0 0; text-align:center}
+.td-line{border:1px solid #eee}
+.td-line td,.td-line th{border:1px solid #eee}
+.button{background:#ddd;height:24px; border-top:0;border-left:0; border-bottom:1px solid #666; border-right:1px solid #666; padding:3px 6px; margin-right:5px}
+.table-list tr.on,.table-list tr.on td,.table-list tr.on th,.table-list td.on,.table-list th.on{background:#fdf9e5;}
+a.close-own{background: url(/public/img/cross.png) no-repeat left 3px; display:block; width:16px; height:16px;position: absolute;outline:none;right:7px; top:8px; text-indent:200px; overflow: hidden}
+a.close-own:hover{background-position: left -46px}
+/*通用表单*/
+.common-form{}
+.common-form div.contentWrap{padding-right:20px}
+.common-form ul li{color:#444; clear:both; vertical-align:middle}
+.common-form ul li span.text{width:60px}
+.common-form .set{border:1px dashed #e0e7ed;zoom:1; background:#f2f7fb; padding:10px; font-size:12px; margin-bottom:10px}
+.common-form .set table td,.common-form .set table th{padding-left:12px}
+.common-form .set table th{font-weight:normal; text-align:left;padding:0 8px}
+.common-form .set table td{ padding:3px 0 3px 5px}
+.common-form .set table td.y-bg{background: url(/public/img/admin_img/set_y_line.png) repeat-y right top}
+.common-form .set table td input{ background-image:none; height:18px; font-size:12px}
+.input-text,.measure-input,textarea,input.date,input.endDate,.input-focus{border:1px solid #A7A6AA;height:18px;margin:0 5px 0 0;padding:2px 0 2px 5px;border: 1px solid #d0d0d0;background: #FFF url(/public/img/admin_img/input.png) repeat-x; font-family: Verdana, Geneva, sans-serif,"宋体";font-size:12px;}
+.input-focus{background: #FFF url(/public/img/admin_img/input_focus.png) repeat-x; border-color:#afcee6;font-size:12px;}
+input.date,input.endDate{background: #fff url(/public/img/admin_img/input_date.png) no-repeat right 3px; padding-right:18px;font-size:12px;}
+textarea,textarea.input-text,textarea.input-focus{font-size:12px;height:auto; padding:5px; margin:0;}
+select{ vertical-align:middle;background:none repeat scroll 0 0 #F9F9F9;border-color:#666666 #CCCCCC #CCCCCC #666666;border-style:solid;border-width:1px;color:#333;padding:2px;}
+.search-form{ margin-bottom:10px}
+/*表格表单*/
+.table_form{font-size:12px}
+.table_form td{padding-left:12px}
+.table_form th{font-weight:normal; text-align:right;padding-right:10px; color:#777}
+.table_form td label{ vertical-align:middle}
+.table_form td,.table_form th{padding:4px 0 4px 8px}
+.table_form tbody td,.table_form tbody th{border-bottom:1px solid #eee; }
+.colorpanel tbody td,.colorpanel tbody th{ padding:0;border-bottom: none;}
+/*select美化*/
+.js ul.newList {left:-9999px;}
+ul.newList * {margin:0; padding:0;}
+ul.newList {margin:0; padding:0; list-style:none; color:#000; background:#fff; position:absolute;  border:1px solid #ccc; top:22px; left:0; overflow:auto; z-index:9999;}
+.newListSelected {color:#000; height:22px; padding:4px 0 0 6px; float:left; background:url(/public/img/select-bg.png) no-repeat right 0; border-left:1px solid #dfdfdf}
+.newListSelected span {display:block;}
+ul.newList li a {padding:3px 8px;display:block;text-decoration: none;}
+.selectedTxt {overflow:hidden; height:16px; padding:0 23px 0 0;}
+.measure-input {background:url("/public/img/ruler.gif") repeat-x scroll 0 9px transparent}
+.hiLite {background:#e0ebf4!important; color:#444!important;}
+.newListHover {background:#f2f7fb!important; color:#000!important; cursor:default;}
+.newListSelHover, .newListSelFocus {background-position:right -26px; cursor:default;}
+.newListOptionTitle {font-weight:bold;}
+.newListOptionTitle ul {margin:3px 0 0;}
+.newListOptionTitle li {font-weight:normal; border-left:1px solid #ccc;}
+
+/*表单验证*/
+.onShow,.onFocus,.onError,.onCorrect,.onLoad,.onTime{display:inline-block;display:-moz-inline-stack;zoom:1;*display:inline; vertical-align:middle;background:url(/public/img/msg_bg.png) no-repeat;	color:#444;line-height:18px;padding:2px 10px 2px 23px; margin-left:10px;_margin-left:5px}
+.onShow{background-position:3px -147px;border-color:#40B3FF;color:#959595}
+.onFocus{background-position:3px -147px;border-color:#40B3FF;}
+.onError{background-position:3px -47px;border-color:#40B3FF; color:red}
+.onCorrect{background-position:3px -247px;border-color:#40B3FF;}
+.onLamp{background-position:3px -200px}
+.onTime{background-position:3px -1356px}
+
+/*联动菜单*/
+.linkage-menu{height:200px; overflow-y:auto; padding:0 4px}
+.linkage-menu h6{ border-bottom:1px solid #e2ecee; padding:2px 0 3px; margin-bottom:5px}
+.linkage-menu h6 a.rt{ font-weight:normal; font-family:'宋体';color:#377abe}
+.linkage-menu div.menu a{width:74px; line-height:22px;text-decoration: none; padding-left:4px; overflow:hidden; height:22px}
+.linkage-menu div.menu a:hover{ background:#d9e4ed; color:#377abe}
+div#areaid{border:1px solid #A7A6AA;height:18px;margin:0 5px 0 0;padding:2px 5px 2px;border: 1px solid #d0d0d0;background: #FFF url(/public/img/admin_img/input.png) repeat-x; position:relative; top:-2px;*top:2px;}
+
+.picList li{ padding:0 0 8px}
+.display {display:none}

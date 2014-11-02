@@ -1,0 +1,113 @@
+{{template "Public/header.html" .}}
+<link href="/public/css/kindeditor/themes/default/default.css" type="text/css" />
+<link href="/public/css/kindeditor/plugins/code/prettify.css" type="text/css" />
+<script language="javascript" src="/public/js/lib/jquery.cookie.js"></script>
+<script language="javascript" src="/public/js/lib/colorpicker.js"></script>
+<script language="javascript" src="/public/js/kindeditor/kindeditor.js"></script>
+<script language="javascript" src="/public/js/kindeditor/lang/zh_CN.js"></script>
+<script language="javascript" src="/public/js/kindeditor/plugins/code/prettify.js"></script>
+<script type="text/javascript" src="/public/js/Content/content.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	KindEditor.ready(function(K) {
+		var editor = K.create('textarea[name="content"]', {
+			uploadJson : '/Kindeditor/upload/',
+			fileManagerJson : '/Kindeditor/manager/',
+			allowFileManager : true,
+			afterCreate : function() {
+				var self = this;
+				K.ctrl(document, 13, function() {
+					self.sync();
+					K('form[name=myform]')[0].submit();
+				});
+				K.ctrl(self.edit.doc, 13, function() {
+					self.sync();
+					K('form[name=myform]')[0].submit();
+				});
+			}
+		});
+		prettyPrint();
+	});
+})
+</script>
+
+<body>
+	<div class="pad-lr-10">
+		<div class="pad-10">
+			<div class="content-menu ib-a blue line-x">
+				<a class="on" href="javascript:;"><em>{{msg . "page_manage"}}</em></a>
+			</div>
+		</div>
+	</div>
+	{{$category_info := .category_info}}
+	{{$article_info := .article_info}}
+	<form enctype="multipart/form-data" method="post" action="/Content/addContent/" 
+		onsubmit="return form_addcontent_submit()" name="myform">
+		<input type="hidden" name="csrf_token" value="{{ .csrf_token }}" />
+		<div class="pad_10">
+			<div class="scrolltable" style="overflow-y:auto;overflow-x:hidden">
+				<table width="100%" cellspacing="0" class="table_form contentWrap">
+					<tbody>
+						<tr>
+							<th width="80"><font color="red">*</font> {{msg . "category"}}</th>
+							<td>
+								<input type="hidden" name="cid" value="{{.cid}}"> 
+								<h6>{{$category_info.Name}}</h6>
+							</td>
+						</tr>
+						<tr>
+							<th width="80"><font color="red">*</font> {{msg . "title"}}</th>
+							<td>
+			<input type="text" style="width: 400px;color:{{.Color}};font-weight:{{.Font}};" name="title"
+				id="title" value="{{$article_info.Title}}" style="color:" 
+				class="measure-input "
+				onBlur="$.post('/Content/keywords/', {title:$('#title').val(),csrf_token: {{ .csrf_token }}}, function(data){if(data && $('#keywords').val()=='') $('#keywords').val(data); })"
+				onkeyup="strlen_verify(this, 'title_len', 80);" /> 
+
+			<input type="hidden" name="style_color" id="style_color" value="{{$article_info.Color}}">
+			<input type="hidden" name="style_font_weight" id="style_font_weight" value="{{$article_info.Font}}">
+			<img src="/public/img/icon/colour.png" title="设置标题颜色" width="15"
+				height="16" onclick="colorpicker('title_colorpanel','set_title_color');" style="cursor: hand" /> 
+			<img src="/public/img/icon/bold.png" width="10" height="10" onclick="input_font_bold()"
+				style="cursor: hand" title="标题是否加粗" />
+			<span id="title_colorpanel" style="position: absolute;"
+				class="colorpanel"></span>{{msg . "can_enter"}}
+				<B> <span id="title_len">80</span> </B>{{msg . "characters"}}
+				<div id="titleTip" class=""></div>
+							</td>
+						</tr>
+						<tr>
+							<th width="80">{{msg . "keywords"}}</th>
+							<td>
+								<input type='text' name='keywords' id='keywords'
+									value='{{$article_info.Keywords}}' style='width: 280px' class='input-text'>
+									{{msg . "explode_keywords"}}
+							</td>
+						</tr>
+						<tr>
+							<th width="80"><font color="red">*</font> {{msg . "content"}}</th>
+							<td>
+								
+								<textarea name="content" id="content"
+									style="width: 670px; height: 270px; visibility: hidden;"
+									id="content">{{$article_info.Content}}</textarea>
+								<div id='content_tip'></div> 
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="bk10"></div>
+		</div>
+		<div class="fixed-bottom">
+			<div class="fixed-but text-c">
+				<div class="button">
+					<input value="{{msg . "save"}}" type="submit" name="dosubmit" class="cu"
+						style="width: 145px;">
+				</div>
+			</div>
+		</div>
+	</from>
+</body>
+
+{{template "Public/footer.html" .}}

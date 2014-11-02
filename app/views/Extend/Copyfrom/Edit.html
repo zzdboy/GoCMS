@@ -1,0 +1,48 @@
+{{template "Public/header.html" .}}
+<script language="javascript" src="/public/js/Extend/copyfrom.js"></script>
+
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='/Copyfrom/'><em>{{msg . "copyfrom_manage"}}</em></a><span>|</span>
+			<a href='javascript:;' class="on"><em>{{msg . "edit_copyfrom"}}</em></a>
+		</div>
+	</div>
+	<div class="pad_10">
+		{{if .copyfrom_info}}
+			{{$copyfrom_info := .copyfrom_info}}
+			<form name="myform" enctype="multipart/form-data" method="post" 
+				onsubmit="return form_submit()" action="/Copyfrom/edit/">
+				<table width="100%" cellspacing="1" cellpadding="2" class="table_form">
+					<tbody>
+						<tr> 
+					      <th width="120">{{msg . "copyfrom_name"}} :</th>
+					      <td>
+					      	<input type="text" size="25" id="sitename" name="sitename" 
+					      		value="{{$copyfrom_info.Sitename}}" class="input-text">
+					      </td>
+					    </tr>
+						<tr> 
+					      <th>{{msg . "copyfrom_url"}} :</th>
+					      <td>
+					      	<input type="text" size="25" id="siteurl" name="siteurl"
+					      	 value="{{$copyfrom_info.Siteurl}}" class="input-text">
+					      </td>
+					    </tr> 
+						<tr> 
+					      <th>{{msg . "copyfrom_logo"}} :</th>
+					      <td>
+					      	<input type="file" id="thumb" name="thumb">
+					      </td>
+					    </tr> 
+					</tbody>
+				</table>
+				<div class="bk15"></div>
+				<input name="id" type="hidden" value="{{$copyfrom_info.Id}}">
+				<input type="hidden" name="csrf_token" value="{{ .csrf_token }}" />
+				<input name="dosubmit" type="submit" value="提交" class="button"> 
+	 		</form>
+ 		{{end}}
+	</div>
+</body>	
+{{template "Public/footer.html" .}}

@@ -1,0 +1,121 @@
+{{template "Public/header.html" .}}
+
+<style type="text/css">
+.line_ff9966,.line_ff9966:hover td {
+	background-color: #FF9966;
+}
+
+.line_fbffe4,.line_fbffe4:hover td {
+	background-color: #fbffe4;
+}
+</style>
+<SCRIPT>
+	//搜索
+	function Search() {
+		url = '/Content/relationlist/{{.cid}}/';
+
+		search = "";
+
+		search += 'field:' + $('#field').val() + '|';
+		search += 'cid:' + $('#cid').val() + '|';
+		search += 'keyword:' + $('#keyword').val() + '';
+
+		$.base64.encode(search)
+
+		url += $.base64.encode(search)+'/1/';
+
+		redirect(url);
+	};
+
+	function select_list(obj, title, id) {
+var relation_ids = $(window.parent.document.body).find("#rightMain").contents().find("#relation").val();
+		var sid = 'v1' + id;
+		if ($(obj).attr('class') == 'line_ff9966' || $(obj).attr('class') == null) {
+			$(obj).attr('class', 'line_fbffe4');
+$(window.parent.document.body).find("#rightMain").contents().find('#' + sid).remove();
+			if (relation_ids != '') {
+				var r_arr = relation_ids.split(',');
+				var newrelation_ids = '';
+				$.each(r_arr, function(i, n) {
+					if (n != id) {
+						if (i == 0) {
+							newrelation_ids = n;
+						} else {
+							newrelation_ids = newrelation_ids + ',' + n;
+						}
+					}
+				});
+	$(window.parent.document.body).find("#rightMain").contents().find('#relation').val(newrelation_ids);
+			}
+		} else {
+			$(obj).attr('class', 'line_ff9966');
+			var str = "<li id='"+sid+"'>·<span>"
+					+ title
+					+ "</span><a href='javascript:;' class='close' onclick=\"remove_relation('"
+					+ sid + "'," + id + ")\"></a></li>";
+			
+	$(window.parent.document.body).find("#rightMain").contents().find("#relation_text").append(str);
+
+			if (relation_ids == '') {
+	$(window.parent.document.body).find("#rightMain").contents().find("#relation").val(id);
+			} else {
+				relation_ids = relation_ids + ',' + id;
+	$(window.parent.document.body).find("#rightMain").contents().find("#relation").val(relation_ids);
+			}
+		}
+	}
+</SCRIPT>
+<body>
+	<div class="pad-10">
+		<form name="searchform" action="" method="get">
+			<table width="100%" cellspacing="0" class="search-form">
+				<tbody>
+					<tr>
+						<td>
+							<div class="explain-col">
+					<select id="field" name="field">
+					<option {{if .where.field}}{{if eq .where.field "title"}}selected=""{{end}}{{end}} value='title'>标题</option>
+					<option {{if .where.field}}{{if eq .where.field "keywords"}}selected=""{{end}}{{end}} value='keywords'>关键词</option>
+					<option {{if .where.field}}{{if eq .where.field "description"}}selected=""{{end}}{{end}} value='description'>描述</option>
+					<option {{if .where.field}}{{if eq .where.field "id"}}selected=""{{end}}{{end}} value='id'>ID</option>
+					</select> 
+								<select id="cid" name="cid">
+									<option value='0'>不限栏目</option>
+									{{.category_info}}
+								</select> 
+								<input name="keyword" id="keyword" type="text" value=""
+									style="width: 330px;" class="input-text" /> 
+								<input
+									type="button" name="dosubmit" onclick="Search()" class="button" value="搜索" />
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		<div class="table-list">
+			<table width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>标题</th>
+						<th width="20%">所属栏目</th>
+						<th width="20%">添加时间</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{range .article_list}}
+					<tr title="点击选择" class="cu" onclick="select_list(this,'{{.Title}}',{{.Id}})">
+						<td align="left">{{.Title}}</td>
+						<td align="center">{{.Category.Name}}</td>
+						<td align="center">{{.Createtime}}</td>
+					</tr>
+					{{end}}
+				</tbody>
+			</table>
+			<div id="pages">
+				{{.pages}}
+			</div>
+		</div>
+	</div>
+</body>
+{{template "Public/footer.html" .}}

@@ -1,0 +1,533 @@
+/*******************************************
+ * 自定义配色css文件放在defaut_color的同级目录,然后在 "系统/配置管理" 中为"COLOR_STYLE"增加一行配置项
+ *********************************************/
+
+/********************************************
+ * base.css
+ * 描述：重置页面元素并设置布局样式
+ * 作用范围： 全局
+ *******************************************/
+
+html,body,input,textarea,select,legend {
+	color: #635c73;
+	/*全局默认文字颜色*/
+}
+a {
+	color: #7b66ab;
+	/*全局默认链接颜色*/
+}
+a:hover{
+	color: #a47fe5;
+	/*全局默认链接悬停颜色*/
+}
+
+/*************************************************
+ * common.css 
+ * 描述：定义公共类名
+ * 作用范围: 公共，独立样式
+ *************************************************/
+
+/* 文章搜索/用户搜素 下拉弹出按钮 实心小箭头 */
+.arrow-down {
+	border-top-color: #3a2d44;
+}
+.arrow-up {
+	border-bottom-color: #3a2d44;
+}
+.arrow-left {
+	border-right-color: #3a2d44;
+}
+.arrow-right {
+	border-left-color: #3a2d44;
+}
+
+/********************************************** 
+ * module.css 
+ * 描述：定义常用组件样式
+ * 作用范围: 公共，组件模块
+ ***********************************************/
+
+/* 文章新增编辑页,权限授权页,分类编辑页 tab标签 */
+.tab-nav {
+	border-bottom-color: #e0e0e0;
+}
+.tab-nav .current a,
+.tab-nav .current a:hover {
+	border-color: #7b66ab #e0e0e0 #f6f6f6;
+}
+
+
+/* (暂未使用) 面包屑导航 */
+.breadcrumb {
+	color: #999;
+}
+.tags-crumb li {
+	background-color: #e0e0e0;
+}
+.tags-crumb .current {
+	background-color: #f60;
+}
+.tags-crumb .current a {
+	color: #fff;
+}
+.tags-crumb li i {
+	border-left-color: #fff
+}
+.tags-crumb li b {
+	border-left-color: #e0e0e0
+}
+.tags-crumb .current b {
+	border-left-color: #f60;
+}	
+
+/* 列表分页 */
+.page {
+    margin: 10px 0;
+    *zoom: 1;
+}
+.page a,
+.page span {
+    color: #fff;
+    /*background-color: #696969;*/
+}
+
+/* uploadify插件上传按钮 */
+.uploadify-button {
+	color: #fff;
+	background-color: #7963df;
+}
+
+/* 分类管理/分类授权 树形菜单（目前只支持3级）
+------------------------------------------ */
+.category .hd {
+	border-bottom-color: #d4d4d4;
+	color:#fff;
+	background-color: #4a4851;
+}
+.category .cate-item dt {
+	border-bottom-color: #E7E7E7;
+}
+.category .fold .icon-fold {
+	background-image: url(../img/blue_color/bg_icon.png) -100px 25px;
+}
+.category .fold .icon-unfold {
+	background-image: url(../img/blue_color/bg_icon.png) -125px 25px;
+}
+.category .tab-sign {
+	background-image: url(../img/tab_sign.png);
+}
+.category .name .error {
+	color: #B94A48;
+}
+.category .name .success {
+	color: #468847;
+}
+
+.icon-add {
+	background: url(../img/blue_color/bg_icon.png) no-repeat 0 0;
+}
+
+.close {
+    color: #000000;
+    text-shadow: 0 1px 0 #ffffff;
+    opacity: 0.2;
+    filter: alpha(opacity=20);
+}
+
+/******************************************** 
+ * form.css 
+ * 描述：定义表单样式
+ * 作用范围: 公共，表单模块，表单布局
+ *********************************************/
+
+/* 表单组件
+------------------------------------------ */
+.text,.textarea {
+	border-color: #eeeeee;
+	background-color: #fff;
+}
+select {
+	border-color: #ccc;
+}
+.must {
+	color: #f00; /* 表单必填项标识字符*/
+}
+
+/* 多行两列表单
+------------------------------------------ */
+.form-horizontal .item-label .check-tips {
+	color: #aaa; /* 表单label后面的提示文字 */
+}
+.form-horizontal .controls .check-tips {
+	color: #999; /*表单ajax操作完成后返回的提示文字*/
+}
+
+/* 搜索表单
+------------------------------------------ */
+.search-form .sleft {/* 高级搜索左边的搜索框 */
+	border-color: #ebebeb;
+	background-color: #fff;
+}
+
+/* 状态搜索下拉选项 */
+.search-form .drop-down ul {
+	background-color: #fff;
+	border-color: #ebebeb;
+}
+.search-form .drop-down ul li {
+	border-top-color: #ebebeb;
+}
+.search-form .drop-down ul a {
+	color: #404040;
+}
+.search-form .drop-down ul a:hover {
+	background-color: #f0f0f0;
+}
+.search-form .sch-btn:hover {
+	/* 搜索提交按钮 */
+	color: #fff;
+}
+.btn-search {
+	/* 搜索提交按钮图片 */
+	background: url(../img/blue_color/bg_icon.png) no-repeat -50px 0;
+}
+
+.focus{
+	border-color: #dad6eb;
+	box-shadow: 0 0 12px #e5e2fc;
+}
+/*********************************************
+ * table.css 
+ * 描述：定义数据表格样式
+ * 作用范围: 公共，表格模块
+ **********************************************/
+
+/* 内容区 行默认颜色*/
+.data-table tbody tr {
+	background-color: #ffffff;
+	color: #686868;
+}
+.data-table thead th,
+.data-table tbody td {
+	/*非隔行变色时 用于行区分的单元格底线颜色 */
+    border-bottom-color:  #f4f4f4;
+}
+/* 表头配色 */
+.data-table thead th {
+	color:#fff;
+    background-color: #4a4851;
+}
+/* 隔行变色 行默认颜色 */
+.table-striped tbody tr {
+	background-color: #fefefe;
+	color: #686868;
+}
+/* 隔行变色 偶数行配色 */
+.table-striped tbody tr:nth-child(even) {
+	background-color: rgba(243, 242, 255, 0.20);
+
+}
+
+
+/************************************* 
+ * button.css 
+ * 描述：定义按钮样式
+ * 作用范围: 公共，按钮组，单独按钮
+ *************************************/
+
+/* 普通按钮 */
+.btn {
+    color: #ffffff;
+	background-color: #7963df;
+}
+.btn:hover {
+    color: #ffffff;
+    background-color: #997eff;
+}
+
+/* 表单提交按钮(确定,保存,提交) */
+.submit-btn {
+	color: #fff;
+    background-color: #7d61dd;
+	/*background-color: #df7003;*/
+}
+.submit-btn:hover {
+    color: #fff;
+    background-color: #a285ff;
+	/*background-color: #f48a05;*/
+}
+.save-btn {
+	background-color: #3737BC;
+}
+.save-btn:hover {
+	opacity: .9
+}
+
+/* 表单返回按钮 */
+.btn-return {
+	color: #fff;
+	background-color: #8893ae;
+}
+.btn-return:hover {
+	background-color: #8080FF;
+}
+
+/*高级搜索箭头*/
+.btn-arrowdown {
+    background: url(../img/blue_color/bg_icon.png) no-repeat 0 -25;
+}
+.btn-arrowup {
+    background: url(../img/blue_color/bg_icon.png) no-repeat -25 -25;
+}
+
+/* 下拉弹出按钮 */
+.btn-group .dropdown,
+.btn-group-click .dropdown {
+	border-color: #ccc;
+	background-color: #fff;
+}
+.btn-group .dropdown a:hover,
+.btn-group-click .dropdown a:hover {
+    background-color: #eee;
+}
+
+/* 被禁用的按钮 */
+.btn.disabled {
+	background-color: #bbbbbb;
+	cursor: not-allowed;
+	color: #848484;
+	text-shadow: 0 1px 0 #f5f5f5;
+}
+
+
+/************************************* 
+ * style.css
+ *************************************/
+
+/* 头部Logo,主导航*/
+.header {
+    background-color: #353535;
+}
+.header .logo {
+    background: url(../img/blue_color/bg_icon.png) no-repeat 0 -45px;
+}
+/* 主导航 */
+.main-nav a {
+    color: #FFF;
+}
+.main-nav a:hover {
+    background-color: #5b5d74;
+}
+.main-nav .current{
+    background-color: #656565;
+}
+.main-nav .current a {
+    background-color: #7963df;
+}
+
+/* 顶部右侧 用户bar */
+.header .user-bar .user-entrance {
+    background: url(../img/blue_color/bg_icon.png) no-repeat -150px 0;
+}
+.header .user-menu {
+    border-color: #ddd;
+    background-color: #fff;
+}
+.header .user-menu li {
+    border-bottom-color: #ddd;
+}
+.header .user-menu a:hover {
+    color: #424242;
+    background-color: #f5f5f5;
+}
+
+/* 边栏导航样式
+------------------------------------------ */
+.sidebar {
+	/* 左侧栏背景 */
+	background: url(../img/bg.png) repeat #4a4851;
+}
+/* 子导航Group标题栏 */
+.subnav h3 {
+    color: #fff;
+}
+.subnav h3 a {
+	color: #fff;
+}
+
+/* 侧边图标 */
+.subnav h3 .icon {
+	/* 展开后图标 */
+    background: url(../img/blue_color/bg_icon.png) no-repeat -100px 0px;
+}
+.subnav h3 .icon-fold {
+	/* 收起后图标 */
+    background: url(../img/blue_color/bg_icon.png) no-repeat -75px 0px;
+}
+.recycle {
+	/* 回收站图标 */
+    background: url(../img/blue_color/bg_icon.png) no-repeat -125px 0px;
+}
+
+/* 左侧二级菜单 */
+.side-sub-menu > li > .item {
+    color: #f1f1f1;
+}
+.side-sub-menu > li > .item:hover{
+	color: #ffffff;
+	background: #7c7c7c;
+}
+.side-sub-menu > li > .item:hover{
+	color: #ffffff;
+	background: #7c7c7c;
+}
+.side-sub-menu > .current > .item,
+.side-sub-menu > .hover > .item {
+    color: #414141;
+}
+.side-sub-menu > .current > .item,
+.side-sub-menu > .current > .item:hover {
+	/* 高亮导航 */
+	color: #414141;
+    background: url(../img/subnav_current.png) no-repeat 165px 12px #f6f6f6;
+}
+
+/* windows开始菜单式子菜单 */
+.side-sub-menu li .subitem {
+    border-color: #ccc;
+    background-color: #fff;
+}
+.side-sub-menu .subitem .item:hover {
+    background: url(../img/subnav_current.png) no-repeat 130px 12px #f5f5f5;
+}
+
+/* 后台主内容区域
+------------------------------------------------- */
+.main {
+	background-color: #f6f6f6;
+}
+.main-title h2 {
+    color: #6e6b73;
+}
+.main-title .ca {
+	/* 内容列表 面包屑 */
+    background: url(../img/subnav_current.png) no-repeat center center;
+}
+
+/* 访问授权页面 大类区块 */
+.checkmod {
+    border-color: #ebebeb;
+}
+.checkmod dt {
+    border-bottom-color: #ebebeb;
+    background-color: #ECECEC;
+}
+
+/* 列表分页 */
+.page a,
+.page span {
+    color: #000;
+    border: 1px solid #ccc;
+    /*background-color: #7963df;*/
+}
+.page a:hover {
+    background-color: #E1E1E1;
+}
+.page .current {
+	border-top: 3px solid #7963DF;
+	height: 28px;
+	line-height: 26px;
+}
+
+/* 版权信息 */
+.cont-ft {
+    background-color: #f6f6f6;
+}
+.copyright {
+    border-top-color: #ccc;
+}
+
+
+/*************************************
+ *  登陆页面css
+ ***********************************/
+
+/* body 配色*/
+#login-page {
+    color: #000;
+    background-color: #30333F;
+}
+
+
+#login-page .login-form {
+    background-color: #fff;
+    box-shadow: 0 0 26px #041A36;
+    border-top-color: #8357c4;
+}
+#login-page .login-form h3 {
+    color: #8D9CAA;
+}
+#login-page .login-form .check-tips {
+    color: #ff0000;
+}
+#login-page .login-form .item {
+    border-color:  #ececec;
+}
+#login-page .login-form .focus {
+    border-color: #c2a0f3;
+    box-shadow: 0 0 12px #f0d4ff;
+}
+#login-page .login-form .icon-login-user,
+#login-page .login-form .icon-login-pwd,
+#login-page login-form .icon-login-verifycode {
+    background: url("../img/icon24_login.png") no-repeat;
+}
+#login-page .login-form .icon-login-user {
+    background-position: 0 0;
+}
+#login-page .login-form .icon-login-pwd {
+    background-position: -48px 0;
+}
+#login-page .login-form .icon-login-verifycode {
+    background-position: -24px 0;
+}
+#login-page .login-form input {
+    background-color: #fff;
+    color:#686868;
+}
+#login-page .login-form .login-btn {
+    color: #FFFFFF;
+    background-color: #8357c4;
+}
+#login-page .login-form .login-btn:hover {
+    background-color: #8460ec;
+}
+#login-page .login-form .login-btn[disabled] {
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+    cursor: default;
+    box-shadow: none;
+}
+#login-page .icon-loading {
+    background: url(../img/loading_icon.gif) no-repeat 0 0;
+}
+
+
+#login-page input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+#login-page .logo-img {
+    background: url(../img/logo.png) no-repeat 0 center;
+}
+
+#login-page .welcome{
+    color:#ddd;
+}
+
+#login-page .reloadverify{
+    color: #cd9eff;
+}
+
+#login-page img.verifyimg{
+	border-color: #ececec;
+}

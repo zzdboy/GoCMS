@@ -1,0 +1,48 @@
+{{template "Public/header.html" .}}
+<script language="javascript" src="/public/js/Extend/copyfrom.js"></script>
+
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='javascript:;' class="on"><em>{{msg . "copyfrom_manage"}}</em></a><span>|</span>
+			<a href='/Copyfrom/add/'><em>{{msg . "add_copyfrom"}}</em></a>
+		</div>
+	</div>
+	<div class="pad_10">
+		<div class="table-list">
+			<table width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th width="5%">ID</th>
+						<th width="10%" align="left">{{msg . "copyfrom_name"}}</th>
+						<th width="20%" align="left">{{msg . "copyfrom_url"}}</th>
+						<th width="25%" align="left">{{msg . "copyfrom_logo"}}</th>
+						<th width="15%" align="left">{{msg . "role_createtime"}}</th>
+						<th width="15%">{{msg . "menu_operation"}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{if .copyfrom_list}}
+						{{$msg := .}}
+						{{$sitedomain := .sitedomain}}
+						{{range .copyfrom_list}}
+						<tr>
+							<td align="center">{{.Id}}</td>
+							<td>{{.Sitename}}</td>
+							<td>{{.Siteurl}}</td>
+							<td><img src="{{$sitedomain}}{{.Thumb}}"></td>
+							<td>{{.Createtime}}</td>
+							<td class="text-c">
+								<a href="/Copyfrom/edit/{{.Id}}/">{{msg $msg "edit"}}</a> | 
+								<a href="javascript:;" onclick="delete_copyfrom({{.Id}})">{{msg $msg "delete"}}</a>
+							</td>
+						</tr>
+						{{end}}
+					{{end}}
+				</tbody>
+			</table>
+			<div id="pages">{{.pages}}</div>
+		</div>
+	</div>
+</body>	
+{{template "Public/footer.html" .}}

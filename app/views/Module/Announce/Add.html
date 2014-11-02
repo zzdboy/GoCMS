@@ -1,0 +1,126 @@
+{{template "Public/header.html" .}}
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/jscal2.css"/>
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/border-radius.css"/>
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/calendar-blue.css"/>
+<link href="/public/css/calendar/win2k.css" type="text/css" />
+<link href="/public/css/kindeditor/themes/default/default.css" type="text/css" />
+<link href="/public/css/kindeditor/plugins/code/prettify.css" type="text/css" />
+<script language="javascript" src="/public/js/calendar/calendar.js"></script>
+<script language="javascript" src="/public/js/calendar/lang/en.js"></script>
+<script language="javascript" src="/public/js/lib/jquery.cookie.js"></script>
+<script language="javascript" src="/public/js/lib/colorpicker.js"></script>
+<script language="javascript" src="/public/js/kindeditor/kindeditor.js"></script>
+<script language="javascript" src="/public/js/kindeditor/kindeditor.js"></script>
+<script language="javascript" src="/public/js/kindeditor/lang/zh_CN.js"></script>
+<script language="javascript" src="/public/js/kindeditor/plugins/code/prettify.js">
+</script>
+<script language="javascript" src="/public/js/Module/announce.js"></script>
+<script>
+$(document).ready(function() {
+	//日期选择控件
+	Calendar.setup({
+		weekNumbers : true,
+		inputField : "starttime",
+		trigger : "starttime",
+		dateFormat : "%Y-%m-%d %H:%M:%S",
+		showTime : true,
+		minuteStep : 1,
+		onSelect : function() {
+			this.hide();
+		}
+	});
+
+	Calendar.setup({
+		weekNumbers : true,
+		inputField : "endtime",
+		trigger : "endtime",
+		dateFormat : "%Y-%m-%d %H:%M:%S",
+		showTime : true,
+		minuteStep : 1,
+		onSelect : function() {
+			this.hide();
+		}
+	});
+
+	KindEditor.ready(function(K) {
+		var editor1 = K.create('textarea[name="content"]', {
+			uploadJson : '/Kindeditor/AnnounceImage/',
+			fileManagerJson : '/Kindeditor/manager/',
+			allowFileManager : true,
+			afterCreate : function() {
+				var self = this;
+				K.ctrl(document, 13, function() {
+					self.sync();
+					K('form[name=myform]')[0].submit();
+				});
+				K.ctrl(self.edit.doc, 13, function() {
+					self.sync();
+					K('form[name=myform]')[0].submit();
+				});
+			}
+		});
+		prettyPrint();
+	});
+})	
+</script>
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='/Announce/'><em>{{msg . "announce_manage"}}</em></a><span>|</span>
+			<a href='javascript:;' class="on"><em>{{msg . "announce_add"}}</em></a>
+		</div>
+	</div>
+	<div class="pad_10">
+		<form method="post" action="/Announce/add/" onsubmit="return form_submit()" name="myform" id="myform">
+			<table class="table_form" width="100%" cellspacing="0">
+				<tbody>
+					<tr>
+						<th width="80"><strong>{{msg . "announce_title"}}：</strong></th>
+						<td>
+							<input name="title" id="title" class="input-text"
+							type="text" size="50">
+							<div id="titleTip" class=""></div>
+						</td>
+					</tr>
+					<tr>
+						<th><strong>{{msg . "startdate"}}：</strong></th>
+						<td>
+							<input type="text" name="starttime" id="starttime"
+							value="" size="21" class="date" readonly>
+							<div id="starttimeTip" class=""></div>
+						</td>
+					</tr>
+					<tr>
+						<th><strong>{{msg . "enddate"}}：</strong></th>
+						<td>
+							<input type="text" name="endtime" id="endtime" value=""
+							size="21" class="date" readonly>
+							<div id="endtimeTip" class=""></div>
+						</td>
+					</tr>
+					<tr>
+						<th><strong>{{msg . "announce_content"}}：</strong></th>
+						<td>
+							<textarea name="content"
+								style="width: 670px; height: 270px; visibility: hidden;"
+								id="content"></textarea>
+							<div id="contentTip" class=""></div>
+						</td>
+					</tr>
+					<tr>
+						<th><strong>{{msg . "announce_status"}}：</strong></th>
+						<td>
+							<input name="status" id="status" type="radio" value="1" checked>&nbsp;{{msg . "announce_pass"}}&nbsp;&nbsp;
+							<input name="status" id="status" type="radio" value="0">&nbsp;{{msg . "announce_queue"}}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="bk15"></div>
+			<input type="hidden" name="csrf_token" value="{{ .csrf_token }}" />
+			<input name="dosubmit" type="submit" value="{{msg . "submit"}}" class="button">
+		</form>
+	</div>
+</body>
+
+{{template "Public/footer.html" .}}

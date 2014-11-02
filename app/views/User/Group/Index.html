@@ -1,0 +1,117 @@
+{{template "Public/header.html" .}}
+<script language="javascript" src="/public/js/User/group.js"></script>
+
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a class="add fb" href="javascript:;" onclick="add()">
+				<em>{{msg . "user_group_add"}}</em>
+			</a><span>|</span>
+			<a href='javascript:;' class="on"><em>{{msg . "user_group_manage"}}</em></a>
+		</div>
+	</div>
+
+	<div class="pad-lr-10">
+		<form onsubmit="" method="post" action="" name="myform">
+			<div class="table-list">
+				<table width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th width="30px" align="left"></th>
+							<th align="left">ID</th>
+							<th>用户组名</th>
+							<th>系统组</th>
+							<th>会员数</th>
+							<th>星星数</th>
+							<th>积分小于</th>
+							<th>允许上传附件</th>
+							<th>投稿权限</th>
+							<th>投稿不需审核</th>
+							<th>搜索权限</th>
+							<th>自助升级</th>
+							<th>发短消息</th>
+							<th>状态</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{if .group_list}}
+							{{range .group_list}}
+							<tr>
+								<td align="left"></td>
+								<td align="left">{{.Id}}</td>
+								<td align="center" title="{{.Name}}">{{.Name}}</td>
+								<td align="center">
+									{{if eq .Issystem 1}}
+										<font color="red">√</font>
+									{{else}}
+										<font color="blue">×</font>
+									{{end}}
+								</td>
+								<td align="center">{{.Usernum}}</td>
+								<td align="center">{{.Star}}</td>
+								<td align="center">{{.Point}}</td>
+								<td align="center">
+									{{if eq .Allowattachment 1}}
+										<font color="red">√</font>
+									{{else}}
+										<font color="blue">×</font>
+									{{end}}
+								</td>
+								<td align="center">
+									{{if eq .Allowpost 1}}
+										<font color="red">√</font>
+									{{else}}
+										<font color="blue">×</font>
+									{{end}}
+								</td>
+								<td align="center">
+									{{if eq .Allowpostverify 1}}
+										<font color="red">√</font>
+									{{else}}
+										<font color="blue">×</font>
+									{{end}}
+								</td>
+								<td align="center">
+									{{if eq .Allowsearch 1}}
+										<font color="red">√</font>
+									{{else}}
+										<font color="blue">×</font>
+									{{end}}
+								</td>
+								<td align="center">
+									{{if eq .Allowupgrade 1}}
+										<font color="red">√</font>
+									{{else}}
+										<font color="blue">×</font>
+									{{end}}
+								</td>
+								<td align="center">
+									{{if eq .Allowsendmessage 1}}
+										<font color="red">√</font>
+									{{else}}
+										<font color="blue">×</font>
+									{{end}}
+								</td>
+								<td align="center">
+									{{if eq .Status 1}}
+										<font color="blue">启用</font>
+									{{else}}
+										<font color="red">禁用</font>
+									{{end}}
+								</td>
+								<td align="center"><a href="javascript:edit({{.Id}})">修改</a></td>
+						    </tr>
+						    {{end}}
+					    {{end}}
+					</tbody>
+				</table>
+				<div class="btn"></div>
+				<div id="pages"></div>
+			</div>
+		</form>
+	</div>
+
+</body>
+
+{{template "Public/footer.html" .}}

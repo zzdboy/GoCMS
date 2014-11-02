@@ -1,0 +1,806 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>artDialog</title>
+<script>
+// skin demo
+(function() {
+	window._skin = null;
+	var _search = window.location.search;
+	if (_search) {
+		_skin = _search.split('demoSkin=')[1];
+	};
+	
+	document.write('<lin'+'k href="../skins/' + (_skin || 'default') + '.css" rel="stylesheet" />');
+	
+})();
+</script>
+<script src="artDialog.basic.source.js"></script>
+<script src="_doc/highlight/highlight.pack.js"></script>
+<script src="_doc/highlight/languages/javascript.js"></script>
+<script>
+hljs.tabReplace = '    ';
+hljs.initHighlightingOnLoad();
+</script>
+<link rel="stylesheet" href="_doc/highlight/styles/magula.css">
+<style>
+@charset "utf-8";
+body { font-size:75%; color:#666; font-family:'Microsoft Yahei', Tahoma, Arial!important; font-family:'宋体', Tahoma, Arial; background:#FFF; }
+a { color:#214FA3; }
+a:hover { text-decoration:underline; }
+a:active { color: #C30; }
+button { white-space: nowrap; }
+#logo { padding:5px 10px 10px 10px; font-size:34px; font-family:'Constantia'; font-weight:bold; color:#0C3; text-shadow:2px 2px 0 rgba(0, 0, 0, .05); }
+#doc { height:100%; }
+#header, #main, #footer { margin:0 120px; }
+html>body #nav { position:fixed; left:0; top:120px; z-index:3;  }
+#main { min-height:640px; padding:15px; position:relative; width:50em; font-size:1.16em; background:#FFF; }
+#main .mainWrap { min-height:500px; _height:500px; }
+#main button { font-size:12px; padding:2px 8px; background-color:#F8F8F8; border:solid 1px #CCC; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius:5px; cursor:pointer; }
+#main button:hover { background: #F5F5F5; }
+h2 { color:#03C;text-shadow:2px 2px 0 rgba(0, 0, 0, .05); }
+table.zebra, .zebra th, .zebra td { border-width: 1px; border-style: solid; margin: 0; font-family:'Microsoft Yahei', Tahoma, Arial!important; font-family:'宋体', Tahoma, Arial; }
+table.zebra { table-layout: fixed; width: 100%; margin-bottom: 6px; padding: 0 1px 1px 0; border-spacing: 0; border-collapse: separate; *border-collapse:collapse;
+border-color: #abb8ce; background: #EDEDED; }
+.zebra th { padding: 5px 4px; font-weight: bold; border-color: #f8f8f8 #abb8ce #abb8ce #f8f8f8; text-align: left; text-shadow: 1px 1px 0 #e4edfb; vertical-align: middle; background: #d0dbee; }
+.zebra thead th { text-align:center; }
+.zebra th strong { color:#090; border-bottom:1px dashed #090; text-decoration:underline; }
+.zebra td { padding:0; }
+.zebra th.separate { text-align:center; border-color: #E1F196 #AECD1B #AECD1B #F3FAD6; background-color: #f3f7fd; }
+.zebra td { padding: 4px; font: 12px/18px Consolas, "Courier New", Courier, monospace; text-align: left; vertical-align: top; }
+.zebra td { border-color: #f8f8f8 #abb8ce #abb8ce #f8f8f8; background: #e0e8f5; }
+.zebra tr.odd th { background: #dbe4f4; }
+.zebra tr.odd td { background: #e6eef9; }
+.zebra br { margin-bottom:1.8em; }
+table.zebra .parameter, table.zebra .type, table.zebra .default { width:7em; }
+body,td,th { font-family: "Microsoft Yahei", Tahoma, Arial; }
+
+</style>
+</head>
+
+<body>
+<div id="doc">
+  <div id="header">
+    <h1 id="logo">artDialog&#8482; <span style="font-size:12px">basic</span></h1>
+    <p style="padding:0 15px">artDialog basic 是 <a href="http://code.google.com/p/artdialog">artDialog</a> 的基本版本，它体积非常小，可被客户端快速载入。</p>
+    <p style="padding:0 15px">basic 版本只舍弃了一些非核心的特性，接口与标准版保持一致</p>
+  <ol id="nav">
+    	<li><a href="#options">配置参数</a></li>
+        <li><a href="#api">扩展方法</a></li>
+        <li><a href="#demo-options">配置参数演示</a></li>
+        <li><a href="#demo-api">扩展方法演示</a></li>
+        <li><a href="#in">引入文件</a></li>
+    	<li><a href="#" id="nav-skin">{皮肤}</a></li>
+    </ol>
+  </div>
+  <div id="main">
+    <h2 id="options">1.配置参数</h2>
+    <table class="zebra">
+      <colgroup>
+      <col class="col1">
+      <col class="col2">
+      <col class="col3">
+      <col class="col4">
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="parameter">名称</th>
+          <th class="type">类型</th>
+          <th class="default">默认值</th>
+          <th class="note">描述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="separate" colspan="4"><abbrev>内容</abbrev></th>
+        </tr>
+        <tr class="odd">
+          <th><a href="#title">title</a></th>
+          <td>String</td>
+          <td>'消息'</td>
+          <td>标题内容</td>
+        </tr>
+        <tr>
+          <th rowspan="2"><a href="#content">content</a></th>
+          <td>String</td>
+          <td rowspan="2">'loading..'</td>
+          <td rowspan="2">消息内容。<br />
+            如果传入的是HTMLElement类型，如果是隐藏元素会给其设置display:block以显示该元素，其他属性与绑定的事件都会完整保留，对话框关闭后此元素又将恢复原来的display属性，并且重新插入原文档所在位置。</td>
+        </tr>
+        <tr>
+          <td>HTMLElement</td>
+        </tr>
+        <tr>
+          <th class="separate" colspan="4"><abbrev>按钮</abbrev></th>
+        </tr>
+        <tr>
+          <th rowspan="2"><a href="#ok">ok</a></th>
+          <td>Function</td>
+          <td rowspan="2">null</td>
+          <td rowspan="2">确定按钮回调函数。<br />
+            函数如果返回false将阻止对话框关闭；函数this指针指向内部api；如果传入true表示只显示有关闭功能的按钮</td>
+        </tr>
+        <tr>
+          <td>Boolean</td>
+        </tr>
+        <tr class="odd">
+          <th rowspan="2"><a href="#cancel">cancel</a></th>
+          <td>Function</td>
+          <td rowspan="2">null</td>
+          <td rowspan="2">取消按钮回调函数。<br />
+            函数如果返回false将阻止对话框关闭；函数this指针指向内部api；如果传入true表示只显示有关闭功能的按钮<br />
+            【注意】对话框标题栏的关闭按钮其实就是取消按钮，只不过视觉不同罢了，点击同样触发cancel事件</td>
+        </tr>
+        <tr class="odd">
+          <td>Boolean</td>
+        </tr>
+        <tr>
+          <th><a href="#okText">okVal</a></th>
+          <td>String</td>
+          <td>'确定'</td>
+          <td>"确定按钮"文字</td>
+        </tr>
+        <tr class="odd">
+          <th><a href="#cancelText">cancelVal</a></th>
+          <td>String</td>
+          <td>'取消'</td>
+          <td>"取消按钮"文字</td>
+        </tr>
+        <tr>
+          <th><a href="#button">button</a></th>
+          <td>Array</td>
+          <td>null</td>
+          <td>自定义按钮。<br />
+            配置参数成员：
+            <div>name —— 按钮名称</div>
+            <div>callback —— 按下后执行的函数</div>
+            <div>focus —— 是否聚焦点</div>
+            <div>disabled —— 是否标记按钮为不可用状态（后续可使用扩展方法让其恢复可用状态）</div>
+            <br />
+            <div>示例：</div>
+            参数如：[{name: '登录', callback: function () {}}, {name: '取消'}] 。注意点击按钮默认会触发按钮关闭动作，需要阻止触发关闭请让回调函数返回false</td>
+        </tr>
+        <tr>
+          <th class="separate" colspan="4"><abbrev>尺寸</abbrev></th>
+        </tr>
+        <tr>
+          <th rowspan="2"><a href="#width">width</a></th>
+          <td>Number</td>
+          <td rowspan="2">'auto'</td>
+          <td rowspan="2">设置消息内容宽度，可以带单位。一般不需要设置此，对话框框架会自己适应内容。<br /></td>
+        </tr>
+        <tr>
+          <td>String</td>
+        </tr>
+        <tr class="odd">
+          <th rowspan="2"><a href="#height">height</a></th>
+          <td>Number</td>
+          <td rowspan="2">'auto'</td>
+          <td rowspan="2">设置消息内容高度，可以带单位。不建议设置此，而应该让内容自己撑开高度。<br /></td>
+        </tr>
+        <tr class="odd">
+          <td>String</td>
+        </tr>
+        <tr>
+          <th class="separate" colspan="4"><abbrev>位置</abbrev></th>
+        </tr>
+        <tr>
+          <th><a href="#fixed">fixed</a></th>
+          <td>Boolean</td>
+          <td>false</td>
+          <td>开启静止定位。静止定位是css2.1的一个属性，它静止在浏览器某个地方不动，也不受滚动条拖动影响。(只限现代浏览器)</td>
+        </tr>
+        <tr class="odd">
+          <th rowspan="2"><a href="#follow">follow</a></th>
+          <td>HTMLElement</td>
+          <td rowspan="2">null</td>
+          <td rowspan="2">让对话框依附在指定元素附近。<br />
+            可传入元素ID名称，注意ID名称需要以“#”号作为前缀</td>
+        </tr>
+        <tr class="odd">
+          <td>String</td>
+        </tr>
+        <tr>
+          <th class="separate" colspan="4">视觉</th>
+        </tr>
+        <tr>
+          <th><a href="#lock">lock</a></th>
+          <td>Boolean</td>
+          <td>false</td>
+          <td>开启锁屏。<br />
+            中断用户对话框之外的交互，用于显示非常重要的操作/消息，所以不建议频繁使用它</td>
+        </tr>
+        <tr class="odd">
+          <th><a href="#background">background</a></th>
+          <td>String</td>
+          <td>'#000'</td>
+          <td>锁屏遮罩颜色</td>
+        </tr>
+        <tr>
+          <th><a href="#opacity">opacity</a></th>
+          <td>Number</td>
+          <td>0.7</td>
+          <td>锁屏遮罩透明度</td>
+        </tr>
+        <tr>
+          <th><a href="#padding">padding</a></th>
+          <td>String</td>
+          <td>'20px 25px'</td>
+          <td>内容与边界填充边距(即css padding)</td>
+        </tr>
+        <tr>
+          <th class="separate" colspan="4"><abbrev>交互</abbrev></th>
+        </tr>
+        <tr class="odd">
+          <th><a href="#time">time</a></th>
+          <td>Number</td>
+          <td>null</td>
+          <td>设置对话框显示时间。以秒为单位</td>
+        </tr>
+        <tr>
+          <th><a href="#esc">esc</a></th>
+          <td>Boolean</td>
+          <td>true</td>
+          <td>是否允许用户按Esc键关闭对话框</td>
+        </tr>
+        <tr>
+          <th class="separate" colspan="4"><abbrev>高级</abbrev></th>
+        </tr>
+        <tr class="odd">
+          <th rowspan="2"><a href="#id">id</a></th>
+          <td>String</td>
+          <td rowspan="2">null</td>
+          <td rowspan="2">设定对话框唯一标识。用途：<br />
+            1、防止重复弹出<br />
+            2、可后续使用art.dialog.list[youID]获取扩展方法</td>
+        </tr>
+        <tr class="odd">
+          <td>Number</td>
+        </tr>
+        <tr class="odd">
+          <th><a href="#zIndex">zIndex</a></th>
+          <td>Number</td>
+          <td>1987</td>
+          <td>重置全局zIndex初始值。<br />
+            用来改变对话框叠加高度。比如有时候配合外部浮动层UI组件，但是它们可能默认zIndex没有artDialog高，导致无法浮动到artDialog之上，这个时候你就可以给对话框指定一个较小的zIndex值。<br />
+            请注意这是一个会影响到全局的配置，后续出现的对话框叠加高度将重新按此累加。</td>
+        </tr>
+        <tr>
+          <th><a href="#init">init</a></th>
+          <td>Function</td>
+          <td>null</td>
+          <td>对话框弹出后执行的函数</td>
+        </tr>
+        <tr class="odd">
+          <th><a href="#close">close</a></th>
+          <td>Function</td>
+          <td>null</td>
+          <td>对话框关闭前执行的函数。函数如果返回false将阻止对话框关闭。<br />
+            【注意】这不是关闭按钮的回调函数，无论何种方式关闭对话框，close都将执行。</td>
+        </tr>
+        <tr>
+          <th><a href="#show">show</a></th>
+          <td>Boolean</td>
+          <td>true</td>
+          <td>是否显示对话框</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="api">2.扩展方法</h2>
+    <table class="zebra">
+      <colgroup>
+      <col class="col1">
+      <col class="col2">
+      <col class="col3">
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="name">名称</th>
+          <th class="note" colspan="3">描述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>close()</th>
+          <td colspan="3">关闭对话框</td>
+        </tr>
+        <tr class="odd">
+          <th>show()</th>
+          <td colspan="3">显示对话框</td>
+        </tr>
+        <tr>
+          <th>hide()</th>
+          <td colspan="3">隐藏对话框</td>
+        </tr>
+        <tr class="odd">
+          <th>title(value)</th>
+          <td colspan="3">写入标题，无参数则返回标题容器元素</td>
+        </tr>
+        <tr>
+          <th>content(value)</th>
+          <td colspan="3">向消息容器中写入内容。参数支持字符串、DOM对象，无参数则返回内容容器元素</td>
+        </tr>
+        <tr class="odd">
+          <th>button(arguments)</th>
+          <td colspan="3">插入一个自定义按钮。<br />
+            配置参数成员：
+            <div>name —— 按钮名称</div>
+            <div>callback —— 按下后执行的函数</div>
+            <div>focus —— 是否聚焦点</div>
+            <div>disabled —— 是否标记按钮为不可用状态（后续可使用扩展方法让其恢复可用状态）</div>
+            <br />
+            <div>示例：</div>
+            <pre><code class="javascript">button({
+    name: '登录',
+    focus: true,
+    callback: function () {}
+}, {
+    name: '取消'
+})</code></pre></td>
+        </tr>
+        <tr>
+          <th>follow(element)</th>
+          <td colspan="3">让对话框吸附到指定元素附近</td>
+        </tr>
+        <tr class="odd">
+          <th>size(width, height)</th>
+          <td colspan="3">重新设定对话框大小</td>
+        </tr>
+        <tr>
+          <th>lock()</th>
+          <td colspan="3">锁屏</td>
+        </tr>
+        <tr class="odd">
+          <th>unlock()</th>
+          <td colspan="3">解锁</td>
+        </tr>
+        <tr>
+          <th>time(value)</th>
+          <td colspan="3">定时关闭（单位秒）</td>
+        </tr>
+
+      </tbody>
+    </table>
+    <h2 id="demo-options">3.配置参数演示</h2>
+    <h3 id="content">内容 [content]</h3>
+    <h4>1. 传入字符串</h4>
+    <div id="demoCode_content">
+      <pre><code class="javascript">art.dialog({
+	content: '我支持HTML'
+});</code></pre>
+    </div>
+    <p class="buttons">
+      <button class="runCode" name="demoCode_content">运行&raquo;</button>
+    </p>
+    <h4>2. 传入HTMLElement</h4>
+    <p>备注：1、元素不是复制而是完整移动到对话框中，所以原有的事件与属性都将会保留 2、如果隐藏元素被传入到对话框，会设置display:block属性显示该元素 3、对话框关闭的时候元素将恢复到原来在页面的位置，style display属性也将恢复</p>
+    <div id="demoCode_content_DOM">
+      <pre><code class="javascript">art.dialog({
+    content: document.getElementById('demoCode_content_DOM'),
+    id: 'EF893L'
+});</code></pre>
+    </div>
+    <p class="buttons">
+      <button class="runCode" name="demoCode_content_DOM">运行&raquo;</button>
+    </p>
+    <h3 id="title">标题 [title]</h3>
+    <div id="demoCode_title">
+      <pre><code class="javascript">art.dialog({
+	title: 'hello world!'
+});</code></pre>
+    </div>
+    <p class="buttons">
+      <button class="runCode" name="demoCode_title">运行&raquo;</button>
+    </p>
+    <h3>确定取消按钮 [ok &amp; cancel]<span id="ok"></span><span id="cancel"></span><span id="okText"></span><span id="cancelText"></span></h3>
+    <p>备注：回调函数this指向扩展接口，如果返回false将阻止对话框关闭</p>
+    <div id="demoCode_yes_no">
+      <pre><code class="javascript">art.dialog({
+    content: '如果定义了回调函数才会出现相应的按钮',
+    ok: function () {
+    	this.title('改变标题');
+        return false;
+    },
+    cancelVal: '关闭',
+    cancel: true //为true等价于function(){}
+});</code></pre>
+    </div>
+    <p class="buttons">
+      <button class="runCode" name="demoCode_yes_no">运行&raquo;</button>
+    </p>
+    <h3 id="button">自定义按钮 [button]</h3>
+    <p>备注：回调函数this指向扩展接口，如果返回false将阻止对话框关闭；button参数对应的扩展方法名称也是"button"</p>
+    <div id="demoCode_button">
+      <pre><code class="javascript">art.dialog({
+    id: 'testID',
+    content: 'hello world!',
+    button: [
+        {
+            name: '同意',
+            callback: function () {
+                this
+                .content('你同意了')
+                .button({name: '无效按钮', disabled: false});
+                return false;
+            },
+            focus: true
+        },
+        {
+            name: '不同意',
+            callback: function () {
+                alert('你不同意')
+            }
+        },
+        {
+            name: '无效按钮',
+            disabled: true
+        },
+        {
+            name: '关闭我'
+        }
+    ]
+});</code></pre>
+    </div>
+    <p class="buttons">
+      <button class="runCode" name="demoCode_button">运行&raquo;</button>
+    </p>
+    <h3 id="time">定时关闭的消息 [time]</h3>
+    <div id="demoCode_time">
+      <pre><code class="javascript">art.dialog({
+    time: 2,
+	content: '两秒后关闭'
+});</code></pre>
+    </div>
+    <p class="buttons">
+      <button class="runCode" name="demoCode_time">运行&raquo;</button>
+    </p>
+    <h3 id="id">防止重复弹出 [id]</h3>
+    <div id="demoCode_id">
+      <pre><code class="javascript">art.dialog({
+    id: 'testID',
+	content: '再次点击运行看看'
+});
+art.dialog({id: 'testID'}).title('8888888888');
+</code></pre>
+    </div>
+    <p class="buttons">
+      <button class="runCode" name="demoCode_id">运行&raquo;</button>
+    </p>
+    <h3 id="padding">内容与边界填充边距 [padding]</h3>
+    <p>有时候并不需要默认的内容填充边距，如展示图片与视频</p>
+    <div id="demoCode_padding">
+      <pre><code class="javascript">art.dialog({
+	padding: 0,
+    title: '照片',
+	content: '&lt;img src="_doc/images/photo.jpg" width="379" height="501" /&gt;',
+    lock: true
+});</code></pre>
+    </div>
+    <p class="buttons">
+      <button class="runCode" name="demoCode_padding">运行&raquo;</button>
+    </p>
+    <h3 id="lock">锁屏 [lock &amp; background &amp; opacity] <span id="background"></span><span id="opacity"></span><span id="duration"></span></h3>
+    <div id="demoCode_lock">
+      <pre><code class="javascript">art.dialog({
+	lock: true,
+    background: '#600', // 背景色
+    opacity: 0.7,	// 透明度
+	content: '中断用户在对话框以外的交互，展示重要操作与消息',
+    icon: 'error',
+	ok: function () {
+		art.dialog({content: '再来一个锁屏', lock: true});
+        return false;
+	},
+    cancel: true
+});</code></pre>
+    </div>
+    <p class="buttons">
+      <button class="runCode" name="demoCode_lock">运行&raquo;</button>
+    </p>
+    <h3 id="follow">跟随元素 [follw]</h3>
+    <h4>1、标准形式</h4>
+    <div id="demoCode_follow">
+      <pre><code class="javascript">art.dialog({
+	follow: document.getElementById('followTestBtn'),
+	content: '让对话框跟着某个元素，一个元素同时只能出现一个对话框'
+});</code></pre>
+    </div>
+    <p class="buttons">
+      <button class="runCode" id="followTestBtn" title="id=followTestBtn" name="demoCode_follow">运行&raquo;</button>
+    </p>
+    <h4>2、使用简写形式 （已经绑定onclick事件，注意此返回值不再是对话框扩展方法）</h4>
+    <div id="demoCode_follow_fn">
+      <pre><code class="javascript">art('#demoCode_follow_a').dialog({
+	content: '让对话框跟着某个元素，一个元素同时只能出现一个对话框'
+});</code></pre>
+    </div>
+    <p class="buttons"><a href="javascript:alert('点击运行后再来点击我！');void(0)" id="demoCode_follow_a" style="margin-right:10px; text-decoration:underline">元素触发</a>
+      <button class="runCode" id="followTestBtn" title="id=followTestBtn" name="demoCode_follow_fn">运行&raquo;</button>
+    </p>
+    <h3>设置大小 [width &amp; height]<span id="width"></span><span id="height"></span></h3>
+    <div id="demoCode_size">
+      <pre><code class="javascript">art.dialog({
+	width: '20em',
+	height: 55,
+	content: '尺寸可以带单位'
+});</code></pre>
+    </div>
+    <p class="buttons">
+      <button class="runCode" name="demoCode_size">运行&raquo;</button>
+    </p>
+    <h3 id="fixed">静止定位 [fixed]</h3>
+    <div id="demoCode_fixed">
+      <pre><code class="javascript">art.dialog({
+	fixed: true,
+	content: '请拖动滚动条查看'
+});</code></pre>
+    </div>
+    <p class="buttons">
+      <button class="runCode" name="demoCode_fixed">运行&raquo;</button>
+    </p>
+	<h2 id="demo-api">4.扩展方法演示</h2>
+    <p>特别说明：扩展方法支持链式操作</p>
+    <h3>获取扩展方法一：直接引用返回</h3>
+    <div id="demoCode_api_1">
+      <pre><code class="javascript">var dialog = art.dialog({
+	title: '我是对话框',
+	content: '我是初始化的内容'
+});
+      
+dialog.content('对话框内容被扩展方法改变了').title('提示');
+      </code></pre>
+    </div>
+    <p class="buttons">
+      <button class="runCode" name="demoCode_api_1">运行&raquo;</button>
+    </p>
+    <h3>获取扩展方法二：通过对话框ID</h3>
+    <div id="demoCode_api_2">
+      <pre><code class="javascript">art.dialog({
+    id: 'KDf435',
+    title: '警告',
+    content: '我是初始化的内容'
+});
+      
+art.dialog.list['KDf435'].content('对话框内容被扩展方法改变了');
+      </code></pre>
+    </div>
+    <p class="buttons">
+      <button class="runCode" name="demoCode_api_2">运行&raquo;</button>
+    </p>
+
+    <h3>获取扩展方法三：回调函数中this</h3>
+    <div id="demoCode_api_3">
+      <pre><code class="javascript">art.dialog({
+    title: '警告',
+    content: '我是初始化的内容',
+    ok: function () {
+        this.content('你点了确定按钮').lock();
+        return false;
+    },
+    init: function () {
+        this.content('对话框内容被扩展方法改变了');
+    }
+});
+      </code></pre>
+    </div>
+    <p class="buttons">
+      <button class="runCode" name="demoCode_api_3">运行&raquo;</button>
+    </p>
+    <h3>关闭页面所有对话框</h3>
+    <div id="demoCode_api_4">
+      <pre><code class="javascript">var list = art.dialog.list;
+for (var i in list) {
+	list[i].close();
+};
+      </code></pre>
+    </div>
+    <p class="buttons">
+      <button class="runCode" name="demoCode_api_4">运行&raquo;</button>
+    </p>
+    <h3>按钮接口演示</h3>
+    <p>备注：回调函数如果返回false将阻止对话框关闭</p>
+    <div id="demoCode_api_button">
+      <pre><code class="javascript">var dialog = art.dialog({
+    title: '警告',
+    content: '点击管理按钮将让删除按钮可用',
+    width: '20em',
+    button: [{
+    	name: '管理',
+        callback: function () {
+            this
+            .content('我更改了删除按钮')
+            .button({
+                name: '删除',
+                disabled: false
+            })
+            .lock();
+            return false;
+        },
+        focus: true
+    }]
+});
+
+dialog.button(
+    {
+        name: '删除',
+        callback: function () {
+            alert('delect')
+        },
+        disabled: true
+    }
+)
+      </code></pre>
+    </div>
+    <p class="buttons">
+      <button class="runCode" name="demoCode_api_button">运行&raquo;</button>
+    </p>
+    <h3>标题倒计时</h3>
+    <div id="demoCode_api_title">
+      <pre><code class="javascript">var timer;
+art.dialog({
+	content: '时间越来越少，越来越少..',
+	init: function () {
+    	var that = this, i = 5;
+        var fn = function () {
+            that.title(i + '秒后关闭');
+            !i && that.close();
+            i --;
+        };
+		timer = setInterval(fn, 1000);
+        fn();
+	},
+    close: function () {
+    	clearInterval(timer);
+    }
+}).show();</code></pre>
+    </div>
+    <p class="buttons">
+      <button class="runCode" name="demoCode_api_title">运行&raquo;</button>
+    </p>
+    <h3>关闭不删除内容</h3>
+    <div id="demoCode_api_fn">
+      <pre><code class="javascript">art.dialog({
+	id: 'show-hide',
+	content: '关闭后阻止对话框被删除，只隐藏对话框',
+	close: function () {
+		this.hide();
+		return false;
+	}
+}).show();</code></pre>
+    </div>
+    <p class="buttons">
+      <button class="runCode" name="demoCode_api_fn">运行&raquo;</button>
+    </p>
+    <h2 id="in">5.应用到你的项目</h2>
+    <p>在页面head引入artDialog皮肤与程序文件:</p>
+    <pre style="background-color: #F0F1F9;padding:5px;border-radius:5px;"><code>&lt;link href=&quot;artDialog/skins/default.css&quot; rel=&quot;stylesheet&quot; /&gt;
+&lt;script src="artDialog/artDialog.basic.js"&gt;&lt;/script&gt;</code></pre>
+    <p>配置全局默认参数(可选):</p>
+    <pre><code class="javascript">(function (config) {
+    config['lock'] = true;
+    config['fixed'] = true;
+    config['okVal'] = 'Ok';
+    config['cancelVal'] = 'Cancel';
+    // [more..]
+})(art.dialog.defaults);
+</code></pre>
+  </div>
+  <div id="footer" style="position:fixed;bottom:0;right:0;text-align:right"><a href="#header">返回页头</a></div>
+</div>
+<script>
+// 运行代码
+$.fn.runCode = function () {
+	var getText = function(elems) {
+		var ret = "", elem;
+
+		for ( var i = 0; elems[i]; i++ ) {
+			elem = elems[i];
+			if ( elem.nodeType === 3 || elem.nodeType === 4 ) {
+				ret += elem.nodeValue;
+			} else if ( elem.nodeType !== 8 ) {
+				ret += getText( elem.childNodes );
+			};
+		};
+
+		return ret;
+	};
+	
+	var code = getText(this);
+	new Function(code).call(window);
+	
+	return this;
+};
+
+// 按钮触发代码运行
+$(document).bind('click', function(event){
+	var target = event.target,
+		$target = $(target);
+
+	if ($target.hasClass('runCode')) {
+		$('#' + target.name).runCode();
+	};
+});
+
+// 皮肤选择	
+window._demoSkin = function () {
+	art.dialog({
+		id: 'demoSkin',
+		padding: '15px',
+		title: 'artDialog皮肤展示',
+		content: _demoSkin.tmpl
+	});
+};
+_demoSkin.tmpl = function (data) {
+	var html = ['<table class="zebra" style="width:480px"><tbody>'];
+	for (var i = 0, length = data.length; i < length; i ++) {
+		html.push('<tr class="');
+		html.push(i%2 ? 'odd' : '');
+		html.push('"><th style="width:7em"><a href="?demoSkin=');
+		html.push(data[i].name);
+		html.push('">');
+		html.push(data[i].name);
+		html.push('</a></th><td>');
+		html.push(data[i].about);
+		html.push('</td></tr>');
+	};
+	html.push('</tbody></table>');
+	html.push('<p>备注：artDialog basic 版 带阴影的效果不被IE6支持。<a href="#" onclick="$(\'#ie6Skin\').show();return false">[解决方法+]</a></p>\
+	<p id="ie6Skin" style="display:none;background-color: #F0F1F9;padding:5px;border-radius:5px;">&lt;!--[if gte IE 7]&gt;&lt;!--&gt;<br />\
+&lt;link href=&quot;../skins/aero.css&quot; rel=&quot;stylesheet&quot; /&gt;<br />\
+&lt;!--&lt;![endif]--&gt;<br />\
+&lt;!--[if lt IE 7]&gt;<br />\
+&lt;link href=&quot;../skins/default.css&quot; rel=&quot;stylesheet&quot; /&gt;<br />\
+&lt;![endif]--&gt;</p>');
+	return html.join('');
+}([
+	{name: 'default', about: 'artDialog默认皮肤，简洁，纯CSS设计，无图片，采用css3渐进增强'},
+	{name: 'aero', about: 'artDialog 2+标志性的皮肤，windows7毛玻璃风格。提供PSD源文件 <a href="http://code.google.com/p/artdialog/downloads/detail?name=aero.psd&can=2&q=" target="_blank">下载</a>'},
+	{name: 'chrome', about: 'chrome浏览器(xp)风格'},
+	{name: 'opera', about: 'opera 11浏览器内置对话框风格'},
+	{name: 'simple', about: '简单风格，无图片，不显示标题'},
+	{name: 'idialog', about: '苹果风格，iPad Safari或Mac Safari关闭按钮将在左边显示'},
+	{name: 'twitter', about: 'twitter风格，无图片'},
+	{name: 'blue', about: '蓝色风格'},
+	{name: 'black', about: '黑色风格'},
+	{name: 'green', about: '绿色风格'}
+]);
+
+(function () {
+	// 跳转到头部
+	var $footer = $('#footer');
+	if ($footer[0]) $footer.bind('click', function () {
+		window.scrollTo(0, 0);
+		return false;
+	}).css('cursor', 'pointer')[0].title = '回到页头';
+	
+	if(_skin) _demoSkin();
+	
+	var $skin = $('#nav-skin');
+	$skin[0] && $skin.bind('click', function () {
+		_demoSkin();
+		return false;
+	});
+})();
+
+// firebug
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = 'https://getfirebug.com/firebug-lite-beta.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+// google-analytics
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-19823759-2']);
+_gaq.push(['_setDomainName', '.planeart.cn']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</body>
+</html>

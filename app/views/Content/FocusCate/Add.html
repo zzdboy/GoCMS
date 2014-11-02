@@ -1,0 +1,46 @@
+{{template "Public/header.html" .}}
+<script language="javascript" src="/public/js/Content/focus_cate.js"></script>
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='/FocusCate/'><em>{{msg . "focuscate_list"}}</em></a><span>|</span><a
+				href='javascript:;' class="on"><em>{{msg . "focuscate_add"}}</em></a>
+		</div>
+	</div>
+	<div class="pad_10">
+		<div class="common-form">
+			<form name="myform" action="/FocusCate/add/" method="post" onsubmit="return form_submit()"
+				id="myform">
+				<table width="100%" class="table_form contentWrap">
+					<tr>
+						<td width="80"><strong>{{msg . "focuscate_name"}}：</strong></td>
+						<td>
+							<input type="text" name="name" id="name" class="input-text"></input>
+							<div id="nameTip" class=""></div>
+						</td>
+					</tr>
+					<tr>
+						<td><strong>{{msg . "focuscate_width"}}：</strong></td>
+						<td>
+							<input type="text" name="width" id="width"
+							class="input-text"></input>
+							<div id="widthTip" class=""></div>
+						</td>
+					</tr>
+					<tr>
+						<td><strong>{{msg . "focuscate_height"}}：</strong></td>
+						<td>
+							<input type="text" name="height" id="height"
+							class="input-text"></input>
+							<div id="heightTip" class=""></div>
+						</td>
+					</tr>
+				</table>
+				<div class="bk15"></div>
+				<input type="hidden" name="csrf_token" value="{{ .csrf_token }}" />
+				<input name="dosubmit" type="submit" value="{{msg . "submit"}}" class="button">
+			</form>
+		</div>
+	</div>
+</body>
+{{template "Public/footer.html" .}}

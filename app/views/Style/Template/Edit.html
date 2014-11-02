@@ -1,0 +1,62 @@
+{{template "Public/header.html" .}}
+<script language="javascript" src="/public/js/Style/template.js"></script>
+
+<body>
+	<div class="pad-10">
+		<form enctype="multipart/form-data" id="myform" method="post" action="">
+			<div>
+				<table width="100%" class="table_form">
+				  <tbody>
+				  	{{if .template_info}}
+					  	{{with .template_info}}
+					  	<tr>
+					    	<th width="80">风格标识：</th>
+					    	<td>
+					    	<input type="text" id="identity" class="input-text" 
+					    		value="{{.Identity}}" name="identity">
+							<div id="identitytip" class="onShow">风格标识应该为2-8位英文</div>
+					    	</td>
+					  	</tr>
+					  	<tr>
+					    	<th width="80">风格中文名：</th>
+					    	<td>
+					    		<input type="text" id="name" class="input-text" value="{{.Name}}" name="name">
+								<div id="nametip" class="onShow">风格中文名应该为2-8位</div>
+					    	</td>
+					  	</tr>
+					  	<tr>
+					    	<th width="80">风格作者：</th>
+					    	<td>
+					    		<input type="text" id="author" class="input-text" value="{{.Author}}" name="author">
+					    		<div id="authortip" class="onShow"></div>
+					    	</td>
+					  	</tr>
+					  	<tr>
+					    	<th width="80">风格版本：</th>
+					    	<td>
+					    		<input type="text" id="version" class="input-text" value="{{.Version}}" name="version">
+					    		<div id="versiontip" class="onShow"></div>
+					    	</td>
+					  	</tr>
+					  	<tr>
+							<th width="80">状态：</th>
+							<td>
+								<input type="radio" {{if eq .Status 1}}checked{{end}} 
+									name="status" value="1"> 启用 
+								<input type="radio" {{if eq .Status 0}}checked{{end}}
+									 name="status" value="0"> 禁用
+							</td>
+						</tr>
+						{{end}}
+					{{end}}
+				  </tbody>
+				</table>
+				<div class="bk15"></div>
+				<input type="hidden" name="csrf_token" value="{{ .csrf_token }}" />
+			    <input type="submit" value="提交" name="dosubmit" id="dosubmit" class="dialog">
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

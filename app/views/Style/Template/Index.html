@@ -1,0 +1,66 @@
+{{template "Public/header.html" .}}
+<script language="javascript" src="/public/js/Style/template.js"></script>
+
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a class="add fb" href="javascript:;" onclick="Import()"><em>添加风格</em></a>
+			<span>|</span>
+			<a href='javascript:;' class="on"><em>模板风格</em></a>
+		</div>
+	</div>
+
+	<div class="pad-lr-10">
+		<div class="table-list">
+			<form method="post" action="">
+				<table width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th width="80">风格标识</th>
+							<th>风格中文名</th>
+							<th>风格作者</th>
+							<th>风格版本</th>
+							<th>状态</th>
+							<th width="150">管理操作</th>
+						</tr>
+				    </thead>
+				    <tbody>
+				    	{{if .template_list}}
+					    	{{range .template_list}}
+							<tr>
+								<td width="80" align="center">{{.Identity}}</td>
+								<td align="center">{{.Name}}</td>
+								<td align="center">
+									<a href="javascript:;">{{.Author}}</a>
+								</td>
+								<td align="center">{{.Version}}</td>
+								<td align="center">
+									{{if eq .Status 1}}
+										<font color="blue">启用</font>
+									{{else}}
+										<font color="red">禁用</font>
+									{{end}}
+								</td>
+								<td width="150" align="center">
+								{{if eq .Status 1}}
+								<a href="javascript:;" onclick="Setstatus('{{.Id}}','0')">停用</a> | 
+								{{else}}
+								<a href="javascript:;" onclick="Setstatus('{{.Id}}','1')">启用</a> | 
+								{{end}}
+									<a href="/Style/file/{{.Id}}/">详情列表</a> | 
+									<a href="javascript:;" onclick="Edit({{.Id}});">编辑</a>
+								</td>
+							</tr>
+							{{end}}
+						{{end}}
+					</tbody>
+				</table>
+				<div class="btn">
+					<input type="submit" value="提交" name="dosubmit" class="button">
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+
+{{template "Public/footer.html" .}}

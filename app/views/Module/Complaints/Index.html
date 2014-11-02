@@ -1,0 +1,61 @@
+{{template "Public/header.html" .}}
+<script language="javascript" src="/public/js/Module/announce.js"></script>
+
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='javascript:;' class="on"><em>{{msg . "complaints_list"}}</em></a>
+		</div>
+	</div>
+	<div class="pad_10">
+		<div class="table-list">
+			<form name="myform" action="/Announce/order/" method="post">
+				<table width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th width="5%">{{msg . "complaints_ID"}}</th>
+							<th width="5%" align="center">{{msg . "complaints_type"}}</th>
+							<th width="25%" align="left">{{msg . "complaints_question"}}</th>
+							<th width="15%" align="left">{{msg . "complaints_company_name"}}</th>
+							<th width="8%" align="left">{{msg . "complaints_name"}}</th>
+							<th width="10%" align="left">{{msg . "complaints_phone"}}</th>
+							<th width="10%">{{msg . "complaints_email"}}</th>
+							<th width="10%">{{msg . "complaints_qq"}}</th>
+							<th width="15%">{{msg . "complaints_createtime"}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{if .complaints_list}}
+							{{$msg := .}}
+							{{range $complaints_list := .complaints_list}}
+							<tr>
+								<td align="center">{{$complaints_list.Id}}</td>
+								<td align="center">
+									{{if eq $complaints_list.Type 0}}
+										{{msg $msg "complaints_praise"}}
+									{{end}}
+									{{if eq $complaints_list.Type 1}}
+										{{msg $msg "complaints_complaint"}}
+									{{end}}
+									{{if eq $complaints_list.Type 2}}
+										{{msg $msg "complaints_proposal"}}
+									{{end}}
+								</td>
+								<td>{{$complaints_list.Question}}</td>
+								<td>{{$complaints_list.Companyname}}</td>	
+								<td>{{$complaints_list.Name}}</td>
+								<td>{{$complaints_list.Phone}}</td>
+								<td>{{$complaints_list.Email}}</td>
+								<td>{{$complaints_list.Qq}}</td>
+								<td>{{$complaints_list.Createtime}}</td>
+							</tr>
+							{{end}}
+						{{end}}
+					</tbody>
+				</table>
+				<div id="pages">{{.pages}}</div>
+			</form>
+		</div>
+	</div>
+</body>
+{{template "Public/footer.html" .}}

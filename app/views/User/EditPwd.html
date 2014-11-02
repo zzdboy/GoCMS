@@ -1,0 +1,65 @@
+{{template "Public/header.html" .}}
+<script language="javascript" src="/public/js/Panel/editpwd.js"></script>
+
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='javascript:;' class="on"><em>{{msg . "editpwd"}}</em></a>
+		</div>
+	</div>
+	<div class="pad_10">
+		<div class="common-form">
+			<form name="myform" action="{{url "User.editPwd"}}" method="post" onsubmit="return form_submit()" id="myform">
+				{{$admin_info := .admin_info}}
+				<table width="100%" class="table_form contentWrap">
+					<tr>
+						<td width="130"><strong>{{msg . "username"}}：</strong></td>
+						<td>
+							{{$admin_info.Username}} ({{msg . "realname"}} {{$admin_info.Realname}})
+						</td>
+					</tr>
+
+					<tr>
+						<td><strong><strong>{{msg . "email"}}：</strong></td>
+						<td>
+							{{$admin_info.Email}}
+						</td>
+					</tr>
+
+					<tr>
+						<td><strong>{{msg . "old_password"}}：</strong></td>
+						<td>
+							<input type="password" name="old_password"
+							id="old_password" class="input-text"></input>
+							<div id="old_passwordTip" class=""></div>
+						</td>
+					</tr>
+
+					<tr>
+
+						<td><strong>{{msg . "new_password"}}：</strong></td>
+						<td>
+							<input type="password" name="new_password"
+							id="new_password" class="input-text"></input>
+							<div id="new_passwordTip" class=""></div>
+						</td>
+					</tr>
+					<tr>
+						<td><strong>{{msg . "new_pwdconfirm"}}：</strong></td>
+						<td>
+							<input type="password" name="new_pwdconfirm"
+							id="new_pwdconfirm" class="input-text"></input>
+							<div id="new_pwdconfirmTip" class=""></div>
+						</td>
+					</tr>
+				</table>
+				<div class="bk15"></div>
+				<input type="hidden" name="csrf_token" value="{{ .csrf_token }}" />
+				<input name="dosubmit" type="submit" value="{{msg . "submit"}}" class="button"
+					id="dosubmit">
+			</form>
+		</div>
+	</div>
+</body>
+
+{{template "Public/footer.html" .}}

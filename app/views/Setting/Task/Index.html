@@ -1,0 +1,39 @@
+{{template "Public/header.html" .}}
+<script language="javascript" src="/public/js/Setting/admin.js"></script>
+
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='javascript:;' class="on"><em>{{msg . "task_list"}}</em></a>
+		</div>
+	</div>
+	<div class="pad_10">
+		<div class="table-list">
+			<table width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th width="20%" align="left">{{msg . "task_name"}}</th>
+						<th width="20%" align="left">{{msg . "task_status"}}</th>
+						<th width="25%" align="left">{{msg . "task_last_time"}}</th>
+						<th width="25%" align="left">{{msg . "task_next_time"}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{if .entries}}
+						{{range .entries}}
+							{{$job := castjob .Job}}
+							<tr>
+								<td>{{$job.Name}}</td>
+								<td>{{$job.Status}}</td>
+								<td>{{if not .Prev.IsZero}}{{.Prev.Format "2006-01-02 15:04:05"}}{{end}}</td>
+								<td>{{if not .Next.IsZero}}{{.Next.Format "2006-01-02 15:04:05"}}{{end}}</td>
+							</tr>
+						{{end}}
+					{{end}}
+				</tbody>
+			</table>
+			<div id="pages">{{.pages}}</div>
+		</div>
+	</div>
+</body>
+{{template "Public/footer.html" .}}

@@ -1,0 +1,152 @@
+{{template "Public/header.html" .}}
+
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/jscal2.css"/>
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/border-radius.css"/>
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/calendar-blue.css"/>
+<script type="text/javascript" src="/public/js/calendar/calendar.js"></script>
+<script type="text/javascript" src="/public/js/calendar/lang/en.js"></script>
+<script type="text/javascript" src="/public/js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="/public/js/lib/jquery.imagePreview.js"></script>
+<script type="text/javascript" src="/public/js/Content/list.js"></script>
+
+<SCRIPT>
+if (window.top.$("#current_pos").data('clicknum') == 1
+		|| window.top.$("#current_pos").data('clicknum') == null) {
+	parent.document.getElementById('display_center_id').style.display = '';
+	parent.document.getElementById('center_frame').src = '/Content/left/';
+	window.top.$("#current_pos").data('clicknum', 0);
+}
+
+	//搜索
+function Search() {
+	url = '/Content/list/{{.cid}}/';
+	
+	search = "";
+	
+	search += 'istop:' + $('#istop').val() + '|';
+	search += 'searchtype:' + $('#searchtype').val() + '|';
+	search += 'keyword:' + $('#keyword').val() + '|';
+	search += 'start_time:' + $('#start_time').val() + '|';
+	search += 'end_time:' + $('#end_time').val() + '';
+
+	$.base64.encode(search)
+
+	url += $.base64.encode(search)+'/1/';
+
+	redirect(url);
+};
+</SCRIPT>
+<body>
+	<div id="closeParentTime" style="display: none"></div>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='javascript:;' class="on"><em>{{msg . "content_manage"}}</em></a><span>|</span><a
+				href='/Content/add/{{.cid}}/'><em>{{msg . "add_content"}}</em></a>
+		</div>
+	</div>
+	<div class="pad-10">
+		<div id="searchid">
+		{{$where := .where}}<!-- 获取当前菜单详细信息 -->	
+		<form name="searchform" action="/content/list/search/" method="post">
+			<input type="hidden" value="{{.cid}}" name="cid">
+			<table width="100%" cellspacing="0" class="search-form">
+				<tbody>
+					<tr>
+						<td>
+						<div class="explain-col">
+							{{msg . "addtime"}}： <input type="text" name="start_time" id="start_time"
+								value="{{$where.start_time}}" size="10" class="date" readonly>&nbsp; -
+							&nbsp;<input type="text" name="end_time" id="end_time" value="{{$where.end_time}}"
+								size="10" class="date" readonly>&nbsp; 
+							<select name="istop" id="istop">
+			<option {{if $where.istop}}{{if eq $where.istop ""}}selected=""{{end}}{{end}} value=''>全部</option>
+			<option {{if $where.istop}}{{if eq $where.istop "0"}}selected=""{{end}}{{end}} value="0">不置顶</option>
+			<option {{if $where.istop}}{{if eq $where.istop "1"}}selected=""{{end}}{{end}} value="1">置顶</option>
+							</select> 
+							<select name="searchtype" id="searchtype">
+			<option {{if $where.searchtype}}{{if eq $where.searchtype "1"}}selected=""{{end}}{{end}} value='1'>标题</option>
+			<option {{if $where.searchtype}}{{if eq $where.searchtype "2"}}selected=""{{end}}{{end}} value='2'>简介</option>
+			<option {{if $where.searchtype}}{{if eq $where.searchtype "3"}}selected=""{{end}}{{end}} value='3'>用户名</option>
+			<option {{if $where.searchtype}}{{if eq $where.searchtype "4"}}selected=""{{end}}{{end}} value='4'>ID</option>
+							</select> 
+				<input name="keyword" id="keyword" type="text" value="{{$where.keyword}}"
+								class="input-text" /> 
+							<input type="button" name="dosearch"
+								class="button" onclick="Search()" value="{{msg . "search"}}" />
+						</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		</div>
+		<div id="content_list">
+			<form name="myform" id="myform" action="" method="post">
+				<input type="hidden" value="{{.cid}}" name="cid">
+				<div class="table-list">
+					<table width="100%">
+						<thead>
+							<tr>
+								<th width="16">
+					<input type="checkbox" id="check_box" onclick="selectall('ids[]');">
+								</th>
+								<th width="40">ID</th>
+								<th>{{msg . "title"}}</th>
+								<th width="40">{{msg . "hits"}}</th>
+								<th width="70">{{msg . "publish_user"}}</th>
+								<th width="118">{{msg . "update_time"}}</th>
+								<th width="120">{{msg . "content_operation"}}</th>
+							</tr>
+						</thead>
+						<tbody>
+						{{if .article_list}}
+							{{$msg := .}}
+							{{range .article_list}}
+							<tr>
+								<td align="center">
+								<input type="checkbox" value="{{.Id}}" name="ids[]" class="inputcheckbox ">
+								</td>
+								<td align="center">{{.Id}}</td>
+								<td>
+									<a href="/Content/edit/{{.Cid}}/{{.Id}}/">
+										<span style="color:{{.Color}};font-weight:{{.Font}};">
+											{{.Title}}
+										</span>
+									</a> 
+								</td>
+								<td align="center" title="">{{.Hits}}</td>
+								<td align="center">{{.Admin.Username}}</td>
+								<td align="center">{{.Createtime}}</td>
+								<td align="center">
+								<a href="/Content/edit/{{.Cid}}/{{.Id}}/">{{msg $msg "edit"}}</a> | 
+								<a href="javascript:view_comment('{{.Id}}','{{.Title}}')">{{msg $msg "comment"}}</a>
+								</td>
+							</tr>
+							{{end}}
+						{{end}}
+						</tbody>
+					</table>
+					<div class="btn">
+						<input type="button" class="button" value="{{msg . "delete"}}"
+						onclick="myform.action='/Content/delete/';return confirm_delete()" />
+						<input type="button" class="button" value="{{msg . "batch_move"}}"
+							onclick="show_remove();" />
+						<span style="display:none" id="show_move">
+							<select name="cid" id="cid">
+								<option value='0'>≡ 请选择栏目 ≡</option>
+								{{.categorys}}
+							</select>
+							<input type="button" class="button" value="移动"
+								onclick="move();" />
+						</span>
+					</div>
+					<div id="pages">
+						{{.pages}}
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+
+{{template "Public/footer.html" .}}

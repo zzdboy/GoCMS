@@ -1,0 +1,67 @@
+{{template "Public/header.html" .}}
+<script language="javascript" src="/public/js/Panel/editinfo.js"></script>
+
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='javascript:;' class="on"><em>{{msg . "admininfo"}}</em></a>
+		</div>
+	</div>
+	<div class="pad_10">
+		<div class="common-form">
+			<form name="myform" action="{{url "User.editInfo"}}" method="post" onsubmit="return form_submit()" id="myform">
+				{{if .admin_info}}
+					{{$admin_info := .admin_info}}
+					<table width="100%" class="table_form contentWrap">
+						<tr>
+							<td width="120"><strong>{{msg . "username"}}：</strong></td>
+							<td>{{$admin_info.Username}}</td>
+						</tr>
+
+						<tr>
+							<td width="120"><strong>{{msg . "lastlogintime"}}：</strong></td>
+							<td>{{$admin_info.Lastlogintime}}</td>
+						</tr>
+
+						<tr>
+							<td width="120"><strong>{{msg . "lastloginip"}}：</strong></td>
+							<td>{{$admin_info.Lastloginip}}</td>
+						</tr>
+
+						<tr>
+							<td><strong>{{msg . "realname"}}：</strong></td>
+							<td>
+								<input type="text" name="realname" id="realname" 
+									class="input-text" size="30" value="{{$admin_info.Realname}}"></input>
+								<div id="realnameTip" class=""></div>
+							</td>
+						</tr>
+						<tr>
+							<td><strong>{{msg . "email"}}：</strong></td>
+							<td><input type="text" name="email" id="email"
+								class="input-text" size="40"
+								value="{{$admin_info.Email}}"></input>
+								<div id="emailTip" class=""></div>
+							</td>
+						</tr>
+						<tr>
+							<td><strong>{{msg . "lang"}}：</strong></td>
+							<td><select id="lang" name="lang">
+									<option {{if eq $admin_info.Lang "zh-cn"}}selected{{end}} value="zh-cn">中文 - 简体中文</option>
+									<option {{if eq $admin_info.Lang "en"}}selected{{end}} value="en">English</option>
+							</select>
+							<div id="langTip" class=""></div>
+							</td>
+						</tr>
+					</table>
+				{{end}}
+				<div class="bk15"></div>
+				<input type="hidden" name="csrf_token" value="{{ .csrf_token }}" />
+				<input name="dosubmit" type="submit" value="{{msg . "submit"}}" class="button" id="dosubmit">
+			</form>
+
+		</div>
+	</div>
+</body>
+
+{{template "Public/footer.html" .}}

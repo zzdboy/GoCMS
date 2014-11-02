@@ -1,0 +1,102 @@
+{{template "Public/header.html" .}}
+<script language="javascript" src="/public/js/Content/focus.js"></script>
+
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='javascript:;' class="on"><em>{{msg . "focus_list"}}</em></a><span>|</span><a
+				href='/Focus/add/'><em>{{msg . "focus_add"}}</em></a>
+		</div>
+	</div>
+	<div class="pad_10">
+		{{$where := .where}}<!-- 获取当前查询条件 -->
+		<form name="searchform" action="" method="get">
+			<table width="100%" cellspacing="0" class="search-form">
+				<tbody>
+					<tr>
+						<td><div class="explain-col">
+								{{msg . "focus_cate"}} <select name="cid" id="cid">
+									<option value="">{{msg . "focus_select"}}</option>
+									{{range .Cate_list}}
+										<option {{if $where.cid}}{{if eq $where.cid .Id}}selected=""{{end}}{{end}} value="{{.Id}}">{{.Name}}</option>
+									{{end}}
+								</select> 
+								关键字 <input type="text" value="{{$where.keyword}}" class="input-text" id="keyword"
+									name="keyword"> <input type="button" onclick="Search()"
+									value="搜索" class="button" name="dosubmit">
+							</div></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		<div class="table-list">
+			<table width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th width="5%">{{msg . "focus_ID"}}</th>
+						<th width="5%" align="left">{{msg . "focus_img"}}</th>
+						<th width="25%" align="left">{{msg . "focus_title"}}</th>
+						<th width="30%" align="left">{{msg . "focus_url"}}</th>
+						<th width="10%" align="left">{{msg . "focus_cate"}}</th>
+						<th width="5%" align="left">{{msg . "focus_clicks"}}</th>
+						<th width="5%" align="left">{{msg . "focus_status"}}</th>
+						<th width="15%">{{msg . "focus_manage"}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{if .focus_list}}
+						{{$msg := .}}
+						{{range $focus_list := .focus_list}}
+						<tr>
+							<td align="center">{{$focus_list.Id}}</td>
+							<td>
+								<a target="_blank" href="{{$focus_list.Img}}">{{msg $msg "focus_view"}}</a>
+							</td>	
+							<td>{{$focus_list.Title}}</td>
+							<td>{{$focus_list.Url}}</td>
+							<td>{{$focus_list.Focuscate.Name}}</td>
+							<td>{{$focus_list.Clicks}}</td>
+							<td>{{if eq $focus_list.Status 1}}
+									{{msg $msg "announce_pass"}}
+								{{else}}
+									{{msg $msg "announce_queue"}}
+								{{end}}
+							</td>
+							
+							<td width="10%" align="center">
+							<a href="/Focus/edit/{{$focus_list.Id}}/">{{msg $msg "edit"}}</a> |
+							<a href="javascript:;" onclick="delete({{$focus_list.Id}})">{{msg $msg "delete"}}</a>
+							</td>
+						</tr>
+						{{end}}
+					{{end}}
+				</tbody>
+			</table>
+			<div id="pages"></div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+//搜索
+function Search() {
+	url = '/Focus/';
+
+	search = "";
+
+	search += 'cid:' + $('#cid').val() + '|';
+	search += 'keyword:' + $('#keyword').val() + '';
+
+	$.base64.encode(search)
+
+	url += $.base64.encode(search)+'/1/';
+
+	redirect(url);
+};
+<!--
+	$(document).ready(function() {
+		window.top.$('#display_center_id').css('display', 'none');
+	});
+//-->
+</script>
+
+{{template "Public/footer.html" .}}

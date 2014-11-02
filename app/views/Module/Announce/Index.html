@@ -1,0 +1,60 @@
+{{template "Public/header.html" .}}
+<script language="javascript" src="/public/js/Module/announce.js"></script>
+
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+			<a href='javascript:;' class="on"><em>{{msg . "announce_manage"}}</em></a><span>|</span>
+			<a href='/Announce/add/'><em>{{msg . "announce_add"}}</em></a>
+		</div>
+	</div>
+	<div class="pad_10">
+		<div class="table-list">
+			<form name="myform" action="/Announce/order/" method="post">
+				<table width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th width="10%">{{msg . "announce_ID"}}</th>
+							<th align="left">{{msg . "announce_title"}}</th>
+							<th width="15%" align="left">{{msg . "startdate"}}</th>
+							<th width="15%" align="left">{{msg . "enddate"}}</th>
+							<th width="8%" align="left">{{msg . "announce_viewed"}}</th>
+							<th width="10%" align="left">{{msg . "announce_status"}}</th>
+							<th width="15%">{{msg . "role_createtime"}}</th>
+							<th width="15%">{{msg . "menu_operation"}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{if .announce_list}}
+							{{$msg := .}}
+							{{range $announce_list := .announce_list}}
+							<tr>
+								<td align="center">{{$announce_list.Id}}</td>
+								<td>
+									<a href="/Announce/edit/{{$announce_list.Id}}/">{{$announce_list.Title}}</a>
+								</td>	
+								<td>{{$announce_list.Starttime}}</td>
+								<td>{{$announce_list.Endtime}}</td>
+								<td>{{$announce_list.Hits}}</td>
+								<td>{{if eq $announce_list.Status 1}}
+										{{msg $msg "announce_pass"}}
+									{{else}}
+										{{msg $msg "announce_queue"}}
+									{{end}}
+								</td>
+								<td>{{$announce_list.Createtime}}</td>
+								<td width="10%" align="center">
+								<a href="/Announce/edit/{{$announce_list.Id}}/">{{msg $msg "edit"}}</a> |
+								<a href="javascript:;" onclick="delete_announce({{$announce_list.Id}})">{{msg $msg "delete"}}</a>
+								</td>
+							</tr>
+							{{end}}
+						{{end}}
+					</tbody>
+				</table>
+				<div id="pages">{{.pages}}</div>
+			</form>
+		</div>
+	</div>
+</body>
+{{template "Public/footer.html" .}}

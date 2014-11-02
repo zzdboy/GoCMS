@@ -1,0 +1,255 @@
+{{template "Public/header.html" .}}
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/jscal2.css"/>
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/border-radius.css"/>
+<link rel="stylesheet" type="text/css" href="/public/css/calendar/calendar-blue.css"/>
+<link href="/public/css/calendar/win2k.css" type="text/css" />
+<link href="/public/css/kindeditor/themes/default/default.css" type="text/css" />
+<link href="/public/css/kindeditor/plugins/code/prettify.css" type="text/css" />
+<script language="javascript" src="/public/js/calendar/calendar.js"></script>
+<script language="javascript" src="/public/js/calendar/lang/en.js"></script>
+<script language="javascript" src="/public/js/lib/jquery.cookie.js"></script>
+<script language="javascript" src="/public/js/lib/colorpicker.js"></script>
+<script language="javascript" src="/public/js/kindeditor/kindeditor.js"></script>
+<script language="javascript" src="/public/js/kindeditor/lang/zh_CN.js"></script>
+<script language="javascript" src="/public/js/kindeditor/plugins/code/prettify.js"></script>
+<script type="text/javascript" src="/public/js/Content/content.js"></script>
+<script type="text/javascript">
+
+function refersh_window() {
+	$.cookie('refersh_time', 1);
+}
+
+$(document).ready(function() {
+	//日期选择控件
+	Calendar.setup({
+		weekNumbers : true,
+		inputField : "createtime",
+		trigger : "createtime",
+		dateFormat : "%Y-%m-%d %H:%M:%S",
+		showTime : true,
+		minuteStep : 1,
+		onSelect : function() {
+			this.hide();
+		}
+	});
+
+	//来源选择
+	$("#copyfrom_data").change(function() {
+		var copyfrom_data = $(this).val();
+		if (copyfrom_data != 0) {
+			$("#copyfrom").val(copyfrom_data);
+		}
+	}),
+
+	KindEditor.ready(function(K) {
+		var editor = K.create('textarea[name="content"]', {
+			uploadJson : '/Kindeditor/upload/',
+			fileManagerJson : '/Kindeditor/manager/',
+			allowFileManager : true,
+			afterCreate : function() {
+				var self = this;
+				K.ctrl(document, 13, function() {
+					self.sync();
+					K('form[name=myform]')[0].submit();
+				});
+				K.ctrl(self.edit.doc, 13, function() {
+					self.sync();
+					K('form[name=myform]')[0].submit();
+				});
+			}
+		});
+		prettyPrint();
+	});
+
+	//标题缩略图
+	KindEditor.ready(function(K) {
+		var editor_title = K.editor({
+			uploadJson : '/Kindeditor/titleImage/',
+			allowFileManager : true
+		});
+
+		K('#thumb_preview').click(function() {
+			editor_title.loadPlugin('image', function() {
+					editor_title.plugin.imageDialog({
+					showRemote : false,
+					imageUrl : K('#thumb').val(),
+					clickFn : function(url) {
+						K('#thumb').val(url);
+						$("#thumb_preview").attr("src",url);
+						editor_title.hideDialog();
+					}
+				});
+			});
+		});
+
+	});
+})
+</script>
+
+<body>
+	<div class="subnav">
+		<div class="content-menu ib-a blue line-x">
+		<a href='/Content/list/{{.cid}}/'><em>{{msg . "content_manage"}}</em></a><span>|</span>
+		<a href='javascript:;' class="on"><em>{{msg . "add_content"}}</em></a>
+		</div>
+	</div>
+	{{$category_info := .category_info}}
+	<form name="myform" id="myform" action="/Content/add/" method="post" onsubmit="return form_submit()"
+		enctype="multipart/form-data">
+		<input type="hidden" name="csrf_token" value="{{ .csrf_token }}" />
+		<div class="addContent">
+			<div class="col-right">
+				<div class="col-1">
+					<div class="content pad-6">
+						<h6>缩略图</h6>
+						<div class='upload-pic img-wrap'>
+							<input type='hidden' name='thumb' id='thumb' value=''>
+							<a href='javascript:void(0);'>
+								<img src='/public/img/icon/upload-pic.png' id='thumb_preview' 
+								style='cursor: hand' />
+							</a>
+						</div>
+
+						<h6>相关文章</h6>
+						<div>
+							<input type='button' value="添加相关"
+								onclick="window.top.omnipotent('selectid','/Content/relationlist/{{.cid}}/','添加相关文章',1)"
+								class="button" style="width: 66px;"> 
+						</div>
+						<input type='hidden' name='relation' id='relation' value='' style=''>
+						<ul class="list-dot" id="relation_text"></ul>
+
+						<h6>发布时间</h6>
+						<input type="text" name="createtime" id="createtime"
+							value="" size="21" class="date" readonly>&nbsp;
+
+						<h6>允许评论</h6>
+						<label class="ib" style="width: 88px"> <input type="radio"
+							name='iscomment' id="allow_comment_1" checked value="1">允许评论
+						</label> <label class="ib" style="width: 88px"> <input
+							type="radio" name='iscomment' id="allow_comment_0" value="0">不允许评论
+						</label>
+
+						<h6>是否置顶</h6>
+						<label class="ib" style="width: 88px"> <input type="radio"
+							name='istop' id="allow_istop_1" value="1">置顶
+						</label> <label class="ib" style="width: 88px"> <input
+							type="radio" name='istop' id="allow_istop_0" checked value="0">不置顶
+						</label>
+
+						<h6>状态</h6>
+						<label class="ib" style="width: 88px"> <input type="radio"
+							name='status' id="allow_status_1" checked value="1">发布
+						</label> <label class="ib" style="width: 88px"> <input
+							type="radio" name='status' id="allow_status_0" value="0">不允许发布
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="col-auto">
+				<div class="col-1">
+					<div class="content pad-6">
+					<table width="100%" cellspacing="0" class="table_form">
+						<tbody>
+							<tr>
+								<th width="80"><font color="red">*</font> 栏目</th>
+								<td>
+									<input type="hidden" name="cid" value="{{.cid}}"> 
+									<h6>{{$category_info.Name}}</h6>
+								</td>
+							</tr>
+							<tr>
+								<th width="80"><font color="red">*</font> 标题</th>
+								<td>
+									<input type="text" style="width: 400px;" name="title"
+									id="title" value="" style="color:" class="measure-input "
+									onBlur="$.post('/Content/keywords/', {title:$('#title').val(),csrf_token: {{ .csrf_token }}}, function(data){if(data && $('#keywords').val()=='') $('#keywords').val(data); })"
+									onkeyup="strlen_verify(this, 'title_len', 80);" /> 
+
+								<input type="hidden" name="style_color" id="style_color" value="">
+								<input type="hidden" name="style_font_weight" id="style_font_weight" value="">
+								<img src="/public/img/icon/colour.png" title="设置标题颜色" width="15"
+									height="16" onclick="colorpicker('title_colorpanel','set_title_color');"
+									style="cursor: hand" /> 
+								<img src="/public/img/icon/bold.png" width="10" height="10" 
+								onclick="input_font_bold()" style="cursor: hand" title="标题是否加粗" /> 
+								<span id="title_colorpanel" style="position: absolute;"
+									class="colorpanel"></span>还可输入<B><span id="title_len">80</span></B>个字符
+								</td>
+							</tr>
+							<tr>
+								<th width="80">关键词</th>
+								<td><input type='text' name='keywords' id='keywords'
+									value='' style='width: 280px' class='input-text'>
+									多关键词之间用空格或者“,”隔开</td>
+							</tr>
+							<tr>
+								<th width="80">来源</th>
+								<td>
+									<input type='text' id="copyfrom" name='copyfrom'
+									value='' style='width: 400px;' class='input-text'> 
+									<select name='copyfrom_data' id="copyfrom_data">
+										<option value="" selected>≡请选择≡</option>
+										{{range .copyfrom_list}}
+										<option value="{{.Sitename}}">{{.Sitename}}</option>
+										{{end}}
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th width="80">摘要</th>
+								<td><textarea name='description' id='description'
+										style='width: 98%; height: 46px;'
+										onkeyup="strlen_verify(this, 'description_len', 255)"></textarea>还可输入<B><span
+										id="description_len">255</span></B> 个字符
+								</td>
+							</tr>
+							<tr>
+								<th width="80"><font color="red">*</font> 内容</th>
+								<td>
+									<div id='content_tip'></div> <textarea name="content"
+										style="width: 670px; height: 270px; visibility: hidden;"
+										id="content"></textarea>
+									<div class="content_attr">
+										<label><input name="add_introduce" type="checkbox"
+											value="1">是否截取内容</label><input type="text"
+											name="introcude_length" value="200" size="3">字符至内容摘要
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th width="80">分页方式</th>
+								<td><select name="pagetype" id="pagetype"
+									onchange="if(this.value==1)$('#paginationtype1').css('display','');else $('#paginationtype1').css('display','none');">
+										<option value="0">不分页</option>
+										<option value="1">自动分页</option>
+										<option value="2">手动分页</option>
+								</select> 
+								<span id="paginationtype1" style="display: none">
+									<input name="maxcharperpage" type="text" id="maxcharperpage"
+										value="10000" size="8" maxlength="8">字符数（包含HTML标记） 
+								</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="fixed-bottom">
+			<div class="fixed-but text-c">
+				<div class="button">
+					<input value="保存" type="submit" name="dosubmit" class="cu"
+						style="width: 145px;">
+				</div>
+				<div class="button">
+					<input value="保存并继续发表" type="submit" name="dosubmit_continue"
+						class="cu" style="width: 130px;" title="Alt+X">
+				</div>
+			</div>
+		</div>
+	</form>
+</body>
+{{template "Public/footer.html" .}}

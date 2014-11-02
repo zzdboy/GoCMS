@@ -1,0 +1,186 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+module:testrunner
+module:jobs
+module:pprof
+
+# 后台首页
+GET     /                                       App.Index
+GET     /App/                                   App.Index
+GET     /Main/                                  App.Main
+
+# 设置
+GET     /Setting/                              	Setting.Index
+
+#菜单管理
+GET     /Menu/                              	Menu.Index
+GET     /Menu/add/                          	Menu.Add
+GET     /Menu/add/:id/                          Menu.Add
+GET     /Menu/edit/                         	Menu.Edit
+GET     /Menu/edit/:id/                         Menu.Edit
+
+#管理员管理
+GET     /Admin/                              	Admin.Index
+GET     /Admin/add/                          	Admin.Add
+GET     /Admin/edit/:id/                        Admin.Edit
+POST    /Admin/delete/                        	Admin.Delete
+GET     /Admin/:page/                           Admin.Index
+
+#角色管理
+GET     /Role/                              	Role.Index
+GET     /Role/add/                          	Role.Add
+GET     /Role/edit/:id/                         Role.Edit
+GET     /Role/member/:id/:page/                 Role.Member
+GET     /Role/member/:id/                       Role.Member
+POST    /Role/delete/                        	Role.Delete
+POST    /Role/setStatus/                        Role.setStatus
+GET     /Role/:page/                            Role.Index
+
+#计划任务
+GET     /Task/                              	Task.Index
+
+#日志管理
+GET     /Logs/                              	Logs.Index
+GET     /Logs/:page/                            Logs.Index
+GET     /Logs/:search/:page/                  	Logs.Index
+GET     /Logs/DelAll/                           Logs.DelAll
+
+# 我的面板
+GET     /Panel/                              	Panel.Index
+GET     /EditInfo/                              User.EditInfo
+POST    /EditInfo/                              User.EditInfo
+GET     /EditPwd/                               User.EditPwd
+POST    /EditPwd/                               User.EditPwd
+GET     /AdminPanel/                            User.AdminPanel
+
+# 模块
+GET     /Module/                              	Module.Index
+
+# 公告
+GET     /Announce/                              Announce.Index
+GET     /Announce/add/                          Announce.Add
+POST    /Announce/add/                          Announce.Add
+GET     /Announce/edit/:id/                     Announce.Edit
+POST    /Announce/edit/                         Announce.Edit
+POST    /Announce/delete/                       Announce.Delete
+GET     /Announce/:page/                        Announce.Index
+
+# 投诉建议
+GET     /Complaints/                            Complaints.Index
+
+# 内容
+GET     /Content/                              	Content.Index
+GET     /Content/left/                          Content.Left
+POST    /Content/catesearch/          			Content.CateNameSearch
+POST    /Content/keywords/                      Content.Keywords
+GET     /Content/list/:cid/                     Content.List
+GET     /Content/addContent/:cid/               Content.AddContent
+GET     /Content/add/:cid/                      Content.Add
+GET     /Content/edit/:cid/:id/                 Content.Edit
+GET     /Content/comment/:id/                   Content.Comment
+GET     /Content/delete/                   		Content.Delete
+POST    /Content/remove/                   		Content.Remove
+GET     /Content/relationlist/:cid/             Content.Relationlist
+GET     /Content/relationlist/:cid/:page/     	Content.Relationlist
+GET     /Content/relationlist/:cid/:search/:page/     Content.Relationlist
+GET     /Content/list/:cid/:page/       		Content.List
+GET     /Content/list/:cid/:search/:page/       Content.List
+
+# 焦点图管理
+GET     /Focus/                              	Focus.Index
+GET     /Focus/add/                          	Focus.Add
+POST    /Focus/add/                         	Focus.Add
+GET     /Focus/edit/                         	Focus.Edit
+POST    /Focus/edit/                         	Focus.Edit
+GET     /Focus/edit/:id/                     	Focus.Edit
+GET     /FocusCate/                             FocusCate.Index
+GET     /FocusCate/add/                         FocusCate.Add
+POST    /FocusCate/add/                         FocusCate.Add
+GET     /FocusCate/edit/                        FocusCate.Edit
+POST    /FocusCate/edit/                        FocusCate.Edit
+GET     /FocusCate/edit/:id/                    FocusCate.Edit
+GET     /Focus/:search/:page/              		Focus.Index
+
+# 栏目管理
+GET     /Category/                              Category.Index
+GET     /Category/add/                          Category.Add
+POST    /Category/add/                         	Category.Add
+GET     /Category/add/:id/                      Category.Add
+GET     /Category/edit/                         Category.Edit
+POST    /Category/edit/                         Category.Edit
+GET     /Category/edit/:id/                     Category.Edit
+
+# 用户
+
+#会员管理
+GET     /User/                              	User.Index
+GET     /User/add/                              User.Add
+GET     /User/edit/:id/                         User.Edit
+GET     /User/userinfo/:id/                     User.UserInfo
+POST    /User/delete/                     		User.Delete
+POST    /User/lock/                     		User.Lock
+POST    /User/unlock/                     		User.Unlock
+POST    /User/move/                     		User.Move
+GET     /User/:page/                            User.Index
+GET     /User/:search/:page/                  	User.Index
+
+#会员组管理
+GET     /Group/                              	Group.Index
+GET     /Group/add/                             Group.Add
+GET     /Group/edit/:id/                        Group.Edit
+
+# 扩展
+GET     /Extend/                              	Extend.Index
+
+# 来源管理
+GET     /Copyfrom/                              Copyfrom.Index
+GET     /Copyfrom/add/                          Copyfrom.Add
+GET     /Copyfrom/edit/:id/                     Copyfrom.Edit
+GET     /Copyfrom/:page/                        Copyfrom.Index
+
+# 界面
+GET     /Style/                              	Style.Index
+GET     /Style/import/                          Style.Import
+POST    /Style/setstatus/                       Style.Setstatus
+GET     /Style/edit/:id/                        Style.Edit
+GET     /Style/file/:id/                        Style.File
+
+# 应用
+GET     /Plugin/                              	Plugin.Index
+
+# 登陆页面
+GET     /Login/                                 User.Login
+POST    /Login/                        			User.Login
+GET     /Logout/                                User.Logout
+GET     /Left/                              	User.Left
+POST    /Left/                              	User.Left
+
+#验证码
+GET     /Captcha/:CaptchaId/                 	Captcha.Index
+GET     /Captcha/GetCaptchaId/                 	Captcha.GetCaptchaId
+
+#公共
+GET     /Map/                       			Public.Map
+GET     /CreateHtml/                       		Public.CreateHtml
+GET     /Search/                       			Public.Search
+GET     /Message/                       		Public.Message
+
+#编辑器
+GET     /Kindeditor/manager/                    Kindeditor.Manager
+GET     /Kindeditor/manager/:dir/               Kindeditor.Manager
+GET     /Kindeditor/upload/                     Kindeditor.Upload
+GET     /Kindeditor/titleImage/                 Kindeditor.TitleImage
+
+GET     /Test/                       			Test.Index
+
+# Ignore favicon requests
+GET     /favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/*filepath                       Static.Serve("public")
+GET     /upload/*filepath                       Static.Serve("upload")
+
+# Catch all
+*       /:controller/:action                    :controller.:action
