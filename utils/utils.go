@@ -15,8 +15,6 @@ import "fmt"
 import "net"
 import "strings"
 import "regexp"
-import "encoding/json"
-import "github.com/PuerkitoBio/goquery"
 
 //获取服务器IP
 func GetServerIP() string {
@@ -50,18 +48,8 @@ func GetClientIP() string {
 
 //获取Ip地址详细信息
 func GetIpAddress(ip string) map[string]interface{} {
-	doc, err := goquery.NewDocument("http://ip.taobao.com/service/getIpInfo.php?ip=" + ip)
-	if err != nil {
-		fmt.Println(err)
-	}
 
-	content := doc.Find("body").Text()
-
-	var IpAddress map[string]interface{}
-
-	if err := json.Unmarshal([]byte(content), &IpAddress); err == nil {
-		return IpAddress
-	}
+	IpAddress := make(map[string]interface{})
 
 	return IpAddress
 }

@@ -997,6 +997,18 @@ func (_ tUser) Left(
 }
 
 
+type tJobs struct {}
+var Jobs tJobs
+
+
+func (_ tJobs) Status(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Jobs.Status", args).Url
+}
+
+
 type tTestRunner struct {}
 var TestRunner tTestRunner
 
@@ -1086,18 +1098,6 @@ func (_ tPprof) Index(
 	args := make(map[string]string)
 	
 	return revel.MainRouter.Reverse("Pprof.Index", args).Url
-}
-
-
-type tJobs struct {}
-var Jobs tJobs
-
-
-func (_ tJobs) Status(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("Jobs.Status", args).Url
 }
 
 

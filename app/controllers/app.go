@@ -117,7 +117,7 @@ func (c App) Main(admin *models.Admin) revel.Result {
 		system_info["main_server_total_memory"] = utils.FileSize(int(memory_info.Total))
 		system_info["main_server_free_memory"] = utils.FileSize(int(memory_info.Free))
 		system_info["main_server_available_memory"] = utils.FileSize(int(memory_info.Available))
-		system_info["main_server_UsedPercent_memory"] = fmt.Sprintf("%f%%", memory_info.UsedPercent)
+		system_info["main_server_UsedPercent_memory"] = fmt.Sprintf("%10.2f%%", memory_info.UsedPercent)
 
 		host, _ := gopsutil.HostInfo()
 		system_info["main_server_Hostname"] = host.Hostname

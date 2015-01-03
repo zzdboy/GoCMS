@@ -100,7 +100,6 @@ $(document).ready(function() {
 	
 	<form name="myform" id="myform" action="/Content/edit/" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="id" value="{{$article_info.Id}}">
-		<input type="hidden" name="csrf_token" value="{{ .csrf_token }}" />
 		<div class="addContent">
 			<div class="col-right">
 				<div class="col-1">
@@ -178,7 +177,7 @@ $(document).ready(function() {
 							<td>
 							<input type="text" style="width: 400px;color:{{$article_info.Color}};font-weight:{{$article_info.Font}};" name="title"
 							id="title" value="{{$article_info.Title}}" style="color:" class="measure-input "
-							onBlur="$.post('/Content/keywords/', {title:$('#title').val(),'csrf_token': "{{ .csrf_token }}"}, function(data){if(data && $('#keywords').val()=='') $('#keywords').val(data); })"
+							onBlur="$.post('/Content/keywords/', {title:$('#title').val(), function(data){if(data && $('#keywords').val()=='') $('#keywords').val(data); })"
 							onkeyup="strlen_verify(this, 'title_len', 80);" /> 
 
 							<input

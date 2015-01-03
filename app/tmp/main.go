@@ -18,12 +18,12 @@ import (
 	controllers8 "admin/app/controllers/User"
 	models "admin/app/models"
 	tests "admin/tests"
-	controllers12 "github.com/revel/revel/modules/jobs/app/controllers"
+	controllers9 "github.com/revel/revel/modules/jobs/app/controllers"
 	_ "github.com/revel/revel/modules/jobs/app/jobs"
-	controllers11 "github.com/revel/revel/modules/pprof/app/controllers"
-	controllers10 "github.com/revel/revel/modules/static/app/controllers"
+	controllers12 "github.com/revel/revel/modules/pprof/app/controllers"
+	controllers11 "github.com/revel/revel/modules/static/app/controllers"
 	_ "github.com/revel/revel/modules/testrunner/app"
-	controllers9 "github.com/revel/revel/modules/testrunner/app/controllers"
+	controllers10 "github.com/revel/revel/modules/testrunner/app/controllers"
 )
 
 var (
@@ -1408,7 +1408,22 @@ func main() {
 			
 		})
 	
-	revel.RegisterController((*controllers9.TestRunner)(nil),
+	revel.RegisterController((*controllers9.Jobs)(nil),
+		[]*revel.MethodType{
+			&revel.MethodType{
+				Name: "Status",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+					19: []string{ 
+						"entries",
+					},
+				},
+			},
+			
+		})
+	
+	revel.RegisterController((*controllers10.TestRunner)(nil),
 		[]*revel.MethodType{
 			&revel.MethodType{
 				Name: "Index",
@@ -1441,7 +1456,7 @@ func main() {
 			
 		})
 	
-	revel.RegisterController((*controllers10.Static)(nil),
+	revel.RegisterController((*controllers11.Static)(nil),
 		[]*revel.MethodType{
 			&revel.MethodType{
 				Name: "Serve",
@@ -1465,7 +1480,7 @@ func main() {
 			
 		})
 	
-	revel.RegisterController((*controllers11.Pprof)(nil),
+	revel.RegisterController((*controllers12.Pprof)(nil),
 		[]*revel.MethodType{
 			&revel.MethodType{
 				Name: "Profile",
@@ -1493,21 +1508,6 @@ func main() {
 				Args: []*revel.MethodArg{ 
 				},
 				RenderArgNames: map[int][]string{ 
-				},
-			},
-			
-		})
-	
-	revel.RegisterController((*controllers12.Jobs)(nil),
-		[]*revel.MethodType{
-			&revel.MethodType{
-				Name: "Status",
-				Args: []*revel.MethodArg{ 
-				},
-				RenderArgNames: map[int][]string{ 
-					19: []string{ 
-						"entries",
-					},
 				},
 			},
 			

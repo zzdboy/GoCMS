@@ -46,6 +46,7 @@ $(document).ready(function() {
 			uploadJson : '/Kindeditor/upload/',
 			fileManagerJson : '/Kindeditor/manager/',
 			allowFileManager : true,
+			csrf_token : '{{ .csrf_token }}',
 			afterCreate : function() {
 				var self = this;
 				K.ctrl(document, 13, function() {
@@ -65,13 +66,15 @@ $(document).ready(function() {
 	KindEditor.ready(function(K) {
 		var editor_title = K.editor({
 			uploadJson : '/Kindeditor/titleImage/',
-			allowFileManager : true
+			allowFileManager : true,
+			csrf_token : '{{ .csrf_token }}',
 		});
 
 		K('#thumb_preview').click(function() {
 			editor_title.loadPlugin('image', function() {
 					editor_title.plugin.imageDialog({
 					showRemote : false,
+					csrf_token : '{{ .csrf_token }}',
 					imageUrl : K('#thumb').val(),
 					clickFn : function(url) {
 						K('#thumb').val(url);

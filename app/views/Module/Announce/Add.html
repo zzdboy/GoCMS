@@ -46,6 +46,7 @@ $(document).ready(function() {
 		var editor1 = K.create('textarea[name="content"]', {
 			uploadJson : '/Kindeditor/AnnounceImage/',
 			fileManagerJson : '/Kindeditor/manager/',
+			csrf_token : '{{ .csrf_token }}',
 			allowFileManager : true,
 			afterCreate : function() {
 				var self = this;
