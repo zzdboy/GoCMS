@@ -61,7 +61,7 @@ func (L *Logs) Save(Admin_Info *Admin, c *revel.Controller, Desc string) bool {
 	}
 
 	logs.Desc = Desc
-	logs.Createtime = time.Now().Format("2006-01-02 15:04:04")
+	logs.Createtime = time.Now().Format("2006-01-02 15:04:05")
 
 	has, err := DB_Write.Insert(logs)
 	if err != nil {

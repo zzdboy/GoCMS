@@ -30,7 +30,7 @@ type FiveMinutes struct {
 }
 
 func (c FiveMinutes) Run() {
-	revel.WARN.Println("Cron Time:" + time.Now().Format("2006-01-02 15:04:04"))
+	revel.WARN.Println("Cron Time:" + time.Now().Format("2006-01-02 15:04:05"))
 }
 
 //每三十分钟执行
@@ -38,7 +38,7 @@ type ThirtyMinutes struct {
 }
 
 func (c ThirtyMinutes) Run() {
-	revel.WARN.Println("Cron Time:" + time.Now().Format("2006-01-02 15:04:04"))
+	revel.WARN.Println("Cron Time:" + time.Now().Format("2006-01-02 15:04:05"))
 }
 
 //每小时执行
@@ -46,7 +46,7 @@ type HourlyMinutes struct {
 }
 
 func (c HourlyMinutes) Run() {
-	revel.WARN.Println("Cron Time:" + time.Now().Format("2006-01-02 15:04:04"))
+	revel.WARN.Println("Cron Time:" + time.Now().Format("2006-01-02 15:04:05"))
 }
 
 //每天执行
@@ -55,7 +55,7 @@ type DailyMinutes struct {
 }
 
 func (c DailyMinutes) Run() {
-	revel.WARN.Println("Cron Time:" + time.Now().Format("2006-01-02 15:04:04"))
+	revel.WARN.Println("Cron Time:" + time.Now().Format("2006-01-02 15:04:05"))
 }
 
 //每周执行
@@ -64,7 +64,7 @@ type WeeklyMinutes struct {
 }
 
 func (c WeeklyMinutes) Run() {
-	revel.WARN.Println("Cron Time:" + time.Now().Format("2006-01-02 15:04:04"))
+	revel.WARN.Println("Cron Time:" + time.Now().Format("2006-01-02 15:04:05"))
 }
 
 //每月执行
@@ -73,7 +73,7 @@ type MonthlyMinutes struct {
 }
 
 func (c MonthlyMinutes) Run() {
-	revel.WARN.Println("Cron Time:" + time.Now().Format("2006-01-02 15:04:04"))
+	revel.WARN.Println("Cron Time:" + time.Now().Format("2006-01-02 15:04:05"))
 }
 
 //每年执行
@@ -82,5 +82,5 @@ type YearlyMinutes struct {
 }
 
 func (c YearlyMinutes) Run() {
-	revel.WARN.Println("Cron Time:" + time.Now().Format("2006-01-02 15:04:04"))
+	revel.WARN.Println("Cron Time:" + time.Now().Format("2006-01-02 15:04:05"))
 }

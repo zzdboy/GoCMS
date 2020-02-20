@@ -8,7 +8,7 @@ type AppTest struct {
 }
 
 func (t *AppTest) Before() {
-	println("Start time:" + time.Now().Format("2006-01-02 15:04:04"))
+	println("Start time:" + time.Now().Format("2006-01-02 15:04:05"))
 }
 
 func (t AppTest) TestThatIndexPageWorks() {
@@ -18,5 +18,5 @@ func (t AppTest) TestThatIndexPageWorks() {
 }
 
 func (t *AppTest) After() {
-	println("End time:" + time.Now().Format("2006-01-02 15:04:04"))
+	println("End time:" + time.Now().Format("2006-01-02 15:04:05"))
 }

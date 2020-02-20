@@ -98,7 +98,7 @@ func (u *User_Group) Save() bool {
 	user_group.Usernamecolor = u.Usernamecolor
 	user_group.Desc = u.Desc
 	user_group.Status = u.Status
-	user_group.Createtime = time.Now().Format("2006-01-02 15:04:04")
+	user_group.Createtime = time.Now().Format("2006-01-02 15:04:05")
 
 	has, err := DB_Write.Table("user_group").Insert(user_group)
 	if err != nil {

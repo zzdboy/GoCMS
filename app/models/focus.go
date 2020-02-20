@@ -169,7 +169,7 @@ func (c *Focus) Save() bool {
 	focus.Clicks = 0
 	focus.Order = c.Order
 	focus.Status = 1
-	focus.Createtime = time.Now().Format("2006-01-02 15:04:04")
+	focus.Createtime = time.Now().Format("2006-01-02 15:04:05")
 
 	has, err := DB_Write.Insert(focus)
 	if err != nil {
@@ -191,7 +191,7 @@ func (c *Focus) Edit(Id int64) bool {
 	focus.Content = c.Content
 	focus.Order = c.Order
 	focus.Status = 1
-	focus.Updatetime = time.Now().Format("2006-01-02 15:04:04")
+	focus.Updatetime = time.Now().Format("2006-01-02 15:04:05")
 
 	if len(c.Img) > 0 {
 		has, err := DB_Write.Id(Id).Cols("cid", "title", "url", "img", "content", "order", "updatetime").Update(focus)

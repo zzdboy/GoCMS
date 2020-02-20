@@ -76,7 +76,7 @@ func (a *Announce) Save() bool {
 	announce.Endtime = a.Endtime
 	announce.Hits = 0
 	announce.Status = a.Status
-	announce.Createtime = time.Now().Format("2006-01-02 15:04:04")
+	announce.Createtime = time.Now().Format("2006-01-02 15:04:05")
 
 	has, err := DB_Write.Insert(announce)
 	if err != nil {

@@ -116,7 +116,7 @@ func (a *Admin_Panel) AddPanel(Mid int64, Admin_Info *Admin) bool {
 
 	admin_panel.Name = menu_info.Name
 	admin_panel.Url = menu_info.Url
-	admin_panel.Createtime = time.Now().Format("2006-01-02 15:04:04")
+	admin_panel.Createtime = time.Now().Format("2006-01-02 15:04:05")
 
 	has, err := DB_Write.Table("admin_panel").Insert(admin_panel)
 	if err != nil {

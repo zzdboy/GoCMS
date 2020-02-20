@@ -158,7 +158,7 @@ func (c Focus) Add(focus *models.Focus) revel.Result {
 			rand_num := rand.Intn(99999)
 
 			//原图
-			new_file_name := time.Now().Format("20060102150404") + strconv.Itoa(rand_num) + path.Ext(header.Filename)
+			new_file_name := time.Now().Format("20060102150405") + strconv.Itoa(rand_num) + path.Ext(header.Filename)
 
 			//保存文件
 			old_img := save_path + new_file_name
@@ -171,7 +171,7 @@ func (c Focus) Add(focus *models.Focus) revel.Result {
 				return c.Redirect("/Message/")
 			}
 
-			thumb_name := time.Now().Format("20060102150404") + strconv.Itoa(rand_num) + "_thumb" + path.Ext(header.Filename)
+			thumb_name := time.Now().Format("20060102150405") + strconv.Itoa(rand_num) + "_thumb" + path.Ext(header.Filename)
 
 			//内容显示图片
 			web_url_img := web_save_path + thumb_name
@@ -378,7 +378,7 @@ func (c Focus) Edit(focus *models.Focus) revel.Result {
 				rand_num := rand.Intn(99999)
 
 				//原图
-				new_file_name := time.Now().Format("20060102150404") + strconv.Itoa(rand_num) + path.Ext(header.Filename)
+				new_file_name := time.Now().Format("20060102150405") + strconv.Itoa(rand_num) + path.Ext(header.Filename)
 
 				//保存文件
 				old_img := save_path + new_file_name
@@ -391,7 +391,7 @@ func (c Focus) Edit(focus *models.Focus) revel.Result {
 					return c.Redirect("/Message/")
 				}
 
-				thumb_name := time.Now().Format("20060102150404") + strconv.Itoa(rand_num) + "_thumb" + path.Ext(header.Filename)
+				thumb_name := time.Now().Format("20060102150405") + strconv.Itoa(rand_num) + "_thumb" + path.Ext(header.Filename)
 
 				//内容显示图片
 				web_url_img := web_save_path + thumb_name

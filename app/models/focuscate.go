@@ -77,7 +77,7 @@ func (c *FocusCate) Save() bool {
 	focuscate.Name = c.Name
 	focuscate.Width = c.Width
 	focuscate.Height = c.Height
-	focuscate.Createtime = time.Now().Format("2006-01-02 15:04:04")
+	focuscate.Createtime = time.Now().Format("2006-01-02 15:04:05")
 
 	has, err := DB_Write.Insert(focuscate)
 	if err != nil {

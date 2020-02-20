@@ -24,7 +24,7 @@ func (c *Test) Save() bool {
 
 	test := new(Test)
 	test.Content = "测试"
-	test.Createtime = time.Now().Format("2006-01-02 15:04:04")
+	test.Createtime = time.Now().Format("2006-01-02 15:04:05")
 
 	has, err := DB_Write.Insert(test)
 	if err != nil {

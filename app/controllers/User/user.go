@@ -199,7 +199,7 @@ func (c *User) Add(user *models.User) revel.Result {
 
 		} else {
 			user.Vip = 0
-			user.Overduedate = time.Now().Format("2006-01-02 15:04:04")
+			user.Overduedate = time.Now().Format("2006-01-02 15:04:05")
 		}
 
 		if ip := c.Request.Header.Get("X-Forwarded-For"); ip != "" {

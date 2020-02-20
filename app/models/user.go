@@ -189,8 +189,8 @@ func (u *User) Save() bool {
 	user.Mobile = u.Mobile
 	user.Birthday = u.Birthday
 	user.Regip = u.Regip
-	user.Regdate = time.Now().Format("2006-01-02 15:04:04")
-	user.Lastdate = time.Now().Format("2006-01-02 15:04:04")
+	user.Regdate = time.Now().Format("2006-01-02 15:04:05")
+	user.Lastdate = time.Now().Format("2006-01-02 15:04:05")
 	user.Lastip = u.Lastip
 	user.Loginnum = 0
 	user.Groupid = u.Groupid
@@ -202,7 +202,7 @@ func (u *User) Save() bool {
 	user.Vip = u.Vip
 	user.Overduedate = u.Overduedate
 	user.Status = u.Status
-	user.Createtime = time.Now().Format("2006-01-02 15:04:04")
+	user.Createtime = time.Now().Format("2006-01-02 15:04:05")
 
 	has, err := DB_Write.Table("user").Insert(user)
 	if err != nil {

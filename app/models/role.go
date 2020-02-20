@@ -79,7 +79,7 @@ func (r *Role) Save() bool {
 	role.Desc = r.Desc
 	role.Data = r.Data
 	role.Status = r.Status
-	role.Createtime = time.Now().Format("2006-01-02 15:04:04")
+	role.Createtime = time.Now().Format("2006-01-02 15:04:05")
 
 	has, err := DB_Write.Insert(role)
 	if err != nil {

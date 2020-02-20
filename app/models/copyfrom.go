@@ -77,7 +77,7 @@ func (c *Copyfrom) Save() bool {
 	copyfrom.Sitename = c.Sitename
 	copyfrom.Siteurl = c.Siteurl
 	copyfrom.Thumb = c.Thumb
-	copyfrom.Createtime = time.Now().Format("2006-01-02 15:04:04")
+	copyfrom.Createtime = time.Now().Format("2006-01-02 15:04:05")
 
 	has, err := DB_Write.Insert(copyfrom)
 	if err != nil {
