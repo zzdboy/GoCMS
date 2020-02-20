@@ -127,7 +127,7 @@ func (c Copyfrom) Add(copyfrom *models.Copyfrom) revel.Result {
 			//新文件名
 			rand.Seed(time.Now().UnixNano())
 			rand_num := rand.Intn(99999)
-			new_file_name := time.Now().Format("20060102150404") + strconv.Itoa(rand_num) + path.Ext(header.Filename)
+			new_file_name := time.Now().Format("20060102150405") + strconv.Itoa(rand_num) + path.Ext(header.Filename)
 
 			//创建目录
 			error := os.MkdirAll(save_path, os.ModePerm)
@@ -287,7 +287,7 @@ func (c Copyfrom) Edit(copyfrom *models.Copyfrom) revel.Result {
 				//新文件名
 				rand.Seed(time.Now().UnixNano())
 				rand_num := rand.Intn(99999)
-				new_file_name := time.Now().Format("20060102150404") + strconv.Itoa(rand_num) + path.Ext(header.Filename)
+				new_file_name := time.Now().Format("20060102150405") + strconv.Itoa(rand_num) + path.Ext(header.Filename)
 
 				//创建目录
 				error := os.MkdirAll(save_path, os.ModePerm)

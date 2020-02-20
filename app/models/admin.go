@@ -243,7 +243,7 @@ func (a *Admin) Save() bool {
 	admin.Lang = a.Lang
 	admin.Lastlogintime = "0000-00-00 00:00:00"
 	admin.Status = a.Status
-	admin.Createtime = time.Now().Format("2006-01-02 15:04:04")
+	admin.Createtime = time.Now().Format("2006-01-02 15:04:05")
 
 	has, err := DB_Write.Insert(admin)
 	if err != nil {
@@ -259,7 +259,7 @@ func (a *Admin) UpdateLoginTime(Id int64) bool {
 	admin := new(Admin)
 
 	admin.Lastloginip = a.Lastloginip
-	admin.Lastlogintime = time.Now().Format("2006-01-02 15:04:04")
+	admin.Lastlogintime = time.Now().Format("2006-01-02 15:04:05")
 
 	has, err := DB_Write.Id(Id).Cols("lastloginip", "lastlogintime").Update(admin)
 	if err != nil {

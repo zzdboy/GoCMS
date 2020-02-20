@@ -308,7 +308,7 @@ func (a *Article) Save() bool {
 	article.Status = a.Status
 	article.Hits = 0
 	article.Iscomment = a.Iscomment
-	article.Createtime = time.Now().Format("2006-01-02 15:04:04")
+	article.Createtime = time.Now().Format("2006-01-02 15:04:05")
 	article.Updatetime = "0000-00-00 00:00:00"
 
 	has, err := DB_Write.Insert(article)
@@ -339,7 +339,7 @@ func (a *Article) Edit(Id int64) bool {
 	article.Istop = a.Istop
 	article.Status = a.Status
 	article.Iscomment = a.Iscomment
-	article.Updatetime = time.Now().Format("2006-01-02 15:04:04")
+	article.Updatetime = time.Now().Format("2006-01-02 15:04:05")
 
 	has, err := DB_Write.Id(Id).Cols("title", "color", "font", "thumb", "content", "copyfrom", "keywords", "description", "relation", "pagetype", "Maxcharperpage", "istop", "status", "iscomment", "updatetime").Update(article)
 	if err != nil {

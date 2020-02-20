@@ -164,7 +164,7 @@ func (c *Kindeditor) TitleImage(upload *models.Upload) revel.Result {
 	rand_num := rand.Intn(99999)
 
 	//原图
-	new_file_name := time.Now().Format("20060102150404") + strconv.Itoa(rand_num) + path.Ext(header.Filename)
+	new_file_name := time.Now().Format("20060102150405") + strconv.Itoa(rand_num) + path.Ext(header.Filename)
 
 	//保存文件
 	old_img := save_path + new_file_name
@@ -181,7 +181,7 @@ func (c *Kindeditor) TitleImage(upload *models.Upload) revel.Result {
 	//*******************图片处理****************
 
 	//缩略图400
-	thumb_name := time.Now().Format("20060102150404") + strconv.Itoa(rand_num) + "_100" + path.Ext(header.Filename)
+	thumb_name := time.Now().Format("20060102150405") + strconv.Itoa(rand_num) + "_100" + path.Ext(header.Filename)
 
 	//内容显示图片
 	web_url := web_save_path + thumb_name
@@ -275,7 +275,7 @@ func (c *Kindeditor) Upload(upload *models.Upload) revel.Result {
 	rand_num := rand.Intn(99999)
 
 	//原图
-	new_file_name := time.Now().Format("20060102150404") + strconv.Itoa(rand_num) + path.Ext(header.Filename)
+	new_file_name := time.Now().Format("20060102150405") + strconv.Itoa(rand_num) + path.Ext(header.Filename)
 
 	//保存文件
 	old_img := save_path + new_file_name
@@ -292,7 +292,7 @@ func (c *Kindeditor) Upload(upload *models.Upload) revel.Result {
 	//*******************图片处理****************
 
 	//缩略图400
-	new_img_thumb_name := time.Now().Format("20060102150404") + strconv.Itoa(rand_num) + "_400" + path.Ext(header.Filename)
+	new_img_thumb_name := time.Now().Format("20060102150405") + strconv.Itoa(rand_num) + "_400" + path.Ext(header.Filename)
 
 	//内容显示图片
 	web_url := web_save_path + new_img_thumb_name
@@ -302,17 +302,17 @@ func (c *Kindeditor) Upload(upload *models.Upload) revel.Result {
 	utils.Resize(old_img, new_img_400, "400", "center", "white")
 
 	//圆角图片生成
-	new_img_thumb_0x4 := time.Now().Format("20060102150404") + strconv.Itoa(rand_num) + "_0x4" + path.Ext(header.Filename)
+	new_img_thumb_0x4 := time.Now().Format("20060102150405") + strconv.Itoa(rand_num) + "_0x4" + path.Ext(header.Filename)
 	new_img_0x4 := save_path + new_img_thumb_0x4
 	utils.Vignette(new_img_400, new_img_0x4, "0x4")
 
 	//图片反色处理
-	new_img_thumb_negate := time.Now().Format("20060102150404") + strconv.Itoa(rand_num) + "_negate" + path.Ext(header.Filename)
+	new_img_thumb_negate := time.Now().Format("20060102150405") + strconv.Itoa(rand_num) + "_negate" + path.Ext(header.Filename)
 	new_img_negate := save_path + new_img_thumb_negate
 	utils.Negate(new_img_400, new_img_negate)
 
 	//图片加水印之文字水印处理
-	new_img_watermark := time.Now().Format("20060102150404") + strconv.Itoa(rand_num) + "_watermark" + path.Ext(header.Filename)
+	new_img_watermark := time.Now().Format("20060102150405") + strconv.Itoa(rand_num) + "_watermark" + path.Ext(header.Filename)
 	new_img_watermark_file := save_path + new_img_watermark
 	utils.WatermarkText(new_img_400, new_img_watermark_file)
 
@@ -401,7 +401,7 @@ func (c *Kindeditor) AnnounceImage(upload *models.Upload) revel.Result {
 	rand_num := rand.Intn(99999)
 
 	//原图
-	new_file_name := time.Now().Format("20060102150404") + strconv.Itoa(rand_num) + path.Ext(header.Filename)
+	new_file_name := time.Now().Format("20060102150405") + strconv.Itoa(rand_num) + path.Ext(header.Filename)
 
 	//保存文件
 	old_img := save_path + new_file_name
@@ -418,7 +418,7 @@ func (c *Kindeditor) AnnounceImage(upload *models.Upload) revel.Result {
 	//*******************图片处理****************
 
 	//缩略图400
-	thumb_name := time.Now().Format("20060102150404") + strconv.Itoa(rand_num) + "_400" + path.Ext(header.Filename)
+	thumb_name := time.Now().Format("20060102150405") + strconv.Itoa(rand_num) + "_400" + path.Ext(header.Filename)
 
 	//内容显示图片
 	web_url := web_save_path + thumb_name

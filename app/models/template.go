@@ -61,7 +61,7 @@ func (t *Template) Save() bool {
 	template.Author = t.Author
 	template.Version = t.Version
 	template.Status = t.Status
-	template.Createtime = time.Now().Format("2006-01-02 15:04:04")
+	template.Createtime = time.Now().Format("2006-01-02 15:04:05")
 
 	has, err := DB_Write.Table("template").Insert(template)
 	if err != nil {
